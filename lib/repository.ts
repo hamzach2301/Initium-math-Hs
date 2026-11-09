@@ -1,0 +1,876 @@
+import { sharedRepositoryFolderUrl } from "./googleDrive";
+
+export type TermKey = 1 | 2 | 3 | "final" | "all";
+export type levelk = "1AS" |"2AS" | "3AS";
+export type Material = {
+  id: string;
+  title: string;
+  ar: string;
+  kind: "summary" | "bac" | "series" | "exam" | "lesson" | "video" | "homework" | "books";
+  term: TermKey;
+  subject: string;
+  /** Google Drive sharing URL. File URLs render as /preview; folder URLs render in grid mode. */
+  fileUrl: string;
+  /** Optional privacy-enhanced YouTube lesson video URL. */
+  youtubeUrl?: string;
+  level: levelk;
+};
+
+export type Lesson = Material & { kind: "lesson"; youtubeUrl?: string };
+export type VideoLesson = Material & { kind: "video"; youtubeUrl: string };
+
+const revisionFor = (subject: string, subjectAr: string): Material[] => [
+  { id: `${subject}-final-summary`, level: "3AS", title: `${subjectAr} summary sheets`, ar: `ملخصات ${subjectAr}`, kind: "summary", term: "final", subject, fileUrl: sharedRepositoryFolderUrl },
+  { id: `${subject}-final-bac`, level: "3AS", title: `Past BAC topics · ${subject}`, ar: `مواضيع بكالوريا سابقة · ${subjectAr}`, kind: "bac", term: "final", subject, fileUrl: sharedRepositoryFolderUrl },
+  { id: `${subject}-final-series`, level: "3AS", title: `Comprehensive review series · ${subject}`, ar: `سلاسل مراجعة شاملة · ${subjectAr}`, kind: "series", term: "final", subject, fileUrl: sharedRepositoryFolderUrl },
+];
+
+export const materials: Material[] = [
+/**3AS */
+  /** math files */  
+
+  /** 3AS video lessons supplied by the user */
+  { id: "math-t1-video-001", level: "3AS", title: "All Differentiability Unit Lessons in One Session | Real Mathematics Track | Baccalaureate 2027", ar: "كل دروس وحدة الاشتقاقية في حصة واحدة | مسار الرياضيات الحقيقية | إبداع من وحي الخيال  |  Bac 2027", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=dB40VQYygJE", youtubeUrl: "https://www.youtube.com/watch?v=dB40VQYygJE" },
+  { id: "math-t1-video-002", level: "3AS", title: "All Limits Unit Lessons in One Session | Real Mathematics Track | Baccalaureate 2027", ar: "كل دروس وحدة النهايات في حصة واحدة | مسار الرياضيات الحقيقية | ستتخلص من الحفظ للأبد  |  Bac 2027", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=uP4ZLpOJhkw", youtubeUrl: "https://www.youtube.com/watch?v=uP4ZLpOJhkw" },
+  { id: "math-t1-video-003", level: "3AS", title: "Continuity and the Intermediate Value Theorem | Real Mathematics Track | Baccalaureate 2027", ar: "الاستمرارية ومبرهنة القيم المتوسطة | مسار الرياضيات الحقيقية | سنسافر إلى عالم من خيال  |Bac 2027", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=7YKcUqRyddI", youtubeUrl: "https://www.youtube.com/watch?v=7YKcUqRyddI" },
+  { id: "math-t1-video-004", level: "3AS", title: "Real Mathematics Track or Simplified Mathematics Track? (Let me know in the comments which track)", ar: "True Mathematics Track or Simplified Mathematics Track?  (Let me know in the comments which trac...", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=U6WYes73zJY", youtubeUrl: "https://www.youtube.com/watch?v=U6WYes73zJY" },
+  { id: "math-t1-video-005", level: "3AS", title: "All Differentiability Unit Lessons in One Session | Simplified Mathematics Track | Baccalaureate 2027", ar: "كل دروس وحدة الاشتقاقية في حصة واحدة | مسار الرياضيات المبسطة |  Bac 2027", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=mhgkBdESAcE", youtubeUrl: "https://www.youtube.com/watch?v=mhgkBdESAcE" },
+  { id: "math-t1-video-006", level: "3AS", title: "All Limits Unit Lessons in One Session | Simplified Mathematics Track | Baccalaureate 2027", ar: "كل دروس وحدة النهايات في حصة واحدة | مسار الرياضيات المبسطة | ستفهم النهايات للأبد  |  Bac 2027", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=7oDxui2g5VA", youtubeUrl: "https://www.youtube.com/watch?v=7oDxui2g5VA" },
+  { id: "math-t1-video-007", level: "3AS", title: "Continuity and the Intermediate Value Theorem | Simplified Mathematics Track", ar: "Continuity and the Intermediate Value Theorem | Simplified Mathematics Track | We Will Travel to...", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=0__0eple1kU", youtubeUrl: "https://www.youtube.com/watch?v=0__0eple1kU" },
+  { id: "math-t1-video-008", level: "3AS", title: "How to Study Professionally with Professor Abdelbasset", ar: "Everything You Need to Know About Studying with Professor Abdelbasset Professionally", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=qEGqxo4dmx0", youtubeUrl: "https://www.youtube.com/watch?v=qEGqxo4dmx0" },
+  { id: "math-t1-video-009", level: "3AS", title: "Introduction to the Differentiability Unit | Real Mathematics Track", ar: "مقدمة وحدة الاشتقاقية … رسميا سننتقل إلى عالم ثاني  || مسار الرياضيات الحقيقية", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=wCZ5I1Ntc4o", youtubeUrl: "https://www.youtube.com/watch?v=wCZ5I1Ntc4o" },
+  { id: "math-t1-video-010", level: "3AS", title: "Theoretical Introduction to Differentiability | Real Mathematics | Numerical Functions Unit | Baccalaureate", ar: "مقدمة نظرية حول الاشتقاقية  | الرياضيات الحقيقية  | وحدة الدوال العددية باكلوريا", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=EPu52mtoE-E", youtubeUrl: "https://www.youtube.com/watch?v=EPu52mtoE-E" },
+  { id: "math-t1-video-011", level: "3AS", title: "Studying Differentiability: All Possible Cases | Real Mathematics | Numerical Functions Unit | Baccalaureate", ar: "Studying Differentiability: All Possible Cases  | Real Mathematics  | Numerical Functions Unit...", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=X5Vj51SrAzM", youtubeUrl: "https://www.youtube.com/watch?v=X5Vj51SrAzM" },
+  { id: "math-t1-video-012", level: "3AS", title: "Geometric Interpretations for Studying Differentiability | Real Mathematics | Numerical Functions Unit | Baccalaureate", ar: "التفسيرات الهندسية لدراسة قابلية الاشتقاق | الرياضيات الحقيقية  | وحدة الدوال العددية باكلوريا", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=C4RJ1BY1YMM", youtubeUrl: "https://www.youtube.com/watch?v=C4RJ1BY1YMM" },
+  { id: "math-t1-video-013", level: "3AS", title: "Higher-Order Derivatives | Real Mathematics | Numerical Functions Unit | Baccalaureate", ar: "المشتقات المتتابعة | الرياضيات الحقيقية  | وحدة الدوال العددية باكلوريا", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=rN44Z_rklSI", youtubeUrl: "https://www.youtube.com/watch?v=rN44Z_rklSI" },
+  { id: "math-t1-video-014", level: "3AS", title: "Computing Function Derivatives | Real Mathematics | Numerical Functions Unit | Baccalaureate 2027", ar: "حساب مشتقات الدوال  | الرياضيات الحقيقية  | وحدة الدوال العددية باكلوريا 2027", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=vEo2sI2CND4", youtubeUrl: "https://www.youtube.com/watch?v=vEo2sI2CND4" },
+  { id: "math-t1-video-015", level: "3AS", title: "Direction of Change and Limit Values | Real Mathematics | Numerical Functions Unit | Baccalaureate 2027", ar: "اتجاه تغير والقيم الحدية  | الرياضيات الحقيقية  | وحدة الدوال العددية باكلوريا 2027", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=HaL10ZQ2pIg", youtubeUrl: "https://www.youtube.com/watch?v=HaL10ZQ2pIg" },
+  { id: "math-t1-video-016", level: "3AS", title: "Computing the Derivative of a Composite Function | Real Mathematics | Numerical Functions Unit | Baccalaureate 2027", ar: "حساب مشتقة دالة مركبة  | الرياضيات الحقيقية  | وحدة الدوال العددية باكلوريا 2027", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=kOhF5kQSthg", youtubeUrl: "https://www.youtube.com/watch?v=kOhF5kQSthg" },
+  { id: "math-t1-video-017", level: "3AS", title: "Numerical Approximation and Euler's Method | Real Mathematics | Numerical Functions Unit | Baccalaureate 2027", ar: "التقريب التآلفي وطريقة أولر | الرياضيات الحقيقية  | وحدة الدوال العددية باكلوريا 2027", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=PIIAchzUgoA", youtubeUrl: "https://www.youtube.com/watch?v=PIIAchzUgoA" },
+  { id: "math-t1-video-018", level: "3AS", title: "Trigonometric Functions", ar: "Trigonometric Function", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=hzqVTEblEZs", youtubeUrl: "https://www.youtube.com/watch?v=hzqVTEblEZs" },
+  { id: "math-t1-video-019", level: "3AS", title: "Introduction to the Limits Unit | Real Mathematics Track | Baccalaureate (all scientific streams)", ar: "مقدمة وحدة النهايات مسار الرياضيات الحقيقية باكلوريا جميع الشعب العلمية", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=hcP655NAk0c", youtubeUrl: "https://www.youtube.com/watch?v=hcP655NAk0c" },
+  { id: "math-t1-video-020", level: "3AS", title: "Limit of a Function at a Real Number and Asymptotes | Real Mathematics | Numerical Functions Unit | Baccalaureate", ar: "Limit of a Function at a Real Number and Asymptotes | Real Mathematics  | Numerical Functions Ba...", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=ofNib-2KrYE", youtubeUrl: "https://www.youtube.com/watch?v=ofNib-2KrYE" },
+  { id: "math-t1-video-021", level: "3AS", title: "Computing Limits and Operations on Them | Real Mathematics | Numerical Functions | Bac 2027", ar: "حساب النهايات والعمليات عليها | الرياضيات الحقيقية  | الدوال العددية باك 2027", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=2E0AS0RE7Xw", youtubeUrl: "https://www.youtube.com/watch?v=2E0AS0RE7Xw" },
+  { id: "math-t1-video-022", level: "3AS", title: "The Exponential Function and Its Properties: Key to the Unit — Theory to Application | Professor Abdelbasset | Baccalaureate 2026", ar: "الدالة أسية + خواصها = مفتاح فهم الوحدة! من النظري إلى التطبيق | الأستاذ عبد الباسط باكلوريا 2026", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=739EpsgTgw4", youtubeUrl: "https://www.youtube.com/watch?v=739EpsgTgw4" },
+  { id: "math-t1-video-023", level: "3AS", title: "Studying the Exponential Function Smartly: Quick Understanding and Applied Examples | Professor Abdelbasset", ar: "دراسة الدالة الأسية بطريقة ذكية | فهم سريع + أمثلة تطبيقية | الأستاذ عبد الباسط", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=U7k-OczVZRU", youtubeUrl: "https://www.youtube.com/watch?v=U7k-OczVZRU" },
+  { id: "math-t1-video-024", level: "3AS", title: "How to Solve Exponential Equations and Inequalities Professionally — Understand, Don't Memorize | Professor Abdelbasset", ar: "كيف تتعامل مع المعادلات والمتراجحات الأسية باحترافية … افهم ولا تحفظ | الأستاذ عبد الباسط", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=XXBtwsUUce4", youtubeUrl: "https://www.youtube.com/watch?v=XXBtwsUUce4" },
+  { id: "math-t1-video-025", level: "3AS", title: "Comparative Growth and Computing Limits of Exponentials — Comprehensive Video | Professor Abdelbasset", ar: "التزايد المقارن و حساب النهايات في الأسية … فيديو شامل لكل صغيرة وكبيرة  | الأستاذ عبد الباسط", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=BR59BAOLEeM", youtubeUrl: "https://www.youtube.com/watch?v=BR59BAOLEeM" },
+  { id: "math-t1-video-026", level: "3AS", title: "You Won't Mistake Derivatives Anymore: Exponential Functions with Professor Abdelbasset", ar: "لن تخطئ في المشتقات بعد اليوم! | الدوال الأسية مع الأستاذ عبد الباسط", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=iP0aZgpr1Wo", youtubeUrl: "https://www.youtube.com/watch?v=iP0aZgpr1Wo" },
+  { id: "math-t1-video-027", level: "3AS", title: "First Exercise on Exponential Functions — Fix Your Methodical Errors and Build a Strong Foundation", ar: "أول تمرين في الدوال الأسية صحّح أخطاءك المنهجية وابنِ الأساس صح!", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=XkAzLSMzqU8", youtubeUrl: "https://www.youtube.com/watch?v=XkAzLSMzqU8" },
+  { id: "math-t1-video-028", level: "3AS", title: "From Zero to Mastery in Exponential Functions — Comprehensive Exercise with Detailed Explanation | Professor Abdelbasset", ar: "من الصفر إلى الإتقان في الدوال الأسية  تمرين شامل مع الشرح المفصل الأستاذ عبد الباسط", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=5HJgan3ldYw", youtubeUrl: "https://www.youtube.com/watch?v=5HJgan3ldYw" },
+  { id: "math-t1-video-029", level: "3AS", title: "Unforgettable Exponential Functions Exercise — Can You Solve It to the End?", ar: "تمرين دوال أسية لا يُنسى! هل تستطيع حله للنهاية؟ — أفضل تمرين ستمر به على الإطلاق", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=qnpg-EarCbk", youtubeUrl: "https://www.youtube.com/watch?v=qnpg-EarCbk" },
+  { id: "math-t1-video-030", level: "3AS", title: "Elite Exponential Functions Exercise — Final Closure of the Unit (Exercise 48 from the Book)", ar: "تمرين للنخبة في الدوال الأسية 5 نجوم … الغلق النهائي على الوحدة (ت 48 من الكتاب)", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=rHzyCu1KSZE", youtubeUrl: "https://www.youtube.com/watch?v=rHzyCu1KSZE" },
+  { id: "math-t1-video-031", level: "3AS", title: "Perfect Start to the Logarithmic Function and Its Properties: Comprehensive and Practical Explanation", ar: "البداية المثالية في الدالة اللوغاريتمية وخواصها: شرح شامل يجمع المتعة والاحتراف!", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=_n-MY1HL7NY", youtubeUrl: "https://www.youtube.com/watch?v=_n-MY1HL7NY" },
+  { id: "math-t1-video-032", level: "3AS", title: "Everything You Need to Understand the Logarithmic Function for the Bac — Clear and Precise Explanation | Baccalaureate (all scientific streams)", ar: "كل ما تحتاجه لفهم الدالة اللوغاريتمية في الباك – شرح واضح ودقيق  | بالكوريا جميع الشعب العلمية", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=AHHNujgWHf8", youtubeUrl: "https://www.youtube.com/watch?v=AHHNujgWHf8" },
+  { id: "math-t1-video-033", level: "3AS", title: "You Won't Believe How Easily You'll Compute Logarithmic Function Limits — Part 1 | Baccalaureate (all scientific streams)", ar: "لن تصدق أنك ستصير تحسب نهايات الدوال اللوغاريتمية بهذه السهولة  1  ||  باكلوريا جميع الشعب العلمية", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=4uH1jwTUF-U", youtubeUrl: "https://www.youtube.com/watch?v=4uH1jwTUF-U" },
+  { id: "math-t1-video-034", level: "3AS", title: "Advanced Limits of Logarithmic Functions | For the Mathematics Stream", ar: "نهايات الدوال اللوغاريتمية في المستوى العالي|| خاصة بشعبة رياضيات", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=wnrIbg_9Prg", youtubeUrl: "https://www.youtube.com/watch?v=wnrIbg_9Prg" },
+  { id: "math-t1-video-035", level: "3AS", title: "Solving Equations and Inequalities in Logarithmic Functions — All Cases Covered | Bac (all scientific streams)", ar: "درس حل المعادلات و المتراجحات في الدوال اللوغاريتمية شامل لجميع الحالات ||باك كل الشعب العلمية", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=Il42LU6PJX4", youtubeUrl: "https://www.youtube.com/watch?v=Il42LU6PJX4" },
+  { id: "math-t1-video-036", level: "3AS", title: "Computing Derivatives in Logarithmic Functions — Includes Baccalaureate Exercises | Bac (all scientific streams)", ar: "درس حساب المشتقات في الدوال اللوغاريتمية شامل مع تمارين من الباكلوريا  ||باك كل الشعب العلمية", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=PZCC-2nk3aA", youtubeUrl: "https://www.youtube.com/watch?v=PZCC-2nk3aA" },
+  { id: "math-t1-video-037", level: "3AS", title: "First Exercise on Logarithmic Functions — A Strong Start to the Year: From Zero to Mastery", ar: "أول تمرين في الدوال اللوغاريتمية… بداية قوية لهذا العام! من الصفر إلى الإتقان ‼", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=AEBIGfq8QLc", youtubeUrl: "https://www.youtube.com/watch?v=AEBIGfq8QLc" },
+  { id: "math-t1-video-038", level: "3AS", title: "Comprehensive First Exercise in Logarithmic Functions — Excellent Review", ar: "التمرين الشامل الأول في الدوال اللوغاريتمية ⭐⭐⭐ مراجعة جد ممتازة اقرا و تمتع", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=_94C9RkESw4", youtubeUrl: "https://www.youtube.com/watch?v=_94C9RkESw4" },
+  { id: "math-t1-video-039", level: "3AS", title: "Probability Recap and Solving a Baccalaureate Exercise | Probability 01 | All Scientific Streams", ar: "تذكير بكل مكتسبات الاحتمالات و حل تمرين باكلوريا  || الإحتمالات 01 || جميع الشعب العلمية", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=WOBhLpwMmbQ", youtubeUrl: "https://www.youtube.com/watch?v=WOBhLpwMmbQ" },
+  { id: "math-t1-video-040", level: "3AS", title: "Best Explanation of Counting Rules with a Baccalaureate Exercise | Probability 02", ar: "أقوى شرح لدرس قوانين العد مع تمرين من الباكلوريا || الإحتمالات 02", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=peOhXja5dEk", youtubeUrl: "https://www.youtube.com/watch?v=peOhXja5dEk" },
+  { id: "math-t1-video-041", level: "3AS", title: "All Ideas on Random Variables with a Baccalaureate Exercise | Probability 03 | All Scientific Streams", ar: "كل أفكار المتغير العشوائي مع تمرين من الباكلوريا || الإحتمالات 03 || جميع الشعب العلمية", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=xX1gbNmuXQY", youtubeUrl: "https://www.youtube.com/watch?v=xX1gbNmuXQY" },
+  { id: "math-t1-video-042", level: "3AS", title: "Best Explanation of Conditional Probability and Independent Events | Probability 04 | Not Applicable to Technical Stream", ar: "أقوى شرح لدرس الإحتمالات الشرطية و الحوادث المستقلة || الإحتمالات 04 || غير معني به التقني", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=41OrXw4KCls", youtubeUrl: "https://www.youtube.com/watch?v=41OrXw4KCls" },
+  { id: "math-t1-video-043", level: "3AS", title: "The Best Probability Exercise in the Baccalaureate (Bac Experimental Sciences 2024, Topic 1)", ar: "هذا أفضل تمرين احتمالات في الباكلوريا ( باك علوم تجريبية 2024 الموضوع الأول )", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=tYT4bSzPmks", youtubeUrl: "https://www.youtube.com/watch?v=tYT4bSzPmks" },
+  { id: "math-t1-video-044", level: "3AS", title: "Great Probability Exercise (Bac Experimental Sciences 2024, Topic 2)", ar: "تمرين رائع في الاحتمالات ( باك علوم تجريبية 2024 الموضوع الثاني )", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=le1aO3ylMr4", youtubeUrl: "https://www.youtube.com/watch?v=le1aO3ylMr4" },
+  { id: "math-t1-video-045", level: "3AS", title: "Excellent Probability Exercise: Successive Draws Without Replacement (Permutation Coefficient)", ar: "تمرين ممتاز في الإحتمالات السحب على التوالي دون إرجاع (معامل الترتيب) ⭐⭐⭐⭐", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=tVqPdlrufYA", youtubeUrl: "https://www.youtube.com/watch?v=tVqPdlrufYA" },
+  { id: "math-t1-video-046", level: "3AS", title: "This Exercise Will Master the Probability Tree | Bac (all scientific streams)", ar: "بهذا التمرين ستتمكن من شجرة الإحتمالات  باكلوريا جميع الشعب العلمية", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=YiEsBdklPTg", youtubeUrl: "https://www.youtube.com/watch?v=YiEsBdklPTg" },
+  { id: "math-t1-video-047", level: "3AS", title: "Universal Probability Tree Exercise | Bac (all scientific streams except Technical)", ar: "تمرين في شجرة الإحتمالات عالمي ⭐⭐⭐⭐ باكلوريا جميع الشعب العلمية ماعدا التقني", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=h7ql766gPbQ", youtubeUrl: "https://www.youtube.com/watch?v=h7ql766gPbQ" },
+  { id: "math-t1-video-048", level: "3AS", title: "Advanced Probability Exercise — I'll Organize Ideas and Solve Common Issues", ar: "تمرين احتمالات من المستوى الرفيع  سأنظم لك أفكار و أحل كثير من الإشكالات التي تحملها في ذهنك", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=4L161uU4QJk", youtubeUrl: "https://www.youtube.com/watch?v=4L161uU4QJk" },
+  { id: "math-t1-video-049", level: "3AS", title: "Probability Exercise on the n-Balls Idea — Excellent Exercise", ar: "تمرين في الاحتمالات حول فكرة n كرية تمرين ممتاز ⭐⭐⭐⭐", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=oKIo59oSTh4", youtubeUrl: "https://www.youtube.com/watch?v=oKIo59oSTh4" },
+  { id: "math-t1-video-050", level: "3AS", title: "Sequences Basics | Sequences Lesson 01 | All Scientific Streams + Management", ar: "أساسيات المتتاليات  || المتتاليات الدرس 01 || جميع الشعب العلمية + تسيير", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=OrYf2n8G7D4", youtubeUrl: "https://www.youtube.com/watch?v=OrYf2n8G7D4" },
+  { id: "math-t1-video-051", level: "3AS", title: "Monotonicity of a Sequence | Sequences Lesson 02 | All Scientific Streams + Management", ar: "إتجاه تغير متتالية  || المتتاليات الدرس 02 || جميع الشعب العلمية + تسيير", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=slN8FDqOPfQ", youtubeUrl: "https://www.youtube.com/watch?v=slN8FDqOPfQ" },
+  { id: "math-t1-video-052", level: "3AS", title: "Graphical Representation of a Sequence and Making Conjectures | Sequences Lesson 03 | Bac All Scientific Streams + Management", ar: "التمثيل البياني لمتتالية و وضع التخمينات || المتتاليات الدرس 03 || باك جميع الشعب العلمية + تسيير", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=kdHYwIHM5j4", youtubeUrl: "https://www.youtube.com/watch?v=kdHYwIHM5j4" },
+  { id: "math-t1-video-053", level: "3AS", title: "Arithmetic Sequence with a Baccalaureate Exercise | Sequences Lesson 04 | Bac All Scientific Streams + Management", ar: "المتتالية الحسابية مع تمرين من الباكالوريا || المتتاليات الدرس 04 || باك جميع الشعب العلمية + تسيير", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=BA-hK00Jv_8", youtubeUrl: "https://www.youtube.com/watch?v=BA-hK00Jv_8" },
+  { id: "math-t1-video-054", level: "3AS", title: "Geometric Sequence with a Baccalaureate Exercise | Sequences Lesson 05 | Bac All Scientific Streams", ar: "المتتالية الهندسية مع تمرين باكلوريا || المتتاليات الدرس 05 || باك جميع الشعب العلمية", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=3GirZ-loY6c", youtubeUrl: "https://www.youtube.com/watch?v=3GirZ-loY6c" },
+  { id: "math-t1-video-055", level: "3AS", title: "Comprehensive Explanation of Proof by Induction with All Key Ideas (Includes Additional Examples for Mathematics Stream)", ar: "أقوى شرح لدرس البرهان بالتراجع شامل لجميع الأفكار (فيه أيضا أمثلة إضافية خاصة بشعبة رياضيات )", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=XMeRpeqBzLw", youtubeUrl: "https://www.youtube.com/watch?v=XMeRpeqBzLw" },
+  { id: "math-t1-video-056", level: "3AS", title: "Sequence Limits and Convergence | Sequences Lesson 07 | Bac All Scientific Streams", ar: "نهاية متتالية وتقاربها || المتتاليات الدرس 07  || باك جميع الشعب العلمية", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=zrVPJAsU4YA", youtubeUrl: "https://www.youtube.com/watch?v=zrVPJAsU4YA" },
+  { id: "math-t1-video-057", level: "3AS", title: "Adjacent Sequences | Sequences Lesson 08 | Bac All Scientific Streams", ar: "المتتاليتان المتجاورتان المتتاليات 08 || باك جميع الشعب العلمية", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=cHC11xpUD68", youtubeUrl: "https://www.youtube.com/watch?v=cHC11xpUD68" },
+  { id: "math-t1-video-058", level: "3AS", title: "If You Understand This Exercise, You're Ready for the Sequences Unit", ar: "إذا فهمت هذا التمرين ⭐⭐⭐ فأنت جاهز لوحدة المتتاليات", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=uqCZn1F4En4", youtubeUrl: "https://www.youtube.com/watch?v=uqCZn1F4En4" },
+  { id: "math-t1-video-059", level: "3AS", title: "Exceptional Video in the Sequences Unit — One Exercise Covers 90% of the Unit's Ideas", ar: "الفيديو الاستثنائي في وحدة المتتاليات ⭐⭐⭐⭐تمرين واحد = 90% من أفكار الوحدة", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=Q0q6pp7OLHw", youtubeUrl: "https://www.youtube.com/watch?v=Q0q6pp7OLHw" },
+  { id: "math-t1-video-060", level: "3AS", title: "Solution to the Third Comprehensive Sequences Exercise | Professor Abdelbasset | Bac 2026", ar: "حل التمرين الشامل الثالث في المتتاليات ⭐ الأستاذ عبد الباسط Bac2026", kind: "video", term: 1, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=_E-b39e7K1A", youtubeUrl: "https://www.youtube.com/watch?v=_E-b39e7K1A" },
+  { id: "math-t2-video-001", level: "3AS", title: "Divisibility and Its Properties with Various Applications | Numbers and Arithmetic 01 | Technical-Mathematics / Mathematics", ar: "قابلية القسمة و خواصها مع تطبيقات متنوعة ||  الأعداد و الحساب 01 || تقني رياضي / رياضيات", kind: "video", term: 2, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=QaEG1a9sgy0", youtubeUrl: "https://www.youtube.com/watch?v=QaEG1a9sgy0" },
+  { id: "math-t2-video-002", level: "3AS", title: "Euclidean Division with Various Applications | Numbers and Arithmetic 02 | Technical-Mathematics / Mathematics", ar: "القسمة الإقليدية مع تطبيقات متنوعة ||  الأعداد و الحساب 02 || تقني رياضي / رياضيات", kind: "video", term: 2, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=iN9ROsQgBEQ", youtubeUrl: "https://www.youtube.com/watch?v=iN9ROsQgBEQ" },
+  { id: "math-t2-video-003", level: "3AS", title: "Greatest Common Divisor of Two Numbers (GCD) with Applications | Numbers and Arithmetic 03 | Technical-Mathematics / Mathematics", ar: "القاسم المشترك الأكبر لعددين Pgcd مع تطبيقات متنوعة ||  الأعداد و الحساب 03 || تقني رياضي / رياضيات", kind: "video", term: 2, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=Oo8-FBzNwik", youtubeUrl: "https://www.youtube.com/watch?v=Oo8-FBzNwik" },
+  { id: "math-t2-video-004", level: "3AS", title: "Congruences and Their Properties with Various Applications | Numbers and Arithmetic 04 | Technical-Mathematics / Mathematics", ar: "الموافقات و خواصها مع تطبيقات متنوعة ||  الأعداد و الحساب 04 || تقني رياضي / رياضيات", kind: "video", term: 2, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=FE3eAjA3AJI", youtubeUrl: "https://www.youtube.com/watch?v=FE3eAjA3AJI" },
+  { id: "math-t2-video-005", level: "3AS", title: "Counting Principles | Numbers and Arithmetic 05 | Technical-Mathematics / Mathematics", ar: "التعداد ||  الأعداد و الحساب 05 || تقني رياضي / رياضيات", kind: "video", term: 2, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=YBi6IOpW96w", youtubeUrl: "https://www.youtube.com/watch?v=YBi6IOpW96w" },
+  { id: "math-t2-video-006", level: "3AS", title: "Prime Numbers | Numbers and Arithmetic 06 | Technical-Mathematics / Mathematics", ar: "الأعداد الأولية ||  الأعداد و الحساب 06 || تقني رياضي / رياضيات", kind: "video", term: 2, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=mbcFIO8PXOs", youtubeUrl: "https://www.youtube.com/watch?v=mbcFIO8PXOs" },
+  { id: "math-t2-video-007", level: "3AS", title: "Bézout's Theorem | Numbers and Arithmetic 07 | Technical-Mathematics / Mathematics", ar: "مبرهنة بيزو ||  الأعداد و الحساب 07 || تقني رياضي / رياضيات", kind: "video", term: 2, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=9RjfdOG5WAI", youtubeUrl: "https://www.youtube.com/watch?v=9RjfdOG5WAI" },
+  { id: "math-t2-video-008", level: "3AS", title: "Gauss's Theorem | Numbers and Arithmetic 08 | Baccalaureate Technical and Mathematics Streams", ar: "مبرهنة غوص Gauss ||  الأعداد و الحساب 08 || باكلوريا شعبة تقني وشعبة رياضيات", kind: "video", term: 2, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=J1Jmo7oHw5o", youtubeUrl: "https://www.youtube.com/watch?v=J1Jmo7oHw5o" },
+  { id: "math-t2-video-009", level: "3AS", title: "Solution to the Division Exercise in Zad Baccalaureate 2024 — Topic 1", ar: "حل تمرين القسمة في زاد باكلوريا 2024 الموضوع الأول", kind: "video", term: 2, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=he3V_jn0SJE", youtubeUrl: "https://www.youtube.com/watch?v=he3V_jn0SJE" },
+  { id: "math-t2-video-010", level: "3AS", title: "Solution to the Division Exercise in Zad Baccalaureate 2024 — Topic 2", ar: "حل تمرين القسمة في زاد باكلوريا 2024 الموضوع الثاني", kind: "video", term: 2, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=ntzlFbRk0Bk", youtubeUrl: "https://www.youtube.com/watch?v=ntzlFbRk0Bk" },
+  { id: "math-t2-video-011", level: "3AS", title: "Solution to the Division Exercise in Zad Baccalaureate 2023 — Mathematics Stream, Topic 2", ar: "حل تمرين القسمة في زاد باكلوريا 2023 شعبة رياضيات الموضوع الثاني", kind: "video", term: 2, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=anN3XOF04r4", youtubeUrl: "https://www.youtube.com/watch?v=anN3XOF04r4" },
+  { id: "math-t2-video-012", level: "3AS", title: "Ramadan Evening with a Comprehensive Division Exercise from Zad | Baccalaureate Mathematics and Technical-Math Streams", ar: "سهرة رمضانية مع تمرين شامل في القسمة في زاد ⭐⭐⭐|| باكلوريا شعبة رياضيات و تقني رياضي", kind: "video", term: 2, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=nbmWgoZ2Ezs", youtubeUrl: "https://www.youtube.com/watch?v=nbmWgoZ2Ezs" },
+  { id: "math-t2-video-013", level: "3AS", title: "Ramadan Evening with the Hardest Division Exercise from Zad Baccalaureate — Mathematics Stream 2015", ar: "سهرة رمضانية مع أصعب تمرين قسمة في زاد باكلوريا شعبة رياضيات 2015 خمسة نجوم ⭐⭐⭐⭐⭐", kind: "video", term: 2, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=DxubNZQu45M", youtubeUrl: "https://www.youtube.com/watch?v=DxubNZQu45M" },
+  { id: "math-t2-video-014", level: "3AS", title: "Numbers and Arithmetic Exercises 01: Bac Mathematics 2021 — Topic 2 | Excellent Exercise", ar: "تمارين الأعداد و الحساب 01 : باك رياضي 2021 الموضوع الثاني || تمرين ممتاز", kind: "video", term: 2, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=zPYZb7Q48Ng", youtubeUrl: "https://www.youtube.com/watch?v=zPYZb7Q48Ng" },
+  { id: "math-t2-video-015", level: "3AS", title: "Numbers and Arithmetic Exercises 02: Bac Mathematics 2021 — Topic 1", ar: "تمارين الأعداد و الحساب 02 : باك رياضي 2021 الموضوع الأول", kind: "video", term: 2, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=2tQbKnzVGTY", youtubeUrl: "https://www.youtube.com/watch?v=2tQbKnzVGTY" },
+  { id: "math-t2-video-016", level: "3AS", title: "Numbers and Arithmetic Exercises 03: Bac Mathematics 2020 — Topic 2 | Excellent Exercise", ar: "تمارين الأعداد و الحساب 03 : باك رياضي 2020 الموضوع الثاني || تمرين ممتاز", kind: "video", term: 2, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=el4iw0k8YPc", youtubeUrl: "https://www.youtube.com/watch?v=el4iw0k8YPc" },
+  { id: "math-t2-video-017", level: "3AS", title: "Numbers and Arithmetic Exercises 04: Bac Technical-Mathematics 2021 — Topic 2", ar: "تمارين الأعداد و الحساب 04 : باك تقني رياضي 2021 الموضوع الثاني", kind: "video", term: 2, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=BIJ6OAw19uo", youtubeUrl: "https://www.youtube.com/watch?v=BIJ6OAw19uo" },
+  { id: "math-t3-video-001", level: "3AS", title: "All Basics of the Complex Numbers Unit in One Video | Complex Numbers 01 | Bac 2023", ar: "كل أساسيات وحدة الأعداد المركبة في فيديو واحد || الأعداد المركبة 01 || باك2023", kind: "video", term: 3, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=dfC0U0R08s0", youtubeUrl: "https://www.youtube.com/watch?v=dfC0U0R08s0" },
+  { id: "math-t3-video-002", level: "3AS", title: "Key Video in the Complex Numbers Unit: Algebraic, Exponential, and Trigonometric Forms | Bac 2023", ar: "أهم فيديو في وحدة الأعداد المركبة : الطويلة و العمدة و الشكل الأسي و المثلثي || باك2023", kind: "video", term: 3, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=R3uzedH67Bw", youtubeUrl: "https://www.youtube.com/watch?v=R3uzedH67Bw" },
+  { id: "math-t3-video-003", level: "3AS", title: "Equations in the Set of Complex Numbers | Complex Numbers 03 | Bac 2023", ar: "المعادلات في مجموعة الأعداد المركبة || الأعداد المركبة 03 || باك2023", kind: "video", term: 3, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=pYq9jSDPMeE", youtubeUrl: "https://www.youtube.com/watch?v=pYq9jSDPMeE" },
+  { id: "math-t3-video-004", level: "3AS", title: "Comprehensive Video on All Point Transformations Required This Year | Complex Numbers 04", ar: "فيديو شامل لكل أنواع التحويلات النقطية المقررة هذا العام || الأعداد المركبة 04", kind: "video", term: 3, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=BcK6dSVFSrU", youtubeUrl: "https://www.youtube.com/watch?v=BcK6dSVFSrU" },
+  { id: "math-t3-video-005", level: "3AS", title: "De Moivre's Formula with All Its Ideas | Complex Numbers Ideas Series 1", ar: "دستور موافر Moivre بجميع أفكاره || سلسلة أفكار الأعداد المركبة 1", kind: "video", term: 3, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=qyExLdBcN3g", youtubeUrl: "https://www.youtube.com/watch?v=qyExLdBcN3g" },
+  { id: "math-t3-video-006", level: "3AS", title: "Nature of Triangles in All Cases | Complex Numbers Ideas Series 2", ar: "طبيعة المثلثات بجميع حالاتها || سلسلة أفكار الأعداد المركبة 2", kind: "video", term: 3, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=DC1n4iBlRcA", youtubeUrl: "https://www.youtube.com/watch?v=DC1n4iBlRcA" },
+  { id: "math-t3-video-007", level: "3AS", title: "Strongest Explanation of Point Sets in All Cases (Over 12 Cases) | Complex Numbers Ideas Series", ar: "أقوى شرح لمجموعات النقط جميع الحالات (أكثر من 12 حالة )  || سلسلة أفكار الأعداد المركبة", kind: "video", term: 3, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=1ojRPErZGto", youtubeUrl: "https://www.youtube.com/watch?v=1ojRPErZGto" },
+  { id: "math-t3-video-008", level: "3AS", title: "Comprehensive Exercise in the Complex Numbers Unit | Baccalaureate (all scientific streams)", ar: "تمرين شامل في وحدة الأعداد المركبة ⭐ ⭐ ⭐  باكلوريا جميع الشعب العلمية", kind: "video", term: 3, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=Gz3S226xzg0", youtubeUrl: "https://www.youtube.com/watch?v=Gz3S226xzg0" },
+  { id: "math-t3-video-009", level: "3AS", title: "Comprehensive Complex Numbers Exercise | Strong Review of the Unit's Key Ideas", ar: "تمرين شامل في الأعداد المركبة ⭐ ⭐ ⭐ ⭐ | أقوى مراجعة لأهم أفكار الوحدة", kind: "video", term: 3, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=bEP1_xgOsOU", youtubeUrl: "https://www.youtube.com/watch?v=bEP1_xgOsOU" },
+  { id: "math-t3-video-010", level: "3AS", title: "Comprehensive Complex Numbers Exercise + Important Ideas — Prepare for the Bac", ar: "تمرين شامل في الأعداد المركبة ⭐⭐⭐⭐ + أفكار مهمة! حضّر للباك بقوة", kind: "video", term: 3, subject: "mathematics", fileUrl: "https://www.youtube.com/watch?v=eeYanofJdCs", youtubeUrl: "https://www.youtube.com/watch?v=eeYanofJdCs" },
+  { id: "science-t1-video-001", level: "3AS", title: "Protein Structure from A to Z | Baccalaureate 2027", ar: "تركيب البروتين من الألف إلى الياء بكالوريا 2027", kind: "video", term: 1, subject: "natural-life-sciences", fileUrl: "https://www.youtube.com/watch?v=yvsHVQUF4Tk", youtubeUrl: "https://www.youtube.com/watch?v=yvsHVQUF4Tk" },
+  { id: "science-t2-video-001", level: "3AS", title: "Detailed Lesson Unit 02: The Relationship Between Protein Structure and Function", ar: "الدرس المفصل الوحدة 02 العلاقة بين بنية البروتين ووظيفته", kind: "video", term: 2, subject: "natural-life-sciences", fileUrl: "https://www.youtube.com/watch?v=1tFiEnhSvpc", youtubeUrl: "https://www.youtube.com/watch?v=1tFiEnhSvpc" },
+  { id: "science-t3-video-001", level: "3AS", title: "Unit Four — Part One: Autoimmunity and Non-self (Detailed Lesson) | 2026", ar: "الوحدة الرابعة -الجزء الأول- : المناعة الذات واللاذات (الدرس المفصل) 2026", kind: "video", term: 3, subject: "natural-life-sciences", fileUrl: "https://www.youtube.com/watch?v=KCR5icYu49Q", youtubeUrl: "https://www.youtube.com/watch?v=KCR5icYu49Q" },
+
+  /**devoirs */
+  { id: "math-t1-devoir-2026", level: "3AS", title: "devoir de mathématiques 2026", ar: "2026 فرض الرياضيات", kind: "homework", term: 1, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1PN5EDpDdzZGx9WA16ov114XT3JBMb6VC/view?usp=drive_link" },
+  { id: "math-t1-devoir-2025", level: "3AS", title: "devoir de mathématiques 2025", ar: "2025 فرض الرياضيات", kind: "homework", term: 1, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1W4fnx8XGp60Pck9fHHxxravEEGZLEXFD/view?usp=drive_link" },
+  { id: "math-t1-devoir-2024", level: "3AS", title: "devoir de mathématiques 2024", ar: "2024 فرض الرياضيات", kind: "homework", term: 1, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1cGgpnzE6wqA3_igUb1kRYf-xxhmVzMZ3/view?usp=drive_link" },  
+  { id: "math-t1-devoir-2023", level: "3AS", title: "devoir de mathématiques 2023", ar: "2023 فرض الرياضيات", kind: "homework", term: 1, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1VqEbiMVhwzjAMmWs98rljF-yxsB4J-FA/view?usp=drive_link" },
+  { id: "math-t1-devoir-2017-1", level: "3AS", title: "devoir de mathématiques 1 2017", ar: "2017 1 فرض الرياضيات", kind: "homework", term: 1, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1Yt-7Jsd3cJ6fIx2VVOxq_qxWHayfgiVn/view?usp=drive_link" },
+  { id: "math-t1-devoir-2017-2", level: "3AS", title: "devoir de mathématiques 2 2017", ar: "2017 2 فرض الرياضيات", kind: "homework", term: 1, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1JPjImgm_-0WcW1fiRVLsp2sM99scyUyV/view?usp=drive_link" },
+  { id: "math-t1-devoir-2016", level: "3AS", title: "devoir de mathématiques 2016", ar: "2016 فرض الرياضيات", kind: "homework", term: 1, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1mbtXt26rNuTRSCGxR-2yUARu9gzWTswr/view?usp=drive_link" },
+  { id: "math-t1-devoir-2015", level: "3AS", title: "devoir de mathématiques 2015", ar: "2015 فرض الرياضيات", kind: "homework", term: 1, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1gSgJsgsP-dw6qn6oqxm-Vk7MrUVVr7Nd/view?usp=drive_link" },
+  { id: "math-t2-devoir-2026", level: "3AS", title: "devoir de mathématiques 2026", ar: "2026 فرض الرياضيات", kind: "homework", term: 2, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1E2j-NHGmPvCpeoamgjSQMSS6dH3TDYEe/view?usp=drive_link" },
+  { id: "math-t2-devoir-2024", level: "3AS", title: "devoir de mathématiques 2024", ar: "2024 فرض الرياضيات", kind: "homework", term: 2, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1YbOvFHQEY3wtMxa8mRRCp5SMRCKcenLb/view?usp=drive_link" },
+  { id: "math-t2-devoir-2023", level: "3AS", title: "devoir de mathématiques 2023", ar: "2023 فرض الرياضيات", kind: "homework", term: 2, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1EUOOAU1YWdMtsr13srg73U8gNEGFInuK/view?usp=drive_link" },
+  { id: "math-t2-devoir-2020", level: "3AS", title: "devoir de mathématiques 2020", ar: "2020 فرض الرياضيات", kind: "homework", term: 2, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1uW9OqTUXaq-ghU3KW5_ItFzuW4WN75Q4/view?usp=drive_link" }, 
+  { id: "math-t2-devoir-2019", level: "3AS", title: "devoir de mathématiques 2019", ar: "2019 فرض الرياضيات", kind: "homework", term: 2, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1LcHb-W_43OCzMZqd-phh_-Qh7hF4zjZI/view?usp=drive_link" }, 
+  { id: "math-t3-devoir-2017", level: "3AS", title: "devoir de mathématiques 2017", ar: "2017 فرض الرياضيات", kind: "homework", term: 3, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1IWp1fGxH7URaxiJ9c0xqnmYJkj5wiKrq/view?usp=drive_link" }, 
+
+  /**exams */
+  { id: "math-t1-exam-2026", level: "3AS", title: "examen de mathématiques 2026", ar: "2026 امتحان الرياضيات", kind: "exam", term: 1, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1X-qOVQ5Z8hfsNDM4WNtKmorE1ADc0w88/view?usp=drive_link" },
+  { id: "math-t1-exam-2025", level: "3AS", title: "examen de mathématiques 2025", ar: "2025 امتحان الرياضيات", kind: "exam", term: 1, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1uh7wz2FpQUMG3YqbopdATtYWvSOoZEHA/view?usp=drive_link" },
+  { id: "math-t1-exam-2024", level: "3AS", title: "examen de mathématiques 2024", ar: "2024 امتحان الرياضيات", kind: "exam", term: 1, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1n3tAQuuO4y5yIThI7TlZBjs_wlgFw68-/view?usp=drive_link" },
+  { id: "math-t1-exam-2023", level: "3AS", title: "examen de mathématiques 2023", ar: "2023 امتحان الرياضيات", kind: "exam", term: 1, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1vPbv7qcyYTmdIhwQRwwePz7s2TD0lSR-/view?usp=drive_link" },
+  { id: "math-t1-exam-2022", level: "3AS", title: "examen de mathématiques 2022", ar: "2022 امتحان الرياضيات", kind: "exam", term: 1, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/11k6V2LaeN02a46l6AQFFloDLZZsRb1GV/view?usp=drive_link" },
+  { id: "math-t1-exam-2019", level: "3AS", title: "examen de mathématiques 2019", ar: "2019 امتحان الرياضيات", kind: "exam", term: 1, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1fk_gQkRcRU-U8njZRcjVMzBqoGOMVA9Q/view?usp=drive_link" },
+  { id: "math-t1-exam-2018", level: "3AS", title: "examen de mathématiques 2018", ar: "2018 امتحان الرياضيات", kind: "exam", term: 1, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1W097rtMutGgG4Y3WHtX_ywRUKnI-N9Ak/view?usp=drive_link" },
+  { id: "math-t1-exam-2017", level: "3AS", title: "examen de mathématiques 2017", ar: "2017 امتحان الرياضيات", kind: "exam", term: 1, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1Q6hZsG2IwOZifVn8ROsSSxqkL3TAbwmF/view?usp=drive_link" },
+  { id: "math-t1-exam-2015", level: "3AS", title: "examen de mathématiques 2015", ar: "2015 امتحان الرياضيات", kind: "exam", term: 1, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1U0MCJ2Xtc070neIj_m9FRjGJz4ry2iwd/view?usp=drive_link" },
+  { id: "math-t2-exam-2026", level: "3AS", title: "examen de mathématiques 2026", ar: "2026 امتحان الرياضيات", kind: "exam", term: 2, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1ozVLtTfk9YsPEKKl5iDs3_WwbaOC8iNd/view?usp=drive_link" },
+  { id: "math-t2-exam-2024", level: "3AS", title: "examen de mathématiques 2024", ar: "2024 امتحان الرياضيات", kind: "exam", term: 2, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1cvIhytJww5tyg7oituucoNK5TjrkYQFN/view?usp=drive_link" },
+  { id: "math-t2-exam-2023", level: "3AS", title: "examen de mathématiques 2023", ar: "2023 امتحان الرياضيات", kind: "exam", term: 2, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1EFztcrBcJTupl2Z-5xnlNTIpk1UAFzOQ/view?usp=drive_link" },
+  { id: "math-t2-exam-2022", level: "3AS", title: "examen de mathématiques 2022", ar: "2022 امتحان الرياضيات", kind: "exam", term: 2, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1r1vJyBdbe2UDSKwsSqLK1JNHHesbwHzF/view?usp=drive_link" },
+  { id: "math-t2-exam-2021", level: "3AS", title: "examen de mathématiques 2021", ar: "2021 امتحان الرياضيات", kind: "exam", term: 2, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1ZFvxHecHpfzijg4zzWAzT2HxA2OPS86k/view?usp=drive_link" },
+  { id: "math-t2-exam-2020", level: "3AS", title: "examen de mathématiques 2020", ar: "2020 امتحان الرياضيات", kind: "exam", term: 2, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1G8MlxH_Th5x6k7rxRvv-Klw5xO7bnIkt/view?usp=drive_link" },
+  { id: "math-t2-exam-2019", level: "3AS", title: "examen de mathématiques 2019", ar: "2019 امتحان الرياضيات", kind: "exam", term: 2, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1zCKBg3Nk1RNTNVtNwRN_AvfaILx1lOEc/view?usp=drive_link" },
+  { id: "math-t2-exam-2018", level: "3AS", title: "examen de mathématiques 2018", ar: "2018 امتحان الرياضيات", kind: "exam", term: 2, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1Jp9XENMpDLTJiZWRPjiWc8gxxyT05iAC/view?usp=drive_link" },
+  { id: "math-t2-exam-2017", level: "3AS", title: "examen de mathématiques 2017", ar: "2017 امتحان الرياضيات", kind: "exam", term: 2, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/11axaKB7oace5uJtkMvyZr-I59v5M25Z-/view?usp=drive_link" },
+  { id: "math-t2-exam-2016", level: "3AS", title: "examen de mathématiques 2016", ar: "2016 امتحان الرياضيات", kind: "exam", term: 2, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/13YNGzHGcD9kEx0mN33aQbVLVndVKHdPk/view?usp=drive_link" },
+  { id: "math-t3-exam-2026", level: "3AS", title: "bac blanc math 2026", ar: "2026 بكالوريا تجريبية رياضيات", kind: "exam", term: 3, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1MpD1lGVNnUClIjXc7DfGXJAE7P6Y7gEW/view?usp=drive_link" },
+  { id: "math-t3-exam-2025", level: "3AS", title: "bac blanc math 2025", ar: "2025 بكالوريا تجريبية رياضيات", kind: "exam", term: 3, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/12nwMIQ0ABvd8yC6a0HgNo44g0njR7sAy/view?usp=drive_link" },
+  { id: "math-t3-exam-2024", level: "3AS", title: "bac blanc math 2024", ar: "2024 بكالوريا تجريبية رياضيات", kind: "exam", term: 3, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/19TRqZGsoS7XLporxBhjlEyQ6yneSYV-P/view?usp=drive_link" },
+  { id: "math-t3-exam-2023", level: "3AS", title: "bac blanc math 2023", ar: "2023 بكالوريا تجريبية رياضيات", kind: "exam", term: 3, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1s56-SXuJKOFVZ0HKis8pPENTWTkox6Pm/view?usp=drive_link" },
+  { id: "math-t3-exam-2022", level: "3AS", title: "bac blanc math 2022", ar: "2022 بكالوريا تجريبية رياضيات", kind: "exam", term: 3, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1PPBNB8DrpkB_fiVnzyY5_Bg2mlew7euJ/view?usp=drive_link" },
+  { id: "math-t3-exam-2021", level: "3AS", title: "bac blanc math 2021", ar: "2021 بكالوريا تجريبية رياضيات", kind: "exam", term: 3, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1FOYgwUvKfBQEBvsAjTILqX4t-L5B3Wi6/view?usp=drive_link" },
+  { id: "math-t3-exam-2020", level: "3AS", title: "bac blanc math 2020", ar: "2020 بكالوريا تجريبية رياضيات", kind: "exam", term: 3, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1W3BARnK3lUPYmz27yS_EnpKHDQ2Agh5a/view?usp=drive_link" },
+  { id: "math-t3-exam-2019", level: "3AS", title: "bac blanc math 2019", ar: "2019 بكالوريا تجريبية رياضيات", kind: "exam", term: 3, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1lBjnyh7SEPbnlXZYKgV5x0WYgFIk_yGT/view?usp=drive_link" },
+  { id: "math-t3-exam-2018", level: "3AS", title: "bac blanc math 2018", ar: "2018 بكالوريا تجريبية رياضيات", kind: "exam", term: 3, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1RO_3Su2fAkzcqjOARrnu4aaZP_msMNqq/view?usp=drive_link" },
+  { id: "math-t3-exam-2017", level: "3AS", title: "bac blanc math 2017", ar: "2017 بكالوريا تجريبية رياضيات", kind: "exam", term: 3, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1OD48stGka2OdqLjUI8FPdfRfBQw_LkbZ/view?usp=drive_link" },
+  { id: "math-t3-exam-2016", level: "3AS", title: "bac blanc math 2016", ar: "2016 بكالوريا تجريبية رياضيات", kind: "exam", term: 3, subject: "mathematics", fileUrl: "https://drive.google.com/file/d/19SnL0J12sPYfjintkyUbLuC8fjNlR9D1/view?usp=drive_link" },
+
+  /**series */
+  { id: "math-series-expo", level: "3AS", title: "Journal of the Exponential Function (Abd alHafeez Adel)", ar: "مجلة الدالة الأسية(عبد الحفيظ عادل)", kind:"series", term: "all", subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1MFgaZAeS3blWaI9iKmhR6bNCdZxJjIk7/view?usp=drive_link"},
+  { id: "math-series-function", level: "3AS", title: "journal of functions (abd alhafeez adel)", ar: "مجلية الدوال (عبد الحفي عادل)", kind:"series", term: "all", subject: "mathematics", fileUrl: "https://drive.google.com/file/d/17RyOSjKywN51FZ3Sj8sq8_YtzOOAzvfk/view?usp=drive_link"},
+  { id: "math-series-sequences", level: "3AS", title: "journal of sequences (abd alhafees adel)", ar: "مجلة المتتاليات (عبد الحفيظ عادل)", kind: "series", term: "all", subject: "mathematics", fileUrl: "https://drive.google.com/file/d/1_3SPZghAZ8rSBAzeefGrWL_thQ-9aIwh/view?usp=drive_link"},
+  { id: "math-series-intgeration", level: "3AS", title: "journal of Antiderivatives and integral calculus (alkhalil)", ar: "مجلة الدوال أصلية والحساب التكاملي (الخليل)", kind: "series", term:"all", subject:"mathematics", fileUrl: "https://drive.google.com/file/d/1Oil3lFVVusqM7zQa4wf0vZ9flT47of5a/view?usp=drive_link"},
+  { id: "math-serie-integration2", level: "3AS", title: "journal of Antiderivatives and integral calculus (abd alhafeez adel)", ar: "مجلة الدوال أصلية والحساب التكاملي (عبد الحفيظ عادل)", kind:"series", term: "all", subject:"mathematics", fileUrl: "https://drive.google.com/file/d/1uIP1_7YzRWzYRNnV4qapP4JvjoWMRyHP/view?usp=drive_link"},
+  { id: "math-series-proba", level: "3AS", title: "journal of proba (alkhalil)", ar: "مجلة الاحتمالات (الخليل)", kind: "series", term:"all", subject: "mathematics", fileUrl: "https://drive.google.com/file/d/17VckJxoo_hbu1ECMz1XiWoKQmnPqH8R-/view?usp=drive_link" },
+  { id: "math-series-cmplx", level: "3AS", title: "journal of complex numbers (alhaka)", ar:"مجلة في رحاب الأعداد المركبة (محمد حاقة)", kind:"series",term:"all", subject: "mathematics", fileUrl:"https://drive.google.com/file/d/17VckJxoo_hbu1ECMz1XiWoKQmnPqH8R-/view?usp=drive_link" },
+  { id: "math-series-Z", level: "3AS", title: "journal of numbers", ar:"مجلة القسمة في الزاد (الخليل)", kind:"series",term:"all", subject:"mathematics", fileUrl:"https://drive.google.com/file/d/1Kx--OTYINpOQcteGn0GPY7XeI0uVmEc7/view?usp=drive_link" },
+  { id: "math-ens-subject", level: "3AS", title: "subjects of ENS", ar: "موضوع المدرسة العليا للأساتذة", kind:"exam", term:"all", subject:"mathematics", fileUrl:"https://drive.google.com/file/d/1W6MdGl1umBYsBT03eTZG725d68qCIZLr/view?usp=drive_link" },
+  { id: "math-extra-subjects", level: "3AS", title: "subjects of other hs", ar: " مواضيع ثانويات أخرى الفصل الأول", kind: "exam", term:"all", subject:"mathematics", fileUrl:"https://drive.google.com/file/d/15Dljnc5IZ-ef3QHpyzgj6Z4fW2vrfCuf/view?usp=drive_link"},
+  { id: "math-series-cmplx-barizi", level: "3AS", title: "serie of complex numbers prof barizi", ar:"سلسلة الأعداد المركبة الأستاذ باريزي", kind:"series",term:"all", subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1IokproehRit9Y4po2rpPVgvysk2ibFZM/view?usp=drive_link" },
+  { id: "math-series-integation-barizi", level: "3AS", title: "serie of Antiderivatives and integral calculus prof barizi", ar:"سلسلة التكامل والدوال ألأصلية الأستاذ باريزي", kind:"series",term:"all", subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1kdrBlyBHGgcwz41p2AJLhqkKoM1oMWGE/view?usp=drive_link" },
+  { id: "math-series-Z-barizi", level: "3AS", title: "serie of numbers Z prof barizi", ar:"سلسلة القسمة في زاد الأستاذ باريزي", kind:"series",term:"all", subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1W-S3aNEkeLgSTOvEYI3w-BlLwUFv3TG2/view?usp=drive_link" },
+  { id: "math-series-sequences-barizi", level: "3AS", title: "serie of sequences prof barizi", ar:"سلسلة المتتاليات الأستاذ باريزي", kind:"series",term:"all", subject: "mathematics", fileUrl:"https://drive.google.com/file/d/12yVrHEl0XqQjbyiZhhY3UEzuFAe6YAlG/view?usp=drive_link" },
+  { id: "math-series-Differential-Equations-barizi", level: "3AS", title: "serie of differential equations prof barizi", ar:"سلسلة المعادلات التفاضلية الأستاذ باريزي", kind:"series",term:"all", subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1RRkp2h3LO6KsKK0d9By5JZOgPQXiuy44/view?usp=drive_link" },
+  { id: "math-series-space-barizi", level: "3AS", title: "serie of space prof barizi", ar:"سلسلة الهندسة في الفضاء الأستاذ باريزي", kind:"series",term:"all", subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1Rg2JuqOBBeYa0wPQDV_MChNsbxYvu5FW/view?usp=drive_link" },
+
+  /**books */
+  { id: "math-book-cmplx-silver", level: "3AS", title: "book of complex numbers (silver seire)", ar: "كتاب السلسلة الفضية للأعداد المركبة", kind: "books", term:3, subject:"mathematics", fileUrl:"https://drive.google.com/file/d/1zW_7jeYgTrLmPnmI4VNfzckLG6PnVqKn/view?usp=drive_link"},
+  { id: "math-book-proba-silver", level: "3AS", title: "book of proba (silver seire)", ar: "كتاب السلسلة الفضية للإحتمالات", kind: "books", term:2, subject:"mathematics", fileUrl:"https://drive.google.com/file/d/1D5hcSXf9zjCf03VNA8AFF2x_sOoU07xp/view?usp=drive_link"},
+  { id: "math-book-sequences-silver", level: "3AS", title: "book of sequences (silver seire)", ar: "كتاب السلسلة الفضية للمتتاليات", kind: "books", term:2, subject:"mathematics", fileUrl:"https://drive.google.com/file/d/1v5dCMl4Cql4NvQJYwdzVEPA7mRA9uip0/view?usp=drive_link"},
+  { id: "math-book-funtion-silver", level: "3AS", title: "book of sunctions (silver seire)", ar: "كتاب السلسلة الفضية للدوال", kind: "books", term:1, subject:"mathematics", fileUrl:"https://drive.google.com/file/d/1Jf4tvpDZ_RkBpLXkSno8Cyvy3q9ziMGb/view?usp=drive_link"},
+  { id: "math-book-Z-silver", level: "3AS", title: "book of numbers Z (silver seire)", ar: "كتاب السلسلة الفضية للقسمة في زاد", kind: "books", term:2, subject:"mathematics", fileUrl:"https://drive.google.com/file/d/1AKz-VtfnpEHId9J2LkH537K2WKYnHRca/view?usp=drive_link"},
+  { id: "math-book-Z-silver-2", level: "3AS", title: "book of numbers Z (albahar)", ar: "كتاب البحار للقسمة في زاد", kind: "books", term:2, subject:"mathematics", fileUrl:"https://drive.google.com/file/d/1AIK3I0XoiBBeaPSXeLQulc-Q3BA15vh4/view?usp=drive_link"},
+  { id: "math-book-Z-silver-3", level: "3AS", title: "Comprehensive Encyclopedia in numbers Z (prof mazrouh)", ar: "الموسوعة الشاملة في الأعداد والحساب الأستاذ مزروح", kind: "books", term:2, subject:"mathematics", fileUrl:"https://drive.google.com/file/d/1vPZHDWi-ZN280_Kcew75tDHyNi8Va_gZ/view?usp=drive_link"},
+
+  /**summaries */
+  { id: "math-function-summary", level: "3AS", title: "Functions summary -AYA- ", ar: "ملخص الدوال آية", kind: "lesson", term:1, subject:"mathematics", fileUrl:"https://drive.google.com/file/d/1_Ogf6UikDV0_w8cIBdWoZYA81Chk9gpx/view?usp=drive_link"},
+  { id: "math-exp-ln-summary", level: "3AS", title: "expo/Ln summary -AYA- ", ar: "ملخص الدالة الأسية واللوغاريتم آية", kind: "lesson", term:1, subject:"mathematics", fileUrl:"https://drive.google.com/file/d/1_BDw6Agd470-T7kGD-_Olpvkr1HlQ_Rg/view?usp=drive_link"},
+  { id: "math-graph-summary", level: "3AS", title: " Graph summary -AYA- ", ar: "ملخص المناقشة الببيانية آية", kind: "lesson", term:1, subject:"mathematics", fileUrl:"https://drive.google.com/file/d/1_50HNrSRsNf5scSOt1yFp_jVY9wYvulG/view?usp=drive_link"},
+  { id: "math-sequences-summary", level: "3AS", title: "Sequences summary -AYA- ", ar: "ملخص المتتاليات آية", kind: "lesson", term:2, subject:"mathematics", fileUrl:"https://drive.google.com/file/d/1_4iNBkYmOVdX5WyueAZXcppnueA8wTiK/view?usp=drive_link"},
+  { id: "math-Divisibility-Congruences-summary", level: "3AS", title: "Divisibility and Congruences summary -AYA- ", ar: "ملخص الدوال الأصلية والتكامل آية", kind: "lesson", term:2, subject:"mathematics", fileUrl:"https://drive.google.com/file/d/1ZyFSqi0I1qpdPfTNsjiVAegNlK75nQDE/view?usp=drive_link"},
+  { id: "math-integration-summary", level: "3AS", title: "integration summary -AYA- ", ar: "ملخص القسمة والموافقات آية", kind: "lesson", term:2, subject:"mathematics", fileUrl:"https://drive.google.com/file/d/1ZzI7n4XqZ6jhz1cw12afM3JxVQcXS_Ri/view?usp=drive_link"},
+  { id: "math-cmplx-summary", level: "3AS", title: "Complex numbers summary -AYA- ", ar: "ملخص الأعداد المركبة آية", kind: "lesson", term:3, subject:"mathematics", fileUrl:"https://drive.google.com/file/d/1Zv9-8vPMzdPc-Y_t_ThSYjBjR97hfywz/view?usp=drive_link"},
+  { id: "math-prime-summary", level: "3AS", title: "Prime numbers summary -AYA- ", ar: "ملخص الأعداد الأولية آية", kind: "lesson", term:2, subject:"mathematics", fileUrl:"https://drive.google.com/file/d/1Zv2pI_V-KiCK0Hj5HCkjjoQBeF9KwIuZ/view?usp=drive_link"},
+  
+  /**lessons */
+
+
+
+  /** physics files */
+  /**devoirs */
+  { id: "physic-t1-devoir-2026", level: "3AS", title: "devoir de physique 2026", ar: "2026 فرض الفيزياء", kind: "homework", term: 1, subject: "physics", fileUrl: "https://drive.google.com/file/d/1tOmuFDWny7LblJobDPunNVIV1tu9ltk4/view?usp=drive_link" },
+  { id: "physic-t1-devoir-2025", level: "3AS", title: "devoir de physique 2025", ar: "2025 فرض الفيزياء", kind: "homework", term: 1, subject: "physics", fileUrl: "https://drive.google.com/file/d/1QaUH6Yn8nOLZvtpfoM2jBxDoaLmu3t2y/view?usp=drive_link" },
+  { id: "physic-t1-devoir-2024", level: "3AS", title: "devoir de physique 2024", ar: "2024 فرض الفيزياء", kind: "homework", term: 1, subject: "physics", fileUrl: "https://drive.google.com/file/d/1cFC0ifYCCm3s5DCv1CKHSKC3e0XpG9pd/view?usp=drive_link" },
+  { id: "physic-t1-devoir-2023", level: "3AS", title: "devoir de physique 2023", ar: "2023 فرض الفيزياء", kind: "homework", term: 1, subject: "physics", fileUrl: "https://drive.google.com/file/d/1TeyMcFq4PVtNxYMhDHmx-eqgF5bLtg3p/view?usp=drive_link" },
+  { id: "physic-t1-devoir-2017", level: "3AS", title: "devoir de physique 2017", ar: "2017 فرض الفيزياء", kind: "homework", term: 1, subject: "physics", fileUrl: "https://drive.google.com/file/d/1x2ImBbIEEgX6dHIW5XbCn6IBCqUJdnV5/view?usp=drive_link" },
+  { id: "physic-t1-subject-previous-levels", level: "3AS", title: "physic subjects previous levels", ar: "مواضيع الفيزياء للدفعات السابقة", kind: "homework", term: 1, subject: "physics", fileUrl: "https://drive.google.com/file/d/1Hb2dYTnQY7WOrZC-o2EnqIJ-llNRo0ut/view?usp=drive_link" }, 
+  { id: "physic-t2-devoir-2026", level: "3AS", title: "devoir de physique 2026", ar: "2026 فرض الفيزياء", kind: "homework", term: 2, subject: "physics", fileUrl: "https://drive.google.com/file/d/1m6UwjAMEaXJHA1h0BNvit4H_d__cmg_v/view?usp=drive_link" },
+  { id: "physic-t2-devoir-2025", level: "3AS", title: "devoir de physique 2025", ar: "2025 فرض الفيزياء", kind: "homework", term: 2, subject: "physics", fileUrl: "https://drive.google.com/file/d/1wUvvWYjpQ25LS39njR7IfxftSzc8FOp0/view?usp=drive_link" },
+  { id: "physic-t2-devoir-2024-1", level: "3AS", title: "devoir de physique 1 2024", ar: "2024 1 فرض الفيزياء", kind: "homework", term: 2, subject: "physics", fileUrl: "https://drive.google.com/file/d/1XmucH_EcalZRv5FwFoP6P_JkbV2MHkhN/view?usp=drive_link" },
+  { id: "physic-t2-devoir-2023", level: "3AS", title: "devoir de physique 2023", ar: "2023 فرض الفيزياء", kind: "homework", term: 2, subject: "physics", fileUrl: "https://drive.google.com/file/d/1_ahrg13D55F8aM1zRwEOIUuAHiIgYj82/view?usp=drive_link" },
+  { id: "physic-t2-devoir-2024-2", level: "3AS", title: "devoir de physique 2 2024", ar: "2024 2 فرض الفيزياء", kind: "homework", term: 2, subject: "physics", fileUrl: "https://drive.google.com/file/d/1P_ABYi6gyo9FvoO0tJGxi1faNzWzI3GQ/view?usp=drive_link" },
+
+  /**exams */
+  { id: "physic-t1-exam-2026", level: "3AS", title: "examen de physique 2026", ar: "2026 امتحان الفيزياء", kind: "exam", term: 1, subject: "physics", fileUrl: "https://drive.google.com/file/d/1sNQcP_vDmugK_SpjYhfC0FY3weXJsbHc/view?usp=drive_link" },
+  { id: "physic-t1-exam-2025", level: "3AS", title: "examen de physique 2025", ar: "2025 امتحان الفيزياء", kind: "exam", term: 1, subject: "physics", fileUrl: "https://drive.google.com/file/d/1KpsVT6ACI1S6t7jnZpm9mw22y3eUQiq8/view?usp=drive_link" },
+  { id: "physic-t1-exam-2024", level: "3AS", title: "examen de physique 2024", ar: "2024 امتحان الفيزياء", kind: "exam", term: 1, subject: "physics", fileUrl: "https://drive.google.com/file/d/1u6xEqn-T2yGbAZWhrL9gM6cD_UTvrYfr/view?usp=drive_link" },
+  { id: "physic-t1-exam-2023", level: "3AS", title: "examen de physique 2023", ar: "2023 امتحان الفيزياء", kind: "exam", term: 1, subject: "physics", fileUrl: "https://drive.google.com/file/d/1pLOFWR0MrEcCoRiJUSeebdHn8qOp9fnr/view?usp=drive_link" },
+  { id: "physic-t1-exam-2022", level: "3AS", title: "examen de physique 2022", ar: "2022 امتحان الفيزياء", kind: "exam", term: 1, subject: "physics", fileUrl: "https://drive.google.com/file/d/1ysNJh96LZExX7pYKjqsbiq1Qz7AMw7sW/view?usp=drive_link" },
+  { id: "physic-t2-exam-2026", level: "3AS", title: "examen de physique 2026", ar: "2026 امتحان الفيزياء", kind: "exam", term: 2, subject: "physics", fileUrl: "https://drive.google.com/file/d/1jrIccDy7WSZ6U4DwTADL9mHyG0m8yxK3/view?usp=drive_link" },
+  { id: "physic-t2-exam-2024", level: "3AS", title: "examen de physique 2024", ar: "2024 امتحان الفيزياء", kind: "exam", term: 2, subject: "physics", fileUrl: "https://drive.google.com/file/d/1FWg5fbubW6mvmcHAWTezAjNf2vTN_CBR/view?usp=drive_link" },
+  { id: "physic-t2-exam-2023", level: "3AS", title: "examen de physique 2023", ar: "2023 امتحان الفيزياء", kind: "exam", term: 2, subject: "physics", fileUrl: "https://drive.google.com/file/d/1JtAZRU8yFdusut3_GAgaX5FtoWxykXqy/view?usp=drive_link" },
+  { id: "physic-t3-exam-2026", level: "3AS", title: "bac blanc physique 2026", ar: "2026 بكالوريا تجريبية فيزياء", kind: "exam", term: 3, subject: "physics", fileUrl: "https://drive.google.com/file/d/1ieTprY0nYcH64kClS2QJD53x3tpbPHDJ/view?usp=drive_link" },
+  { id: "physic-t3-exam-2025", level: "3AS", title: "bac blanc physique 2025", ar: "2025 بكالوريا تجريبية فيزياء", kind: "exam", term: 3, subject: "physics", fileUrl: "https://drive.google.com/file/d/1CKE5g8cIg8AGlwEOP_ikJE-Rd1w-UCGE/view?usp=drive_link" },
+  { id: "physic-t3-exam-2024", level: "3AS", title: "bac blanc physique 2024", ar: "2024 بكالوريا تجريبية فيزياء", kind: "exam", term: 3, subject: "physics", fileUrl: "https://drive.google.com/file/d/1O503VM7oHeLhzw4f9mqlE6oBMJdegMRN/view?usp=drive_link" },
+  { id: "physic-t3-exam-2023", level: "3AS", title: "bac blanc physique 2023", ar: "2023 بكالوريا تجريبية فيزياء", kind: "exam", term: 3, subject: "physics", fileUrl: "https://drive.google.com/file/d/1-y1fhJ6gHtzfjjNTeDH23zezL8XbOxUN/view?usp=drive_link" },
+  { id: "physic-t3-exam-2021", level: "3AS", title: "bac blanc physique 2021", ar: "2021 بكالوريا تجريبية فيزياء", kind: "exam", term: 3, subject: "physics", fileUrl: "https://drive.google.com/file/d/1eK-DxPypEQkqAJxMSNusfsYdKGbSdLyL/view?usp=drive_link" },
+  { id: "physic-t3-exam-2020", level: "3AS", title: "bac blanc physique 2020", ar: "2020 بكالوريا تجريبية فيزياء", kind: "exam", term: 3, subject: "physics", fileUrl: "https://drive.google.com/file/d/1MODYxKi1ATimzVTzbPTaVEuSdoyoQxyh/view?usp=drive_link" },
+
+   /**books */
+  { id: "physic-book-taachirat-1-1", level: "3AS", title: "taachirat elnajah 1", ar: "تأشيرة النجاح 1", kind: "books", term:"all", subject:"physics", fileUrl: "https://drive.google.com/file/d/1EBgP8xaKJLvb6twe9f0URHsxePd0STvC/view?usp=drive_link"},
+  { id: "physic-book-taachirat-2-1", level: "3AS", title: "taachirat elnajah 2", ar: "تأشيرة النجاح 2", kind: "books", term:"all", subject:"physics", fileUrl: "https://drive.google.com/file/d/1EKCKzcAPNH5V5CxJW5X3tHAiwGgASGoJ/view?usp=drive_link"},
+  { id: "physic-book-taachirat-3-1", level: "3AS", title: "taachirat elnajah 3", ar: "تأشيرة النجاح 3", kind: "books", term:"all", subject:"physics", fileUrl: "https://drive.google.com/file/d/1EOjoZicSTtajjCZ0TtpxLAAA1VJu1aTy/view?usp=drive_link"},
+  { id: "manbar-1", level: "3AS", title: "manbar", ar: "منبر العلوم الفيزيائية", kind: "books", term:"all", subject:"physics", fileUrl: "https://drive.google.com/file/d/1Mjll7A04uytAhbuwgMcA-SOgFOPE8VBo/view?usp=drive_link"},
+  { id: "doulfin-3", level: "3AS", title: "doulfin", ar: "كتاب الدلفين", kind: "books", term:"all", subject:"physics", fileUrl: "https://drive.google.com/file/d/1d4FXb4b4ZuvUxvUrtD-cH3BZU2Yetwji/view?usp=drive_link" },
+
+  /**summaries */
+  { id: "physic-theory-11", level: "3AS", title: "theoric questions summary", ar: "ملخص الأسئلة النظرية", kind: "lesson", term: "all", subject: "physics", fileUrl: "https://drive.google.com/file/d/15lQDyPbQ329VKTDzyEGxHtvExqLPYWaE/view?usp=drive_link"},
+  { id: "physic-theory-chnait-1", level: "3AS", title: "theoric questions summary -prof chnait-", ar: "ملخص الأسئلة النظرية الأستاذ شنايت", kind: "lesson", term: "all", subject: "physics", fileUrl: "https://drive.google.com/file/d/15lQDyPbQ329VKTDzyEGxHtvExqLPYWaE/view?usp=drive_link"},
+
+
+  /** sciences files */  
+  /**devoirs */
+  { id: "chemistry-t1-devoir1-2026", level: "3AS", title: "devoir 1 de sciences 2026", ar: "2026 1 فرض العلوم", kind: "homework", term: 1, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1QFdN20M5wtg6GRk2EnChs42L-mrO7tW3/view?usp=drive_link" },
+  { id: "chemistry-t1-devoir2-2026", level: "3AS", title: "devoir 2 de sciences 2026", ar: "2026 1 فرض العلوم", kind: "homework", term: 1, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1PFio1RkZrSRUMYtkxkYVNfuqFApox68D/view?usp=drive_link" },
+  { id: "chemistry-t1-devoir-2024", level: "3AS", title: "devoir sciences 2024", ar: "2024 فرض العلوم", kind: "homework", term: 1, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1u65-3QyC1lyrc81KjgihubbezLRLhDkp/view?usp=drive_link" },
+  { id: "chemistry-t1-subject-previous-levels", level: "3AS", title: "sciences subjects previous levels", ar: "مواضيع العلوم للدفعات السابقة", kind: "homework", term: 1, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1H-5ehGqcQZs3v5rl1c1OGCO1cBbqqvUK/view?usp=drive_link" },
+  { id: "chemistry-t2-devoir-2026", level: "3AS", title: "devoir de sciences 2026", ar: "2026 فرض العلوم", kind: "homework", term: 2, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1uV2MmrvjYIndDDhA3pUxB_FT30AHLzao/view?usp=drive_link" },
+  { id: "chemistry-t2-devoir-2024", level: "3AS", title: "devoir de sciences 2024", ar: "2024 فرض العلوم", kind: "homework", term: 2, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1vO_AFXxpk5iaxSeoAMCUt_wa0XiA1odi/view?usp=drive_link" },
+  
+  /**exams */
+  { id: "chemistry-t1-exam-2026", level: "3AS", title: "examen de sciences 2026", ar: "2026 امتحان العلوم", kind: "exam", term: 1, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1glYPtX_RePeR2vRul6H__nON2MHN5vTH/view?usp=drive_link" },
+  { id: "chemistry-t1-exam-2025", level: "3AS", title: "examen de sciences 2025", ar: "2025 امتحان العلوم", kind: "exam", term: 1, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1R6ld8RX61Ti-0R5lGtS3FzmerxgMI96V/view?usp=drive_link" },
+  { id: "chemistry-t1-exam-2024", level: "3AS", title: "examen de sciences 2024", ar: "2024 امتحان العلوم", kind: "exam", term: 1, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/12IQLbPEGd0fIpEr5NOn7VnbuBFUjN6-g/view?usp=drive_link" },
+  { id: "chemistry-t1-exam-2023", level: "3AS", title: "examen de sciences 2023", ar: "2023 امتحان العلوم", kind: "exam", term: 1, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1aDL2-xTWPxVgXBjbq8rguHyZDOorysjf/view?usp=drive_link" },
+  { id: "chemistry-t2-exam-2026", level: "3AS", title: "examen de sciences 2026", ar: "2026 امتحان العلوم", kind: "exam", term: 2, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1ekcOKBG8ZX2DjqtHqAtatRHm-YDLItA0/view?usp=drive_link" },
+  { id: "chemistry-t2-exam-2024", level: "3AS", title: "examen de sciences 2024", ar: "2024 امتحان العلوم", kind: "exam", term: 2, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1vtmXco__lVHfYwoblBewS8s74BLZ70wp/view?usp=drive_link" },
+  { id: "chemistry-t2-exam-2023", level: "3AS", title: "examen de sciences 2023", ar: "2023 امتحان العلوم", kind: "exam", term: 2, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1jImSysOhnHALrtq_2bp01BYEWs11DufW/view?usp=drive_link" },
+  { id: "chemistry-t3-exam-2026", level: "3AS", title: "examen de sciences 2026", ar: "2026 بكالوريا تجريببية علوم", kind: "exam", term: 3, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1kTOiaGOKUT1zEUwSytszi6YHVA4q8vpf/view?usp=drive_link" },
+  { id: "chemistry-t3-exam-2025", level: "3AS", title: "examen de sciences 2025", ar: "2025 بكالوريا تجريببية علوم", kind: "exam", term: 3, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1PviZFxnKNaD6zUQHrvUYkdFJbw3cw_kg/view?usp=drive_link" },
+  { id: "chemistry-t3-exam-2024", level: "3AS", title: "examen de sciences 2024", ar: "2024 بكالوريا تجريببية علوم", kind: "exam", term: 3, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1fe9q_pv6Vx0FJDobVn1Ixnfi3QI7ljyu/view?usp=drive_link" },
+  { id: "chemistry-t3-exam-2023", level: "3AS", title: "examen de sciences 2023", ar: "2023 بكالوريا تجريببية علوم", kind: "exam", term: 3, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/18YuXgSYuhVzAy2b0iYLlA5QOMNgkrEH-/view?usp=drive_link" },
+  { id: "chemistry-t3-exam1-Golouz", level: "3AS", title: "examen de sciences 1 prof golouz", ar: "موضوع تجريبي 1 الأستاذ قلواز", kind: "exam", term: 3, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1FcPFwP_uP7LVYkp-sCz36Dau2r8Fn2cG/view?usp=drive_link" },
+  { id: "chemistry-t3-exam2-Golouz", level: "3AS", title: "examen de sciences 2 prof golouz", ar: "موضوع تجريبي 2 الأستاذ قلواز", kind: "exam", term: 3, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1K9LpNqk3Ypwtasa6i9VF1zMXWhHj2KM9/view?usp=drive_link" },
+  { id: "chemistry-t3-exam3-Golouz", level: "3AS", title: "examen de sciences 3 prof golouz", ar: "موضوع تجريبي 3 الأستاذ قلواز", kind: "exam", term: 3, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1_ZoZqLnNDTF6RlTj8vpzABAzSEbvuhCV/view?usp=drive_link" },
+  { id: "chemistry-t3-exam4-Golouz", level: "3AS", title: "examen de sciences 4 prof golouz", ar: "موضوع تجريبي 4 الأستاذ قلواز", kind: "exam", term: 3, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1GNGIVDWfCFPkTtYw13P6f-AlmdbttHSi/view?usp=drive_link" },
+  { id: "chemistry-t3-exam5-Golouz", level: "3AS", title: "examen de sciences 5 prof golouz", ar: "موضوع تجريبي 5 الأستاذ قلواز", kind: "exam", term: 3, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1ZoiM2lbOmjeJCiAuJ2LnAlr-ObcBp0pb/view?usp=drive_link" },
+  { id: "chemistry-t3-exam6-Golouz", level: "3AS", title: "examen de sciences 6 prof golouz", ar: "موضوع تجريبي 6 الأستاذ قلواز", kind: "exam", term: 3, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1Qx-E8mspm1KHSOk5Z1e_H89WxdldrT17/view?usp=drive_link" },
+  { id: "chemistry-t3-exam7-Golouz", level: "3AS", title: "examen de sciences 7 prof golouz", ar: "موضوع تجريبي 7 الأستاذ قلواز", kind: "exam", term: 3, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1BzolULP9WaDRiDoqDSwWsxdEiBT9kvmy/view?usp=drive_link" },
+  { id: "chemistry-t3-exam8-Golouz", level: "3AS", title: "examen de sciences 8 prof golouz", ar: "موضوع تجريبي 8 الأستاذ قلواز", kind: "exam", term: 3, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1yyXpCKh5J3R0Cs-7FBS9GR0vRB3MMKzI/view?usp=drive_link" },
+  { id: "chemistry-t3-exam9-Golouz", level: "3AS", title: "examen de sciences 9 prof golouz", ar: "موضوع تجريبي 9 الأستاذ قلواز", kind: "exam", term: 3, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/12EJm2h6CVp6PhYLl3ANChUJy0AncyLHE/view?usp=drive_link" },
+
+  /**books */
+  { id: "Foreign-Baccalaureates-1", level: "3AS", title: "Foreign Baccalaureates prof ketfi", ar: "بكالوريات أجنبية علوم الأستاذة كتفي", kind: "books", term: "all", subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1o7DIZNgzlQ1sb2L1DomFcX6ip7iBmUUm/view?usp=drive_link" },
+  { id: "silver-serie1", level: "3AS", title: "silver serie prof ketfi", ar: "السلسلة الفضية علوم الأستاذة كتفي", kind: "books", term: "all", subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1FiTmc25ZVVnX6zJeqmcVQQASDp5fiQWK/view?usp=drive_link" },
+
+  /** summaries*/
+  {id: "science-first-unit-summary", level: "3AS", title: "first unit summary", ar: "ملخص الوحدة الأولى", kind: "lesson", term: 1, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1e0lbD8i6glROH2qCRDTjvcICuYZx5M8r/view?usp=drive_link" },
+  {id: "science-second-unit-summary", level: "3AS", title: "second unit summary", ar: "ملخص الوحدة الثانية", kind: "lesson", term: 2, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1E3MKVvMF-Qaas7Cos3HYUVkLKgaQkGbG/view?usp=drive_link" },
+  {id: "science-third-unit-summary", level: "3AS", title: "third unit summary", ar: "ملخص الوحدة الثالثة", kind: "lesson", term: 3, subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/13Km1CB_JD33TKnXGWKhpBkqHGG_N9mnJ/view?usp=drive_link" },
+  {id: "scientific-texts1", level: "3AS", title: "scientific texts prof ayoub ", ar: "نصوص علمية الأستاذ أيوب بوشلوي", kind: "lesson", term: "all", subject: "natural-life-sciences", fileUrl: "https://drive.google.com/file/d/1uLIlr7x_yyL5lS0IQGpP94UU1C38ePBl/view?usp=drive_link" },
+
+
+  /** english files */  
+  /**devoirs */
+  { id: "english-t1-devoir-2026", level: "3AS", title: "devoir de anglais 2026", ar: "2026 فرض الإنجليزية", kind: "homework", term: 1, subject: "english", fileUrl: "https://drive.google.com/file/d/13znejkTvt9-IKazN42z-VvquBsNFbs28/view?usp=drive_link" },
+  { id: "english-t1-devoir-2024", level: "3AS", title: "devoir de anglais 2024", ar: "2024 فرض الإنجليزية", kind: "homework", term: 1, subject: "english", fileUrl: "https://drive.google.com/file/d/1oe4NbGjBIIIcIuTkc8S_ESxJswYmZ8-a/view?usp=drive_link" },
+  { id: "english-t2-devoir-2026", level: "3AS", title: "devoir de anglais 2026", ar: "2026 فرض الإنجليزية", kind: "homework", term: 2, subject: "english", fileUrl: "https://drive.google.com/file/d/1knF11euSwqLl-jRXthbxPkTMCDdum4Jl/view?usp=drive_link" },
+  
+  /**exams */
+  { id: "english-t1-exam-2026", level: "3AS", title: "examen de anglais 2026", ar: "2026 امتحان الإنجليزية", kind: "exam", term: 1, subject: "english", fileUrl: "https://drive.google.com/file/d/1AA92svdmkuZkpyDi2BezYDwwW_sOWapu/view?usp=drive_link" },
+  { id: "english-t1-exam-2023", level: "3AS", title: "examen de anglais 2023", ar: "2023 امتحان الإنجليزية", kind: "exam", term: 1, subject: "english", fileUrl: "https://drive.google.com/file/d/1gNSny1JpZmlGNFkJA9JFbKJIfFcv5dxY/view?usp=drive_link"},
+  { id: "english-t2-exam-2026", level: "3AS", title: "examen de anglais 2026", ar: "2026 امتحان الإنجليزية", kind: "exam", term: 2, subject: "english", fileUrl: "https://drive.google.com/file/d/13tbrDUBkMohJdRab-FjhGVH-Ejca-Pac/view?usp=drive_link" },
+  { id: "english-t2-exam-2024", level: "3AS", title: "examen de anglais 2024", ar: "2024 امتحان الإنجليزية", kind: "exam", term: 2, subject: "english", fileUrl: "https://drive.google.com/file/d/17lm5KfVX99YHGNuAZkDgKbJwslcPhArO/view?usp=drive_link"},
+  { id: "english-t3-exam-2026", level: "3AS", title: "examen de anglais 2026", ar: "2026 امتحان الإنجليزية", kind: "exam", term: 3, subject: "english", fileUrl: "https://drive.google.com/file/d/1-Z4nre0nrQXlwjzljGFrP9YueG64JorV/view?usp=drive_link" },
+  
+  /**summaries */
+  { id: "first-unit-summary-en", level: "3AS", title: "first unit summary", ar:" ملخص الوحدة الأولى", kind: "lesson", term: 1, subject: "english", fileUrl: "https://drive.google.com/file/d/1Mc0F_U_G4YWcO4JJi6nAmkyoJIuMzy7t/view?usp=drive_link" },
+  { id: "second-unit-summary-en", level: "3AS", title: "second unit summary", ar:" ملخص الوحدة الثانية", kind: "lesson", term: 2, subject: "english", fileUrl: "https://drive.google.com/file/d/103YzGoqnvf4om1i2d4JKonnUIhFUDfxz/view?usp=drive_link" },
+  { id: "third-unit-summary-en", level: "3AS", title: "third unit summary", ar:" ملخص الوحدة الثالثة", kind: "lesson", term: 3, subject: "english", fileUrl: "https://drive.google.com/file/d/13BaaOGb_IF4bYaJe4QAU5Cy6IP_sQHX4/view?usp=drive_link" },
+  { id: "summary-of-English-grammar-lessons1", level: "3AS", title: "summary of English grammar lessons ", ar:" ملخص دروس القواعد", kind: "lesson", term: "all", subject: "english", fileUrl: "https://drive.google.com/file/d/1R0EB169TGAkZKtU_FsPZjJbPMhlofU_o/view?usp=drive_link" },
+  
+  /**paragraphs */
+  { id: "advertising", level: "3AS", title: "written expression -advertising-", ar:" وضعية عن التسويق ", kind: "lesson", term: 1, subject: "english", fileUrl: "https://drive.google.com/file/d/12VRX-K8Os8mPeLd18a8P48iVF08xt9PK/view?usp=drive_link" },
+  { id: "child-labour", level: "3AS", title: "written expression -child labour-", ar:" وضعية عن عمالة الأطفال ", kind: "lesson", term: 1, subject: "english", fileUrl: "https://drive.google.com/file/d/11TpOqbreUGpX8WdCEjYyr_frDXyIdtPN/view?usp=drive_link" },
+  { id: "countefeiting", level: "3AS", title: "written expression -counterfeiting-", ar:" وضعية عن التزييف ", kind: "lesson", term: 1, subject: "english", fileUrl: "https://drive.google.com/file/d/16JjaJZFOTqMuP5MeBKHMgyOszYYthglY/view?usp=drive_link" },
+  { id: "corruption", level: "3AS", title: "written expression -how to fight corruption-", ar:" وضعية عن محاربة الفساد ", kind: "lesson", term: 1, subject: "english", fileUrl: "https://drive.google.com/file/d/1wbwOVXCMtXEwxKWRjQO7TKA6MVeEuWRD/view?usp=drive_link" },
+  { id: "advertising", level: "3AS", title: "written expression -the impact of advertising-", ar:" وضعية عن تأثير التسويق ", kind: "lesson", term: 1, subject: "english", fileUrl: "https://drive.google.com/file/d/1aLnxcIHGqzbBOaguskcIRhnViNPRYrGW/view?usp=drive_link" },
+  { id: "moon", level: "3AS", title: "written expression -Moon-", ar:" وضعية عن القمر ", kind: "lesson", term: 3, subject: "english", fileUrl: "https://drive.google.com/file/d/18KkmJwPc9lt3VUI-MxRe_gtNecgjzq9F/view?usp=drive_link" },
+  { id: "space-explore", level: "3AS", title: "written expression -space exploration-", ar:" وضعية عن اكتشاف الفضاء ", kind: "lesson", term: 3, subject: "english", fileUrl:"https://drive.google.com/file/d/1aaO9TcA9q4yNagZYBLUMcDWw9XHn-e57/view?usp=drive_link"},
+  { id: "impo-space-explore", level: "3AS", title: "written expression -the importance of space exploration-", ar:" وضعية عن أهمية اكتشاف الفضاء ", kind: "lesson", term: 3, subject: "english", fileUrl:"https://drive.google.com/file/d/1P1O3yPjnSyakSoTj3bNBN1wr1Gzrv-9C/view?usp=drive_link"},
+  { id: "sport-benefits", level: "3AS", title: "written expression -benefits of sports-", ar:" وضعية عن فوائد الرياضة ", kind: "lesson", term: 3, subject: "english", fileUrl:"https://drive.google.com/file/d/1dkFRRzcYgChJaAalRaVfaOrxjvPOtrT3/view?usp=drive_link"},
+  { id: "obesity", level: "3AS", title: "written expression -obesity-", ar:"وضعية عن السمنة", kind: "lesson", term: 3, subject: "english", fileUrl:"https://drive.google.com/file/d/1faFIodLriw7izcwR-4WtVvn_wG515TfV/view?usp=drive_link"},
+  { id: "balanced-diet", level: "3AS", title: "written expression -how to adobt balanced diet-", ar:"وضعية عن حمية المتوازنة", kind: "lesson", term: 3, subject: "english", fileUrl:"https://drive.google.com/file/d/11_ZzNEhsbsrR0aTuIQ01BQvQbSFHeLmd/view?usp=drive_link"},
+  { id: "fitness", level: "3AS", title: "written expression -how to keep fit-", ar:"وضعية عن كيفية الحفاظ على اللياقة", kind: "lesson", term: 3, subject: "english", fileUrl:"https://drive.google.com/file/d/11_ZzNEhsbsrR0aTuIQ01BQvQbSFHeLmd/view?usp=drive_link"},
+  
+  /**books */
+  { id: "english-silver-series", level: "3AS", title: "silver book", ar: "كتاب السلسلة الفضية", kind: "exam", term: 'all', subject: "english", fileUrl: "https://drive.google.com/file/d/1Kzb5dKLlHtSVtt19smnL4jfnyitbFLQp/view?usp=drive_link" },
+  { id: "english-genius", level: "3AS", title: "genius book", ar: "كتاب النوابغ", kind: "exam", term: 'all', subject: "english", fileUrl: "https://drive.google.com/file/d/1XPipH9sDIJcQPHF_Fo5IXpvMVgSia_ew/view?usp=drive_link" },
+  { id: "english-prof-nasri", level: "3AS", title: "book of prof nasri", ar: "كتاب الأستاذ ناصري", kind: "exam", term: 'all', subject: "english", fileUrl: "https://drive.google.com/file/d/1XPipH9sDIJcQPHF_Fo5IXpvMVgSia_ew/view?usp=drive_link" },
+
+  /** history files */  
+  /**devoirs */
+  { id: "history-t1-devoir1-2026", level: "3AS", title: "devoir de his/geo 1 2026", ar: "2026 1 فرض اجتماعيات", kind: "homework", term: 1, subject: "history", fileUrl: "https://drive.google.com/file/d/1dqKPpHkOEjonYP3snM8Pze_xpsrmE_fs/view?usp=drive_link" },
+  { id: "history-t1-devoir2-2026", level: "3AS", title: "devoir de his/geo 2 2026", ar: "2026 2 فرض اجتماعيات", kind: "homework", term: 1, subject: "history", fileUrl: "https://drive.google.com/file/d/1UIfxBfBeqkw7c25BbeSNf7VfRsxlv9Nh/view?usp=drive_link" },
+  { id: "history-t1-devoir-2025", level: "3AS", title: "devoir de his/geo 2025", ar: "2025 فرض اجتماعيات", kind: "homework", term: 1, subject: "history", fileUrl: "https://drive.google.com/file/d/1lIizGhXBtgE8f4mq7O7B-HAvdYBvnBtU/view?usp=drive_link"},
+  { id: "history-t1-devoir-2024", level: "3AS", title: "devoir de his/geo 2024", ar: "2024 فرض اجتماعيات", kind: "homework", term: 1, subject: "history", fileUrl: "https://drive.google.com/file/d/1xioyS5dEsfzulP91Z1HYl_ScIuD__ARF/view?usp=drive_link"},
+  { id: "history-t1-devoir-2023", level: "3AS", title: "devoir de his/geo 2023", ar: "2023 فرض اجتماعيات", kind: "homework", term: 1, subject: "history", fileUrl: "https://drive.google.com/file/d/1hTZep69iTUvFGKPjD6W5nZa1yjUflfYB/view?usp=drive_link"},
+  { id: "history-t2-devoir-2026", level: "3AS", title: "devoir de his/geo 2026", ar: "2026 فرض اجتماعيات", kind: "homework", term: 2, subject: "history", fileUrl: "https://drive.google.com/file/d/1VmKUcz-nd5IxJIznk1NWcyk9iDudlvf6/view?usp=drive_link" },
+  
+  /**exams */
+  { id: "history-t1-exam-2026", level: "3AS", title: "examen de his/geo 2026", ar: "2026 امتحان اجتماعيات", kind: "exam", term: 1, subject: "history", fileUrl: "https://drive.google.com/file/d/1s6WtT5FMqhXG6AW-0mW5As4qN-5DHVXf/view?usp=drive_link" },
+  { id: "history-t1-exam-2025", level: "3AS", title: "examen de his/geo 2025", ar: "2025 امتحان اجتماعيات", kind: "exam", term: 1, subject: "history", fileUrl: "https://drive.google.com/file/d/1pTqkoCRmhzayoTbs_QjRC9bNtgI6rDk1/view?usp=drive_link"},
+  { id: "history-t1-exam-2024", level: "3AS", title: "examen de his/geo 2024", ar: "2024 امتحان اجتماعيات", kind: "exam", term: 1, subject: "history", fileUrl: "https://drive.google.com/file/d/1p5psZ_Fc4iTHYrPJ6mxSVnl2Vs2NVuU9/view?usp=drive_link"},
+  { id: "history-t1-exam-2023", level: "3AS", title: "examen de his/geo 2023", ar: "2023 امتحان اجتماعيات", kind: "exam", term: 1, subject: "history", fileUrl: "https://drive.google.com/file/d/1opufqOHBeorM3TH-Akkfq41rkOXFGCTo/view?usp=drive_link"},
+  { id: "history-t2-exam-2026", level: "3AS", title: "examen de his/geo 2026", ar: "2026 امتحان اجتماعيات", kind: "exam", term: 2, subject: "history", fileUrl: "https://drive.google.com/file/d/1Aubj53d32ARpIfvyEbKNZuGzWSmjpqrf/view?usp=drive_link" },
+  { id: "history-t2-exam-2023", level: "3AS", title: "examen de his/geo 2023", ar: "2023 امتحان اجتماعيات", kind: "exam", term: 2, subject: "history", fileUrl: "https://drive.google.com/file/d/1yWxmCWifrW-wKdwjoSRC4vMO28HLYMky/view?usp=drive_link" },
+  { id: "history-t3-exam-2026", level: "3AS", title: "bac blanc his/geo 2026", ar: "2026 بكالوريا تجريبية اجتماعيات", kind: "exam", term: 3, subject: "history", fileUrl: "https://drive.google.com/file/d/1unHH4PorIRRCKC3jYz9057bPid6kWmt3/view?usp=drive_link" },
+  { id: "history-t3-exam-2025", level: "3AS", title: "bac blanc his/geo 2025", ar: "2025 بكالوريا تجريبية اجتماعيات", kind: "exam", term: 3, subject: "history", fileUrl: "https://drive.google.com/file/d/1nq_Z2kFMgd6UTNfxLu8PiAyJef1isQG9/view?usp=drive_link" },
+  { id: "history-t3-exam-2024", level: "3AS", title: "bac blanc his/geo 2024", ar: "2024 بكالوريا تجريبية اجتماعيات", kind: "exam", term: 3, subject: "history", fileUrl: "https://drive.google.com/file/d/1mspndRnfJisvBQPDebTfMVxhjZWWB2aV/view?usp=drive_link" },
+  { id: "history-t3-exam-2023", level: "3AS", title: "bac blanc his/geo 2023", ar: "2023 بكالوريا تجريبية اجتماعيات", kind: "exam", term: 3, subject: "history", fileUrl: "https://drive.google.com/file/d/1tGOBa7PMrd1kco_LbHH5gC5bD7ePCMpo/view?usp=drive_link" },
+
+  /**summaries */
+  { id: "Professor-Dean's-Terms-and-Figures-his1", level: "3AS", title: "Professor Dean's Terms and Figures history", ar: "مصطلحات وشخصيات الأستاذ دين تاريخ", kind: "lesson", term: "all", subject: "history", fileUrl: "https://drive.google.com/file/d/1005GmR6iS3QWMzHHqD6BApqlKF56bSMX/view?usp=drive_link" },
+  { id: "Professor-Dean's-Terms-geo1", level: "3AS", title: "Professor Dean's Terms geography", ar: "مصطلحات الأستاذ دين جغرافيا", kind: "lesson", term: "all", subject: "history", fileUrl: "https://drive.google.com/file/d/1S5HZz0EBLitRu6rNOpND0ACSkCfJ2JuO/view?usp=drive_link" },
+  { id: "maps-his1", level: "3AS", title: "maps of history", ar: "خرائط التاريخ", kind: "lesson", term: "all", subject: "history", fileUrl: "https://drive.google.com/file/d/1H-6I8dqw2qc3Iv0iWwuelixS6YL2xqg1/view?usp=drive_link" },
+  { id: "maps-geo", level: "3AS", title: "maps of geography", ar: "خرائط الجغرافيا", kind: "lesson", term: "all", subject: "history", fileUrl: "https://drive.google.com/file/d/198HMD3B8PyhwkmQUGpXre0V-y1ucPxfs/view?usp=drive_link" },
+
+
+  /** S.Isl files */
+  /**devoirs */  
+  { id: "islamic-sciences-t1-devoir-2026", level: "3AS", title: "devoir de sciences islamiques 2026", ar: "2026 فرض العلوم الإسلامية", kind: "homework", term: 1, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1Id9dYg8Axx4VKqnA-9CDxpux-_EA6D2x/view?usp=drive_link" },
+  { id: "islamic-sciences-t1-devoir-2023", level: "3AS", title: "devoir de sciences islamiques 2023", ar: "2023 فرض العلوم الإسلامية", kind: "homework", term: 1, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1NOSA3dBgZeDDD8t5BXXiVM3q8S7tb_iY/view?usp=drive_link" },
+  { id: "islamic-sciences-t1-devoir-2017", level: "3AS", title: "devoir de sciences islamiques 2017", ar: "2017 فرض العلوم الإسلامية", kind: "homework", term: 1, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/10DmzLf0Unn8Ysxrzthne2eocccKQ_Ejs/view?usp=drive_link" },
+  { id: "islamic-sciences-t2-devoir-2026", level: "3AS", title: "devoir de sciences islamiques 2026", ar: "2026 فرض العلوم الإسلامية", kind: "homework", term: 2, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1vLtkEO_6695-65CmO2op53ALay8RuAiT/view?usp=drive_link" },
+  
+  /**exams */
+  { id: "islamic-sciences-t1-exam-2025", level: "3AS", title: "examen de sciences islamiques 2025", ar: "2025 امتحان العلوم الإسلامية", kind: "exam", term: 1, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1K41NvTnbvRsfSVjgEe9P7OdnESEsiIxp/view?usp=drive_link" },
+  { id: "islamic-sciences-t1-exam-2026", level: "3AS", title: "examen de sciences islamiques 2026", ar: "2026 امتحان العلوم الإسلامية", kind: "exam", term: 1, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/13Fs1eKPuNgy_DYpXJyIremDYY8H9Ruqg/view?usp=drive_link" },
+  { id: "islamic-sciences-t1-exam-2023", level: "3AS", title: "examen de sciences islamiques 2023", ar: "2023 امتحان العلوم الإسلامية", kind: "exam", term: 1, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/16RCYMMVs51kkkXb4H4f9Mx7awW5y9gWh/view?usp=drive_link" },
+  { id: "islamic-sciences-t1-exam-2019", level: "3AS", title: "examen de sciences islamiques 2019", ar: "2019 امتحان العلوم الإسلامية", kind: "exam", term: 1, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/12HMKp3H65Osn9rfxBRKSEh4hD_2SxwFh/view?usp=drive_link" },
+  { id: "islamic-sciences-t1-exam-2015", level: "3AS", title: "examen de sciences islamiques 2015", ar: "2015 امتحان العلوم الإسلامية", kind: "exam", term: 1, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/16zhpuYBsUDnasJTtbyLTwYxfWuwCBa6s/view?usp=drive_link" },
+  { id: "islamic-sciences-t2-exam-2026", level: "3AS", title: "examen de sciences islamiques 2026", ar: "2026 امتحان العلوم الإسلامية", kind: "exam", term: 2, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1rp8Up1yz_KulMVSJ2x627OepgoB-6_rQ/view?usp=drive_link" },
+  { id: "islamic-sciences-t2-exam-2020", level: "3AS", title: "examen de sciences islamiques 2020", ar: "2020 امتحان العلوم الإسلامية", kind: "exam", term: 2, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1fU9JiO53Jrdj9JxUmmrqbpqWCEFCJ-pa/view?usp=drive_link" },
+  { id: "islamic-sciences-t2-exam-2017", level: "3AS", title: "examen de sciences islamiques 2017", ar: "2017 امتحان العلوم الإسلامية", kind: "exam", term: 2, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1UWp8k5NaLLwIH2GhMfA3KtS_wV58fmv5/view?usp=drive_link" },
+  { id: "islamic-sciences-t3-exam-2026", level: "3AS", title: "bac blanc sciences islamiques 2026", ar: "2026 بكالوريا تجريبية علوم إسلامية", kind: "exam", term: 3, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/13K1AEpQN5oDgmoyzI-ymp_eLkMiv4bSO/view?usp=drive_link"},
+  { id: "islamic-sciences-t3-exam-2024", level: "3AS", title: "bac blanc sciences islamiques 2024", ar: "2024 بكالوريا تجريبية علوم إسلامية", kind: "exam", term: 3, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1RlCPNE6zFM7GtkTJ4xvpamrVba3E8tCS/view?usp=drive_link"},
+  { id: "islamic-sciences-t3-exam-2023", level: "3AS", title: "bac blanc sciences islamiques 2023", ar: "2023 بكالوريا تجريبية علوم إسلامية", kind: "exam", term: 3, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1lbSZNNYpK2STpfRakDY_Ulpjg-3JI3gL/view?usp=drive_link"},
+  { id: "islamic-sciences-t3-exam-2020", level: "3AS", title: "bac blanc sciences islamiques 2020", ar: "2020 بكالوريا تجريبية علوم إسلامية", kind: "exam", term: 3, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1V5islbpCwKYSfpCA5TKaCKjgudh9OESd/view?usp=drive_link"},
+  { id: "islamic-sciences-t3-exam-2019", level: "3AS", title: "bac blanc sciences islamiques 2019", ar: "2019 بكالوريا تجريبية علوم إسلامية", kind: "exam", term: 3, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1ZJlq29DPh1cR2yRS7dwPFfWBKIFZQkwK/view?usp=drive_link"},
+  { id: "islamic-sciences-t3-exam-2018", level: "3AS", title: "bac blanc sciences islamiques 2018", ar: "2018 بكالوريا تجريبية علوم إسلامية", kind: "exam", term: 3, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1j5KOx4FwpKmHC1XjTyVeb-sL2SPUFlRP/view?usp=drive_link"},
+  { id: "islamic-sciences-t3-exam-2017", level: "3AS", title: "bac blanc sciences islamiques 2017", ar: "2017 بكالوريا تجريبية علوم إسلامية", kind: "exam", term: 3, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/10G6x_p369IPSLj2VUrZ5ej1vAeFrIGHH/view?usp=drive_link"}, 
+
+  /**books */
+  { id: "purple-serie1", level: "3AS", title: "purple serie prof bousaadi", ar: "كتاب السلسلة الأرجوانية", kind: "books", term: 1, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1Eo_BPtkdiDi17DtZqSoErvvNnd-n-Gs9/view?usp=drive_link"},
+  { id: "purple-serie2", level: "3AS", title: "purple serie prof bousaadi", ar: "كتاب السلسلة الأرجوانية", kind: "books", term: 2, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1Eo_BPtkdiDi17DtZqSoErvvNnd-n-Gs9/view?usp=drive_link"}, 
+  { id: "purple-serie3", level: "3AS", title: "purple serie prof bousaadi", ar: "كتاب السلسلة الأرجوانية", kind: "books", term: 3, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1Eo_BPtkdiDi17DtZqSoErvvNnd-n-Gs9/view?usp=drive_link"},  
+  { id: "green-serie1", level: "3AS", title: "green book", ar: "كتاب السلسلة الخضراء", kind: "books", term: 1, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1qOfutMl_NgrHlou9SZ0oiwB8Wxx--Q_h/view?usp=drive_link"}, 
+  { id: "green-serie2", level: "3AS", title: "green book", ar: "كتاب السلسلة الخضراء", kind: "books", term: 2, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1qOfutMl_NgrHlou9SZ0oiwB8Wxx--Q_h/view?usp=drive_link"}, 
+  { id: "green-serie3", level: "3AS", title: "green book", ar: "كتاب السلسلة الخضراء", kind: "books", term: 3, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1qOfutMl_NgrHlou9SZ0oiwB8Wxx--Q_h/view?usp=drive_link"}, 
+  { id: "general-serie1", level: "3AS", title: "the general revision", ar: "كتاب المراجعة الشاملة", kind: "books", term: 1, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1qbu6blYZ25NDeWxQBxRJB0i2JKn8H1BB/view?usp=drive_link"}, 
+  { id: "general-serie2", level: "3AS", title: "the general revision", ar: "كتاب المراجعة الشاملة", kind: "books", term: 2, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1qbu6blYZ25NDeWxQBxRJB0i2JKn8H1BB/view?usp=drive_link"}, 
+  { id: "general-serie3", level: "3AS", title: "the general revision", ar: "كتاب المراجعة الشاملة", kind: "books", term: 3, subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1qbu6blYZ25NDeWxQBxRJB0i2JKn8H1BB/view?usp=drive_link"}, 
+
+
+  /**summaries */
+  { id: "lessons-ben-wali", level: "3AS", title: "all the lessons prof ben wali", ar: "جميع الدروس الأستاذ بن والي", kind: "lesson", term: "all", subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/12IyDcA2waijwO0pPIxDpn4qnI8xeOs1X/view?usp=drive_link"},
+  { id: "lessons-chabou", level: "3AS", title: "all the lessons prof chabou", ar: "جميع الدروس الأستاذ شابو", kind: "lesson", term: "all", subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1qmXOS9kmlgP_9I5pD78uahXcV3bc1sbN/view?usp=drive_link"},
+  { id: "summary-isl", level: "3AS", title: "all the program in 5 pages", ar: "كل البرنامج في 5 صفحات", kind: "lesson", term: "all", subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/133GvB1xi07rPvGO5DAj1_J-OO2looOJ6/view?usp=drive_link"},
+  
+  /**series */
+  { id: "isl-question-revision", level: "3AS", title: "questions for revisions", ar: "أسئلة مراجعة", kind: "series", term: "all", subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1aFPwyBaNpTuYussSBRE5vns53Hk_sw3a/view?usp=drive_link"},
+  { id: "isl-finance", level: "3AS", title: "financial transactions", ar: "معاملات مالية", kind: "series", term: "all", subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1utfmlltC3ioG1deNszGp8zE_5FUz4LAq/view?usp=drive_link"},
+  { id: "isl-Benefits-Rulings", level: "3AS", title: "Benefits and Rulings", ar: "الفوائد والأحكام", kind: "series", term: "all", subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1vmRe03U3xT9THg8i0w_qRsxVO03ijBAb/view?usp=drive_link"},
+  { id: "isl-annals", level: "3AS", title: "bac annals", ar: "حوليات بكالوريا", kind: "series", term: "all", subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1NmBWlefJFcOwr5pJmvqOl44LhoN11XQX/view?usp=drive_link"},
+  { id: "isl-answering-method", level: "3AS", title: "answering methods", ar: "منهجية الإجابة", kind: "series", term: "all", subject: "islamic-sciences", fileUrl: "https://drive.google.com/file/d/1q58t5xZiTDriLW9TamHfKh1XTkp48MZm/view?usp=drive_link"},
+  
+
+  
+  /**philo */
+  /**devoirs */
+  { id: "philo-t1-devoir-2026", level: "3AS", title: "devoir de philo 2026", ar: "2026 فرض الفلسفة ", kind: "homework", term: 1, subject: "philo", fileUrl: "https://drive.google.com/file/d/1pAberEAAX1AMwUQqM-BOKI7CJUZVrrLO/view?usp=drive_link"},
+  { id: "philo-t1-devoir-2025", level: "3AS", title: "devoir de philo 2025", ar: "2025 فرض الفلسفة ", kind: "homework", term: 1, subject: "philo", fileUrl: "https://drive.google.com/file/d/1acuMuggK3E__ZIhyIebMViePlUolHLry/view?usp=drive_link"},
+  { id: "philo-t2-devoir-2026", level: "3AS", title: "devoir de philo 2026", ar: "2026 فرض الفلسفة ", kind: "homework", term: 2, subject: "philo", fileUrl: "https://drive.google.com/file/d/1JImM8JB1rHKbDXw1QGjk_vni7UoLvWa7/view?usp=drive_link"},
+
+  /**exams */
+  { id: "philo-t1-exam-2026", level: "3AS", title: "examen philo 2026", ar: "2026 امتحان الفلسفة ", kind: "exam", term: 1, subject: "philo", fileUrl: "https://drive.google.com/file/d/1qWKdZpR018sF-bxNqOMEtpQ5QwduFfwz/view?usp=drive_link"},
+  { id: "philo-t1-exam-2025", level: "3AS", title: "examen philo 2025", ar: "2025 امتحان الفلسفة ", kind: "exam", term: 1, subject: "philo", fileUrl: "https://drive.google.com/file/d/1rkncvV-JNZdNbs4taykmUkIHRn-DADcd/view?usp=drive_link"},
+  { id: "philo-t1-exam-2024", level: "3AS", title: "examen philo 2024", ar: "2024 امتحان الفلسفة ", kind: "exam", term: 1, subject: "philo", fileUrl: "https://drive.google.com/file/d/1OiV48tcaB6ej6qWF2XPx9uL3nGwNe9G_/view?usp=drive_link"},
+  { id: "philo-t1-exam-2023", level: "3AS", title: "examen philo 2023", ar: "2023 امتحان الفلسفة ", kind: "exam", term: 1, subject: "philo", fileUrl: "https://drive.google.com/file/d/1KmK785ucpUt_AKCU34U-kuxLVWm7OEcJ/view?usp=drive_link"},
+  { id: "philo-t2-exam-2024", level: "3AS", title: "examen philo 2024", ar: "2024 امتحان الفلسفة ", kind: "exam", term: 2, subject: "philo", fileUrl: "https://drive.google.com/file/d/1sjQkqBQQ4bv5heDZBgiv8fRiovKzJpex/view?usp=drive_link"},
+  { id: "philo-t2-exam-2023", level: "3AS", title: "examen philo 2023", ar: "2023 امتحان الفلسفة ", kind: "exam", term: 2, subject: "philo", fileUrl: "https://drive.google.com/file/d/1eOWDwVXIjzbG7Y8tjiuualVCfH39IJDc/view?usp=drive_link"},
+  { id: "philo-t3-exam-2026", level: "3AS", title: "bac blanc philo 2026", ar: "2026 بكالوريا تجريبية فلسفة", kind: "exam", term: 3, subject: "philo", fileUrl: "https://drive.google.com/file/d/1bWoGk8eNqLWHbfUDsagygDEbJIq8qh9h/view?usp=drive_link" },
+  { id: "philo-t3-exam-2025", level: "3AS", title: "bac blanc philo 2025", ar: "2025 بكالوريا تجريبية فلسفة", kind: "exam", term: 3, subject: "philo", fileUrl: "https://drive.google.com/file/d/194gxHOu4SIg8Ue-x-c0Eyk_lhMahJhvc/view?usp=drive_link" },
+  { id: "philo-t3-exam-2024", level: "3AS", title: "bac blanc philo 2024", ar: "2024 بكالوريا تجريبية فلسفة", kind: "exam", term: 3, subject: "philo", fileUrl: "https://drive.google.com/file/d/1PPESPLRCtdWla9VRiBl6m1WfUWVa7k3-/view?usp=drive_link" },
+  { id: "philo-t3-exam-2023", level: "3AS", title: "bac blanc philo 2023", ar: "2023 بكالوريا تجريبية فلسفة", kind: "exam", term: 3, subject: "philo", fileUrl: "https://drive.google.com/file/d/1M1ePtYZ9SAPhcYydHUK-AvC_KvaszzIA/view?usp=drive_link" },
+
+  /**books */
+  { id: "Alhouada", level: "3AS", title: "Alhouda", ar: "كتاب الهدى", kind: "books", term: "all", subject: "philo", fileUrl: "https://drive.google.com/file/d/10ILf90Nz8ljWJamUrlcM3nhnHGTc0-OJ/view?usp=drive_link" },
+  { id: "Al-Jawhara", level: "3AS", title: "Alhouda", ar: "كتاب الجوهرة", kind: "books", term: "all", subject: "philo", fileUrl: "https://drive.google.com/file/d/1oVv4XSXKH7IHRyTuJgF6pdCgEgRc4C04/view?usp=drive_link" },
+  { id: "khalil-saidani", level: "3AS", title: "book of prof khalil saidini", ar: "كتاب خليل سعيداني", kind: "books", term: "all", subject: "philo", fileUrl: "https://drive.google.com/file/d/1pJqfSRhuvZZvS2QNtQDoT2Z7OWConsc1/view?usp=drive_link" },
+  { id: "hiba", level: "3AS", title: "book of the full mark", ar: "كتاب العلامة الكاملة هبة جبابرية", kind: "books", term: "all", subject: "philo", fileUrl: "https://drive.google.com/file/d/1oQObMj_C2cOxlzphnyAuSidVv3xqLq1u/view?usp=drive_link" },
+
+  /**articels */
+  { id: "comparison-philo", level: "3AS", title: "comparison between science and philo", ar: "مقارنة بين العلم والفلسفة", kind: "lesson", term: 1, subject: "philo", fileUrl:"https://drive.google.com/file/d/1TwLeC7pMN_uFwroRfuw2VK5Cp3Gvx33t/view?usp=drive_link"},
+  { id: "comparison-philo9", level: "3AS", title: "comparison between science and philo promo 9", ar: "مقارنة بين العلم والفلسفة الدفعة التاسعة", kind: "lesson", term: 1, subject: "philo", fileUrl:"https://drive.google.com/file/d/1slTvatsKtNwJplaangYksoA6xgbIaCUu/view?usp=drive_link"},
+  { id: "importance-philo", level: "3AS", title: "article about the importance of philo", ar: "مقالة عن أهمية الفلسفة", kind: "lesson", term: 1, subject: "philo", fileUrl: "https://drive.google.com/file/d/19Lli0DkNvewgIbyz7yUFuRHnjTbQPPKp/view?usp=drive_link" },
+  { id: "math-origin", level: "3AS", title: "article about the origin of math", ar: "مقالة عن أصل الرياضيات", kind: "lesson", term: 1, subject: "philo", fileUrl: "https://drive.google.com/file/d/1lg97bdP8Vx2p1e5FYP_KyYyJBDbAeTWj/view?usp=drive_link" },
+  { id: "Mathematical-certainty1", level: "3AS", title: "article about the Mathematical certainty 1", ar: "1 مقالة عن اليقين الرياضي", kind: "lesson", term: 1, subject: "philo", fileUrl: "https://drive.google.com/file/d/1JJ6z6xBR3O3kfB7yRngAhM_33O2ri85h/view?usp=drive_link" },
+  { id: "math-certainty", level: "3AS", title: "article about the math certainty 2", ar: "مقالة عن اليقين الرياضي 2", kind: "lesson", term: 1, subject: "philo", fileUrl: "https://drive.google.com/file/d/1ILS1Xz_7zMa3zoMdkjZh8BMzZpXtwMKn/view?usp=drive_link" },
+  { id: "math-certainty9", level: "3AS", title: "article about the math certainty promo 9", ar: "مقالة عن اليقين الرياضي الدفعة التاسعة", kind: "lesson", term: 1, subject: "philo", fileUrl: "https://drive.google.com/file/d/1sLNyBkP6Q6myAOClTIhtKDIr9qQ2fe0A/view?usp=drive_link" },
+  { id: "bio", level: "3AS", title: "article about bio", ar: "مقالة عن البيولوجيا", kind: "lesson", term: 2, subject: "philo", fileUrl: "https://drive.google.com/file/d/1_4W_2SKNxANkf1wfx3POe6dLvRbSIn3l/view?usp=drive_link" },
+  { id: "bio2", level: "3AS", title: "article about bio 2", ar: "2 مقالة عن البيولوجيا", kind: "lesson", term: 2, subject: "philo", fileUrl: "https://drive.google.com/file/d/1j1AnBlma684Bt0F7Bs4aZnTvghQSwJu2/view?usp=drive_link" },
+  { id: "bio3", level: "3AS", title: "article about bio promo 9", ar: " مقالة عن البيولوجيا الدفعة التاسعة", kind: "lesson", term: 2, subject: "philo", fileUrl: "https://drive.google.com/file/d/1rim75XtENN8xIKMNnT_SgR_fyJPpvq_f/view?usp=drive_link" },
+  { id: "Determinism", level: "3AS", title: "article about Determinism", ar: "مقالة عن الحتمية", kind: "lesson", term: 2, subject: "philo", fileUrl: "https://drive.google.com/file/d/1wZI-1JzV6jNf2nDbSRGjIW8r_tm17sOk/view?usp=drive_link" },
+  { id: "psychology", level: "3AS", title: "article about psychology", ar: "مقالة عن علم النفس", kind: "lesson", term: 2, subject: "philo", fileUrl: "https://drive.google.com/file/d/1Qf2u_nX7qIkML0KbXPqnQCXW-nwU5QJx/view?usp=drive_link" },
+  { id: "psychology9", level: "3AS", title: "article about psychology promo 9", ar: "مقالة عن علم النفس الدفعة التاسعة", kind: "lesson", term: 2, subject: "philo", fileUrl:"https://drive.google.com/file/d/1sb9ZGbwe3AI6-tHVDTiFAHnWb1cIMTfw/view?usp=drive_link"},
+  { id: "history", level: "3AS", title: "article about history promo 9", ar: "مقالة عن التاريخ الدفعة التاسعة", kind: "lesson", term: 2, subject: "philo", fileUrl:"https://drive.google.com/file/d/1tQMyWh4-NNFh8As_rMekstrsCT44pQlq/view?usp=drive_link"},
+  { id: "hypothesis", level: "3AS", title: "article about the hypothesis", ar: "مقالة عن الفرضية ", kind: "lesson", term: 2, subject: "philo", fileUrl: "https://drive.google.com/file/d/1W6r7ooelfJbOO3N3wcs9gJLaHtmnv5G4/view?usp=drive_link" },
+  { id: "violence-tolerance", level: "3AS", title: "article about violence and tolerance", ar: "مقالة عن العنف والتسامح", kind: "lesson", term: 3, subject: "philo", fileUrl: "https://drive.google.com/file/d/1ry0fYTlN_NvV0ZtCd6Ge4oInTdaD_cOz/view?usp=drive_link" },
+  { id: "violence-tolerance2", level: "3AS", title: "article about violence and tolerance promo 9", ar: "مقالة عن العنف والتسامح الدفعة التاسعة", kind: "lesson", term: 3, subject: "philo", fileUrl: "https://drive.google.com/file/d/1tPCxjcTmTv-NOyiIyhe3ETH1PNAMi0Bt/view?usp=drive_link" },
+  { id: "comparison-math", level: "3AS", title: " Comparison Between Classical and Contemporary Mathematics", ar: "مقارنة بين الرياضيات الكلاسيكية والمعاصرة", kind: "lesson", term: 2, subject: "philo", fileUrl: "https://drive.google.com/file/d/13em7_umNOEgQ_IpdRiNdMpOTOmVXpLYt/view?usp=drive_link" },
+  { id: "comparison-math9", level: "3AS", title: " Comparison Between Classical and Contemporary Mathematics promo 9", ar: "مقارنة بين الرياضيات الكلاسيكية والمعاصرة الدفعة التاسعة", kind: "lesson", term: 2, subject: "philo", fileUrl:"https://drive.google.com/file/d/1se5LcCFwAFex67VRPc4fqzyI53TkQa7s/view?usp=drive_link" },
+  { id: "feeling", level: "3AS", title: "article about The sense of self and the other promo 9", ar: "مقالة عن الشعور بالأنا والغير الدفعة التاسعة ", kind: "lesson", term: 3, subject: "philo", fileUrl: "https://drive.google.com/file/d/1sptTttoiOGNRIVU0ynu6EHO8Swg31alr/view?usp=drive_link"},
+  { id: "summaries", level: "3AS", title: "summaries for all the articles", ar: "ملخصات لجميع المقالات", kind: "lesson", term: "all", subject: "philo", fileUrl: "https://drive.google.com/file/d/1YMxBeti4xfL4XJ2JiJyUZ-xNaEocvpbC/view?usp=drive_link"},
+
+  /**arabic */
+  /**devoirs */
+  { id: "arab-t1-devoir-26", level: "3AS", title: "devoir d'arabe 2026", ar: "فرض الأدب العربي 2026", kind: "homework", term: 1, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1j76XDjRB4RdFf6kpqQsygOfuEJICkDDM/view?usp=drive_link"},
+  { id: "arab-t1-devoir-25", level: "3AS", title: "devoir d'arabe 2025", ar: "فرض الأدب العربي 2025", kind: "homework", term: 1, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1bH2-mhypzMruLNcq1OBuHXhuwQ0fj-mo/view?usp=drive_link"},
+  { id: "arab-t1-devoir-24", level: "3AS", title: "devoir d'arabe 2024", ar: "فرض الأدب العربي 2024", kind: "homework", term: 1, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1pNeKUVX4oNvOv_XpmgIcmsw5y_YrdsJb/view?usp=drive_link"},
+  { id: "arab-t1-devoir-23", level: "3AS", title: "devoir d'arabe 2023", ar: "فرض الأدب العربي 2023", kind: "homework", term: 1, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1bjTnOXffwXXASyWzJ0xPPtZ7mrrXs5bO/view?usp=drive_link"},
+  { id: "arab-t2-devoir-25", level: "3AS", title: "devoir d'arabe 2026", ar: "فرض الأدب العربي 2026", kind: "homework", term: 2, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1bYbezZC-0_3WjQ97fxqajZQZxkxDjrFe/view?usp=drive_link" },
+  { id: "arab-t2-devoir-24", level: "3AS", title: "devoir d'arabe 2025", ar: "فرض الأدب العربي 2025", kind: "homework", term: 2, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1572baE_8LWR0ylSNjOwQ_dCG-th6LV3W/view?usp=drive_link" },
+  { id: "arab-t2-devoir-26", level: "3AS", title: "devoir d'arabe 2024", ar: "فرض الأدب العربي 2024", kind: "homework", term: 2, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1QBCvPcXMWY4hHZ5KCZw4Wzc5aNcMkjSr/view?usp=drive_link" },
+
+  /**exams */
+  { id: "arab-t1-exam-26", level: "3AS", title: "exam arabe 2026", ar: "امتحان الأدب العربي 2026", kind: "exam", term: 1, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1rotba9JTxaj1so8A0R0jgjAS2JJ3ekQt/view?usp=drive_link"},
+  { id: "arab-t1-exam-24", level: "3AS", title: "exam arabe 2024", ar: "امتحان الأدب العربي 2024", kind: "exam", term: 1, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1QLpKWGVDMsgdfLWCgb9ut0g37WGY2m-Z/view?usp=drive_link"},
+  { id: "arab-t1-exam-23", level: "3AS", title: "exam arabe 2023", ar: "امتحان الأدب العربي 2023", kind: "exam", term: 1, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1bkueIp7pdc_tWcPJYCPN4GuyXjkzZ0k9/view?usp=drive_link"},
+  { id: "arab-t1-exam-19", level: "3AS", title: "exam arabe 2019", ar: "امتحان الأدب العربي 2019", kind: "exam", term: 1, subject: "arabic", fileUrl:"https://drive.google.com/file/d/161tbtD3gzu7JL3VTcwBF_VfzOE2TdAd_/view?usp=drive_link"},
+  { id: "arab-t1-exam-18", level: "3AS", title: "exam arabe 2018", ar: "امتحان الأدب العربي 2018", kind: "exam", term: 1, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1J9RLsmLVGfXhNVLZZ3EPg9BSAJTFqgYq/view?usp=drive_link"},
+  { id: "arab-t1-exam-16", level: "3AS", title: "exam arabe 2016", ar: "امتحان الأدب العربي 2016", kind: "exam", term: 1, subject: "arabic", fileUrl:"https://drive.google.com/file/d/17B9Q3HEgamBSTUwaZEdp0UJ715lbf8UG/view?usp=drive_link"},
+  { id: "arab-t1-exam-15", level: "3AS", title: "exam arabe 2015", ar: "امتحان الأدب العربي 2015", kind: "exam", term: 1, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1jtXylBlkSyFESQ8ywj-v4MQB2F-p4yjS/view?usp=drive_link"},
+  { id: "arab-t1-exam-14", level: "3AS", title: "exam arabe 2014", ar: "امتحان الأدب العربي 2014", kind: "exam", term: 1, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1ZsKHKPrl8gn7QAQTnw26JStmrgiZqIXS/view?usp=drive_link"},
+  { id: "arab-t2-exam-26", level: "3AS", title: "exam arabe 2026", ar: "امتحان الأدب العربي 2026", kind: "exam", term: 2, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1JjKkjstItJFU-Xx9uKdI-RHnKA7H6fEx/view?usp=drive_link"},
+  { id: "arab-t2-exam-25", level: "3AS", title: "exam arabe 2025", ar: "امتحان الأدب العربي 2025", kind: "exam", term: 2, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1JaHEsH0Con5XuHYW-pGEFEADaUVZrmo9/view?usp=drive_link"},
+  { id: "arab-t2-exam-24", level: "3AS", title: "exam arabe 2024", ar: "امتحان الأدب العربي 2024", kind: "exam", term: 2, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1Shb_rnrIjNL2CHrufgdoQFZ166H3nd5X/view?usp=drive_link"},
+  { id: "arab-t2-exam-23", level: "3AS", title: "exam arabe 2023", ar: "امتحان الأدب العربي 2023", kind: "exam", term: 2, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1_13WWPnmeg8lzEwMjWhtC0nEEniSPcuz/view?usp=drive_link"},
+  { id: "arab-t2-exam-20", level: "3AS", title: "exam arabe 2020", ar: "امتحان الأدب العربي 2020", kind: "exam", term: 2, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1gcfS2_Vyj2VeN7LS9iSLisJZNRJVRfAC/view?usp=drive_link"},
+  { id: "arab-t2-exam-18", level: "3AS", title: "exam arabe 2018", ar: "امتحان الأدب العربي 2018", kind: "exam", term: 2, subject: "arabic", fileUrl:"https://drive.google.com/file/d/19sabInAInvdSfh-ye7_vPo0Y1yHNYFG_/view?usp=drive_link"},
+  { id: "arab-t2-exam-16", level: "3AS", title: "exam arabe 2016", ar: "امتحان الأدب العربي 2016", kind: "exam", term: 2, subject: "arabic", fileUrl:"https://drive.google.com/file/d/127k906x5rdQj1yNu-KKK5BS2Xv6CduM5/view?usp=drive_link"},
+  { id: "arab-t2-exam-15", level: "3AS", title: "exam arabe 2015", ar: "امتحان الأدب العربي 2015", kind: "exam", term: 2, subject: "arabic", fileUrl:"https://drive.google.com/file/d/177nhSZ1to37pJlp8vdVXmHLX2fDmfRtg/view?usp=drive_link"},
+  { id: "arab-t3-exam-26", level: "3AS", title: "bac blanc 2026", ar: "بكالوريا تجريبية أدب  عربي 2026", kind: "exam", term: 3, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1BTkNXrsGBEuf7bKGYh451AmPmZTvYGVR/view?usp=drive_link"},
+  { id: "arab-t3-exam-25", level: "3AS", title: "bac blanc 2025", ar: "بكالوريا تجريبية أدب  عربي 2025", kind: "exam", term: 3, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1OtUA51NVqHDLwymXeCPB7LjgBWARjqVT/view?usp=drive_link"},
+  { id: "arab-t3-exam-24", level: "3AS", title: "bac blanc 2024", ar: "بكالوريا تجريبية أدب  عربي 2024", kind: "exam", term: 3, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1IHm_h3JxHMBPV621xbifvwHuzsaVOc2x/view?usp=drive_link"},
+  { id: "arab-t3-exam-23", level: "3AS", title: "bac blanc 2023", ar: "بكالوريا تجريبية أدب  عربي 2023", kind: "exam", term: 3, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1_joKBvdTrdWaVbdQjP84V4RDHlzyK6Rd/view?usp=drive_link"},
+  { id: "arab-t3-exam-20", level: "3AS", title: "bac blanc 2020", ar: "بكالوريا تجريبية أدب  عربي 2020", kind: "exam", term: 3, subject: "arabic", fileUrl:"https://drive.google.com/file/d/18M2W1rwqIslxnEFoRFjXZRCWaXA4BKTh/view?usp=drive_link"},
+  { id: "arab-t3-exam-18", level: "3AS", title: "bac blanc 2018", ar: "بكالوريا تجريبية أدب  عربي 2018", kind: "exam", term: 3, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1qYrrefQpW6pNmPwQ9pTjf0poDCyxNKbk/view?usp=drive_link"},
+  { id: "arab-t3-exam-17", level: "3AS", title: "bac blanc 2017", ar: "بكالوريا تجريبية أدب  عربي 2017", kind: "exam", term: 3, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1BrA9Fuy_jHXo0hMf7o-7cNBJUdWCIuUN/view?usp=drive_link"},
+  { id: "arab-t3-exam-16", level: "3AS", title: "bac blanc 2016", ar: "بكالوريا تجريبية أدب  عربي 2016", kind: "exam", term: 3, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1WNXMyRMpCTcD4GWGmvdDGNxxzlEmY4_u/view?usp=drive_link"},
+  { id: "arab-t3-exam-15", level: "3AS", title: "bac blanc 2015", ar: "بكالوريا تجريبية أدب  عربي 2015", kind: "exam", term: 3, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1VAPpvx4mkrIvpJwm8iOqxIcHzCbAqfYz/view?usp=drive_link"},
+
+  /**summaries */
+  { id: "summary-1-promo9", level: "3AS", title: "Linguistic Structure promo 9", ar: "ملخص البناء اللغوي الدفعة 9", kind: "lesson", term: "all", subject: "arabic", fileUrl:"https://drive.google.com/file/d/1JYXGLJEuutFnvdEDL8t1JrvMLDwdwnsx/view?usp=drive_link"},
+  { id: "summary-2-promo9", level: "3AS", title: "Intellectual Structure promo 9", ar: "ملخص البناء الفكري الدفعة 9", kind: "lesson", term: "all", subject: "arabic", fileUrl:"https://drive.google.com/file/d/1JVSaVoJFOcIgbue13sp0tQ_sx4NBqZh6/view?usp=drive_link"},
+  { id: "summary-1-chinabi", level: "3AS", title: "Intellectual Structure prof chibani", ar: "ملخص البناء الفكري الأستاذ شيباني", kind: "lesson", term: "all", subject: "arabic", fileUrl:"https://drive.google.com/file/d/1V4nCFGydVwyO52GifFS52Lpqyzf0E8_W/view?usp=drive_link"},
+  { id: "summary-2-chinabi", level: "3AS", title: "Linguistic Structure prof chibani", ar: "ملخص البناء اللغوي الأستاذ شيباني", kind: "lesson", term: "all", subject: "arabic", fileUrl:"https://drive.google.com/file/d/1CdYM17JFjjT2oG_QUQVlq4F99w8oSJLY/view?usp=drive_link"},
+  { id: "challenge", level: "3AS", title: "challenge of 127 metaphors prof chibani", ar: "تحدي 127 صورة بيانية الأستاذ شيباني", kind: "series", term: "all", subject: "arabic", fileUrl:"https://drive.google.com/file/d/1dccwTheT4piVpxeBONy6wFc0j_wBFIyU/view?usp=drive_link"},
+  { id: "summary-Oussama-Haikoun", level: "3AS", title:"summary of prof Oussama Haikoun", ar: "ملخص الأستاذ حيقون أسامة", kind: "lesson", term: "all", subject: "arabic", fileUrl:"https://drive.google.com/file/d/1ubOlVbxA2_v08qS2TQn8aNPIacmyElrs/view?usp=drive_link"},
+  { id: "bac-keys", level: "3AS", title: "bac keys", ar: "مفاتيح البكالوريا", kind: "lesson", term: "all", subject: "arabic", fileUrl:"https://drive.google.com/file/d/1rJeFp9WyBcxZujeCiRpEx688KK3tnffm/view?usp=drive_link"},
+  
+  /**books */
+  { id: "ar-book-haikoun", level: "3AS", title: "book of prof Oussama Haikoun", ar: "كتاب النوابغ للأستاذ حيقون", kind: "lesson", term: "all", subject: "arabic", fileUrl:"https://drive.google.com/file/d/1abTQ0IlRw2IQzyDwdMcjkK0K_ElgLa29/view?usp=drive_link"},
+  { id: "ar-book-visa", level: "3AS", title: "Visa to Success", ar: "كتاب  تأشيرة النجاح", kind: "lesson", term: "all", subject: "arabic", fileUrl:"https://drive.google.com/file/d/1o50hQPlHk9mFUsdzA5CxBKHpAvEIbXdC/view?usp=drive_link"},
+
+
+
+  /**french */
+  /**devoirs */
+  { id: "french-t1-devoirs-26", level: "3AS", title: "devoir 2026", ar: "فرض الفرنسية 2026", kind: "homework", term: 1, subject: "french", fileUrl:"https://drive.google.com/file/d/1_9xVLtfHQXy9NK93PbKJP9llIh06HQGy/view?usp=drive_link" },
+  { id: "french-t1-devoirs-24", level: "3AS", title: "devoir 2024", ar: "فرض الفرنسية 2024", kind: "homework", term: 1, subject: "french", fileUrl:"https://drive.google.com/file/d/18jAUt-hAqWKiE5f0DotGkP8cMR1ji6Oh/view?usp=drive_link" },
+  
+  /**exams */
+  { id: "french-t1-exam-26", level: "3AS", title: "exam 2026", ar: "فرض الفرنسية 2026", kind: "exam", term: 1, subject: "french", fileUrl:"https://drive.google.com/file/d/1MhZCFIhPp70VZ_sklCAFQfiZawgO94QJ/view?usp=drive_link"},
+  { id: "french-t1-exam-24", level: "3AS", title: "exam 2024", ar: "فرض الفرنسية 2024", kind: "exam", term: 1, subject: "french", fileUrl:"https://drive.google.com/file/d/1uMEFgGSxesq-j8aEgBz-sIj9cmN-6v1m/view?usp=drive_link"},
+  { id: "french-t1-exam-23", level: "3AS", title: "exam 2023", ar: "فرض الفرنسية 2023", kind: "exam", term: 1, subject: "french", fileUrl:"https://drive.google.com/file/d/1TmkOKQcRWeTshpJqXOfqJXbarARdo1B1/view?usp=drive_link"},
+  { id: "french-t2-exam-26", level: "3AS", title: "exam 2026", ar: "فرض الفرنسية 2026", kind: "exam", term: 2, subject: "french", fileUrl:"https://drive.google.com/file/d/16texbn8k6tXyq_nAN32Xl08W88kQwnB8/view?usp=drive_link"},
+  { id: "french-t2-exam-24", level: "3AS", title: "exam 2024", ar: "فرض الفرنسية 2024", kind: "exam", term: 2, subject: "french", fileUrl:"https://drive.google.com/file/d/1IxSrQKQvUMWEggoTtcMGqowWZbKesMiu/view?usp=drive_link"},
+  { id: "french-t3-exam-26", level: "3AS", title: "bac blanc 2026", ar: "امتحان البكالوريا التجريبية 2026", kind: "exam", term: 3, subject: "french", fileUrl:"https://drive.google.com/file/d/10zpnp9p4jYNrMrzTF4dW5GHl6me3CRIH/view?usp=drive_link"},
+  { id: "french-t3-exam-25", level: "3AS", title: "bac blanc 2025", ar: "امتحان البكالوريا التجريبية 2025", kind: "exam", term: 3, subject: "french", fileUrl:"https://drive.google.com/file/d/1SNl6P88qH88OgAfNeKDzNs4MsquUQRYY/view?usp=drive_link"},
+  { id: "french-t3-exam-24", level: "3AS", title: "bac blanc 2024", ar: "امتحان البكالوريا التجريبية 2024", kind: "exam", term: 3, subject: "french", fileUrl:"https://drive.google.com/file/d/1xFifXXFqWjNUezTSKENt9QE0JLnBs_xi/view?usp=drive_link"},
+  { id: "french-t3-exam-23", level: "3AS", title: "bac blanc 2023", ar: "امتحان البكالوريا التجريبية 2023", kind: "exam", term: 3, subject: "french", fileUrl:"https://drive.google.com/file/d/1oXz60OJU3ozYcOzy1vdyjmvucrT0DoQI/view?usp=drive_link"},
+
+
+/**2AS */
+  /**math */
+  /**devoirs */
+  { id: "math-t1-devoir2-2017", level: "2AS", title: "devoir 2 math 2017", ar: "فرض الرياضيات الثاني 2017", kind: "homework", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1UPGo5-qsDPzGtfEqcO3UTyEcGJuMFxmt/view?usp=drive_link"},
+  { id: "math-t1-devoir2-2025", level: "2AS", title: "devoir 2 math 2025", ar: "فرض الرياضيات الثاني 2025", kind: "homework", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1f17cf3b1jehTejxztMvRwloV_93RRZ94/view?usp=drive_link"},
+  { id: "math-t1-devoir2-2020", level: "2AS", title: "devoir 2 math 2020", ar: "فرض الرياضيات الثاني 2020", kind: "homework", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/19RUed3C6lslEpqjngzhewkWXzgiH53hK/view?usp=drive_link"},
+  { id: "math-t1-devoir2-2018", level: "2AS", title: "devoir 2 math 2018", ar: "فرض الرياضيات الثاني 2018", kind: "homework", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/11MTPwHsJxfBkOeMFz1r_CR6veyBa9aGT/view?usp=drive_link"},
+  { id: "math-t1-devoir2-2024", level: "2AS", title: "devoir 2 math 2024", ar: "فرض الرياضيات الثاني 2024", kind: "homework", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1_UVvcvSlesLC_JzMFVWZeauJizlWRpc_/view?usp=drive_link"},
+  { id: "math-t1-devoir2-2022", level: "2AS", title: "devoir 2 math 2022", ar: "فرض الرياضيات الثاني 2022", kind: "homework", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/15OOTN0DLHqAE34Ata3uAcn8feNaF97FG/view?usp=drive_link"},
+  { id: "math-t1-devoir2-2021", level: "2AS", title: "devoir 2 math 2021", ar: "فرض الرياضيات الثاني 2021", kind: "homework", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1t0VfheK9szjHsAzLZbcq_8FzCb3ybBQa/view?usp=drive_link"},
+  { id: "math-t1-devoir1-2021", level: "2AS", title: "devoir 3 math 2019", ar: "فرض الرياضيات الثالث 2019", kind: "homework", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/16aC4yR77OWxkixYCVaEKoiEHURuI1T9p/view?usp=drive_link"},
+  { id: "math-t1-devoir3-2019", level: "2AS", title: "devoir 3 math 2019", ar: "فرض الرياضيات الثالث 2019", kind: "homework", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1t6Dw8ya_WSW75dYg8XpnNomUKhtRrZ1x/view?usp=drive_link"},
+  { id: "math-t1-devoir1-2025", level: "2AS", title: "devoir 1 math 2025", ar: "فرض الرياضيات الأول 2025", kind: "homework", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1_Dlnt6sHyVIA58BSKLNX1cdShSvzggzj/view?usp=drive_link"},
+  { id: "math-t1-devoir1-2024", level: "2AS", title: "devoir 1 math 2024", ar: "فرض الرياضيات الأول 2024", kind: "homework", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1-24vVHBTqpO4E35ZaylDoq1mpy4hHibi/view?usp=drive_link"},
+  { id: "math-t1-devoir1-2026", level: "2AS", title: "devoir 1 math 2026", ar: "فرض الرياضيات الأول 2026", kind: "homework", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1pCO8XWoAkCR7A2-WHs7YpCNpFyNbaKTD/view?usp=drive_link"},
+  { id: "math-t1-devoir1-2019", level: "2AS", title: "devoir 1 math 2019", ar: "فرض الرياضيات الأول 2019", kind: "homework", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1x99WVN_Ddgg6r9In5l1MEIZBZzlzHySd/view?usp=drive_link"},
+  { id: "math-t2-devoir-2023", level: "2AS", title: "devoir 1 math 2023", ar: "فرض الرياضيات الأول 2023", kind: "homework", term: 2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/14uuuhNUtSquD-0YgNnzELY1Jmy2v8KI6/view?usp=drive_link"},
+  { id: "math-t2-devoir2-2023", level: "2AS", title: "devoir 2 math 2023", ar: "فرض الرياضيات الثاني 2023", kind: "homework", term: 2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1ub2pC7MMxR_njegpwBGv4MdzU7Xyg2ot/view?usp=drive_link"},
+  { id: "math-t2-devoir-2025", level: "2AS", title: "devoir math 2025", ar: "فرض الرياضيات  2025", kind: "homework", term: 2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1PQIbz1mweHBqrzUA0gHv_A-gcVI8So5n/view?usp=drive_link"},
+  { id: "math-t2-devoir-2024", level: "2AS", title: "devoir math 2024", ar: "فرض الرياضيات  2024", kind: "homework", term: 2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1RjebQaYMWMJ3BHckurOx5avEi4bt_c1n/view?usp=drive_link"},
+  { id: "math-t2-devoir-2021", level: "2AS", title: "devoir math 2021", ar: "فرض الرياضيات  2021", kind: "homework", term: 2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1sTxt_d9y4BcJASPjIZsOY7I9D5jQJ2al/view?usp=drive_link"},
+  { id: "math-t2-devoir-2020", level: "2AS", title: "devoir math 2020", ar: "فرض الرياضيات  2020", kind: "homework", term: 2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1gSUL6vLPFFmblDXPWap0TlyPnybOWrU1/view?usp=drive_link"},
+  { id: "math-t2-devoir-2019", level: "2AS", title: "devoir math 2019", ar: "فرض الرياضيات  2019", kind: "homework", term: 2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1DuLwedBJVdxLu-8HXehcBCQ5xdONuVMH/view?usp=drive_link"},
+  { id: "math-t2-devoir-2018", level: "2AS", title: "devoir math 2018", ar: "فرض الرياضيات الأول 2018", kind: "homework", term: 2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1pKSWBDvFHyWMP6bgZlNY12vQowiJM99E/view?usp=drive_link"},
+  { id: "math-t2-devoir-mhsco-2026", level: "2AS", title: "devoir math 2026", ar: "فرض الرياضيات ثانوية الرياضيات قسنطينة  2026", kind: "homework", term: 2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/17Dw1b0NmOBL7b4zFmuuDbwEL_ZHvWC1K/view?usp=drive_link"},
+  { id: "math-t2-devoir-2017", level: "2AS", title: "devoir math 2017", ar: "فرض الرياضيات 2017", kind: "homework", term: 2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1350VDkmO2y3hRQiWgfVtFhUXl5G8lKNn/view?usp=drive_link"},
+  { id: "math-t2-devoir-2021", level: "2AS", title: "devoir math 2021", ar: "فرض الرياضيات 2021", kind: "homework", term: 2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1xECRJfh7PDxzx89oCY_1dMewtYDoBM24/view?usp=drive_link"},
+  { id: "math-t3-devoir-2026", level: "2AS", title: "devoir math 2026", ar: "فرض الرياضيات 2026", kind: "homework", term: 2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1v_nGnFvdjgmayenNuylvmxbQCW25lr1K/view?usp=drive_link"},
+  { id: "math-t3-devoir-2025", level: "2AS", title: "devoir math 2025", ar: "فرض الرياضيات 2025", kind: "homework", term: 3, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1ZIZBIFdkmPsOuToIKeaJxjzB9XbEnWmS/view?usp=drive_link"},
+  { id: "math-t3-devoir-2023", level: "2AS", title: "devoir math 2023", ar: "فرض الرياضيات 2023", kind: "homework", term: 3, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1Meukor2-qcfKZDnuHUdj2-xyG5qrPIOm/view?usp=drive_link"},
+  { id: "math-t3-devoir-2018", level: "2AS", title: "devoir math 2018", ar: "فرض الرياضيات 2018", kind: "homework", term: 3, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1EQBRyc4jIriSWAIV2Atu-ncwVoz448rq/view?usp=drive_link"}, 
+
+  /**exams */
+  { id: "math-t1-exam-2026", level: "2AS", title: "exam math 2026", ar: "امتحان الرياضيات 2026", kind: "exam", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1SB9kCtgbUYJSJl3x-fwolDxUoYbcD9OW/view?usp=drive_link"},
+  { id: "math-t1-exam-2025", level: "2AS", title: "exam math 2025", ar: "امتحان الرياضيات 2025", kind: "exam", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1HKof-D21ujafrGMXdf37-K2wTY4mEFfj/view?usp=drive_link"},
+  { id: "math-t1-exam-2024", level: "2AS", title: "exam math 2024", ar: "امتحان الرياضيات 2024", kind: "exam", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1mVoCVHdXCv208kfsg4dN9aTiiAaOm9Or/view?usp=drive_link"},
+  { id: "math-t1-exam-2022", level: "2AS", title: "exam math 2022", ar: "امتحان الرياضيات 2022", kind: "exam", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1UEagK09sGaTdFunmmcW0k1P_zlQt9Mi2/view?usp=drive_link"},
+  { id: "math-t1-exam-2019", level: "2AS", title: "exam math 2019", ar: "امتحان الرياضيات 2019", kind: "exam", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1IgzaTSeTCitlD9fWZYYGH_BKvdGfFu28/view?usp=drive_link"},
+  { id: "math-t1-exam-2018", level: "2AS", title: "exam math 2018", ar: "امتحان الرياضيات 2018", kind: "exam", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/15RjmTj07H3yqtZ2bADqGTxeqBZHGnFOf/view?usp=drive_link"},
+  { id: "math-t1-exam-2018", level: "2AS", title: "exam math 2 2018", ar: "امتحان الرياضيات 2018 2", kind: "exam", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1z_ETydx9mf2gY2PL3nCnO4hQ5e3JzG_U/view?usp=drive_link"},
+  { id: "math-t1-exam-2017", level: "2AS", title: "exam math 2017", ar: "امتحان الرياضيات 2017", kind: "exam", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1aTHXnTOb2rD5jNrMYlMVEsPaxHMuSszQ/view?usp=drive_link"},
+  { id: "math-t1-exam-2015", level: "2AS", title: "exam math 2015", ar: "امتحان الرياضيات 2015", kind: "exam", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1IACBWyztRRYfkPgNVX-5sSgMmqi7Wulz/view?usp=drive_link"},
+  { id: "math-t1-exam", level: "2AS", title: "exam math", ar: "امتحان الرياضيات ", kind: "exam", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1ljV2QstW9flMheLB6p108ZzynI6i8jfK/view?usp=drive_link"},
+  { id: "math-t2-exam-2025", level: "2AS", title: "exam math 2025", ar: "امتحان الرياضيات 2025", kind: "exam", term: 2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1BwLbsxbxfv2ctSmqT3kKphusgEYcwCIa/view?usp=drive_link"},
+  { id: "math-t2-exam-2024", level: "2AS", title: "exam math 2024", ar: "امتحان الرياضيات 2024", kind: "exam", term: 2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1bTfRLl90Q83wTttkhJdQwcpse_sn1H9K/view?usp=drive_link"},
+  { id: "math-t2-exam-2023", level: "2AS", title: "exam math 2023", ar: "امتحان الرياضيات 2023", kind: "exam", term: 2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/10KzpRtG-CTVA5gjjWfaIvLapQeQLNc1q/view?usp=drive_link"},
+  { id: "math-t2-exam-2022", level: "2AS", title: "exam math 2022", ar: "امتحان الرياضيات 2022", kind: "exam", term: 2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1I3ufTEMxq5VRGXGn9FnrjhDEOMnmRAYy/view?usp=drive_link"},
+  { id: "math-t2-exam-2019", level: "2AS", title: "exam math 2019", ar: "امتحان الرياضيات 2019", kind: "exam", term: 2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1z0EiibsDCUyGUtpXidIRd8pTobuv6N9Z/view?usp=drive_link"},
+  { id: "math-t2-exam-2017", level: "2AS", title: "exam math 2017", ar: "امتحان الرياضيات 2017", kind: "exam", term: 2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1KafE7FJTSXjD0uiuNdU1qjG16NfW0yJS/view?usp=drive_link"},  
+  { id: "math-t2-exam-2016", level: "2AS", title: "exam math 2016", ar: "امتحان الرياضيات 2016", kind: "exam", term: 2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1uM62x3UjnKtlKOra9IBPHEt0vZqvvE7g/view?usp=drive_link"},
+  { id: "math-t2-exam-2014", level: "2AS", title: "exam math 2014", ar: "امتحان الرياضيات 2014", kind: "exam", term: 2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1k-BfB9tML8G1qAhzbu1nDxeYtqtlEM3e/view?usp=drive_link"},
+  { id: "math-t3-exam-2026", level: "2AS", title: "exam math 2026", ar: "امتحان الرياضيات 2026", kind: "exam", term: 3, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1SJtPaIBdz37zMJGvY0RTzP5wXjwQUkr-/view?usp=drive_link"},
+  { id: "math-t3-exam-2025", level: "2AS", title: "exam math 2025", ar: "امتحان الرياضيات 2025", kind: "exam", term: 3, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1odkvz2TJDRB_NAH-SQhZgqNZ9LNWU9uO/view?usp=drive_link"},
+  { id: "math-t3-exam-2024", level: "2AS", title: "exam math 2024", ar: "امتحان الرياضيات 2024", kind: "exam", term: 3, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1F50ZBda_bET8r02-2dtR-UT8QH9t9AED/view?usp=drive_link"},
+  { id: "math-t3-exam-2023", level: "2AS", title: "exam math 2023", ar: "امتحان الرياضيات 2023", kind: "exam", term: 3, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1g6lHOTy3BL2Gv7ShlkQPbxQYjiKpEm2J/view?usp=drive_link"},
+  { id: "math-t3-exam-2021", level: "2AS", title: "exam math 2021", ar: "امتحان الرياضيات 2021", kind: "exam", term: 3, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1nTU9uu1z9e6J14zl6yO2vexiKkIRWakm/view?usp=drive_link"},
+  { id: "math-t3-exam-2019", level: "2AS", title: "exam math 2019", ar: "امتحان الرياضيات 2019", kind: "exam", term: 3, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1JgdYxKrufvTgCHX01PnqwOtdKLCjRSA8/view?usp=drive_link"},
+
+  /**books */
+  { id: "math-book-the-great", level: "2AS", title: "the book of the great", ar: "كتاب الرائع", kind: "books", term: "all", subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1nOJbOeRTUvY-CEGdIj9cbGbQYQf2YsTj/view?usp=drive_link"},
+  { id: "math-book-the-new", level: "2AS", title: "the book of the new", ar: "كتاب الجديد", kind: "books", term: "all", subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1jlskxgm6bOKcMAjT9aDQZxbZdnxrSQne/view?usp=drive_link"},
+  
+  /**series */
+  { id: "math-serie-limits", level: "2AS", title: "serie of limits", ar: "وظيفة النهايات", kind: "series", term: "all", subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1J1osyiAbH7FmEC29eW9Mu2V_yuwleFgX/view?usp=drive_link"},
+  { id: "math-serie-t1-2", level: "2AS", title: "serie 2 t1", ar: "الوظيفة الثانية للفصل الأول", kind: "series", term: 1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1PdNMdaaWUwKrI-lBjWOHCBImbx9FB1PY/view?usp=drive_link"},
+
+
+
+  /**physics */
+  /**devoirs */
+  { id: "physics-t2-devoir-2026", level: "2AS", title: "devoir physics 2026", ar: "فرض الفيزياء 2026", kind: "homework", term: 2, subject: "physics", fileUrl:"https://drive.google.com/file/d/18ZAEAg8w-4S_S0RAVacLv-TjiEdQVclD/view?usp=drive_link"}, 
+  { id: "physics-t2-devoir2-2026", level: "2AS", title: "devoir physics 2 2026", ar: "فرض الفيزياءالثاني 2026", kind: "homework", term: 2, subject: "physics", fileUrl:"https://drive.google.com/file/d/1i_8VcRgHSz3vulZBuqLUqeeATpnOIyI2/view?usp=drive_link"}, 
+  { id: "physics-t2-devoir-2025", level: "2AS", title: "devoir physics 2025", ar: "فرض الفيزياء 2025", kind: "homework", term: 2, subject: "physics", fileUrl:"https://drive.google.com/file/d/1YnIs4-gausEsm3PjOcjTyVbB7r4eHIfP/view?usp=drive_link"}, 
+  { id: "physics-t2-devoir-2024", level: "2AS", title: "devoir physics 2024", ar: "فرض الفيزياء 2024", kind: "homework", term: 2, subject: "physics", fileUrl:"https://drive.google.com/file/d/1Id8Aunv_cgoDW95Fetf2NodlW0NrpKum/view?usp=drive_link"}, 
+  { id: "physics-t2-devoir-2023", level: "2AS", title: "devoir physics 2023", ar: "فرض الفيزياء 2023", kind: "homework", term: 2, subject: "physics", fileUrl:"https://drive.google.com/file/d/1sQZjmAP34wT4XCe7kBBTZemlo50-ndQV/view?usp=drive_link"}, 
+  { id: "physics-t3-devoir-2026", level: "2AS", title: "devoir physics 2026", ar: "فرض الفيزياء 2026", kind: "homework", term: 3, subject: "physics", fileUrl:"https://drive.google.com/file/d/1zB2xBUA2Cqd-qk1JPRnlByX1hUbrulnR/view?usp=drive_link"}, 
+  { id: "physics-t3-devoir-2016", level: "2AS", title: "devoir physics 2016", ar: "فرض الفيزياء 2016", kind: "homework", term: 3, subject: "physics", fileUrl:"https://drive.google.com/file/d/1ia56gQhYQMTIYPiEGOVZ7s6JtzzH1kW-/view?usp=drive_link"}, 
+   
+  /**exams */
+  { id: "physics-t1-exam-2018", level: "2AS", title: "exam physics 2018", ar: " الفيزياء 2018", kind: "exam", term: 1, subject: "physics", fileUrl:"https://drive.google.com/file/d/12qS9ybgsVZgW73bHro8QzMkn1zx6ELMX/view?usp=drive_link"}, 
+  { id: "physics-t1-exam-correction-2025", level: "2AS", title: "exam physics 2025 correction", ar: " تصحيح اختبارالفيزياء 2025", kind: "exam", term: 1, subject: "physics", fileUrl:"https://drive.google.com/file/d/1APs2fQe7fNnBk8Y1X1TbMxd_ZK-3HtPU/view?usp=drive_link"}, 
+  { id: "physics-t1-exam-2025", level: "2AS", title: "exam physics 2025", ar: "اختبارالفيزياء 2025", kind: "exam", term: 1, subject: "physics", fileUrl:"https://drive.google.com/file/d/12qS9ybgsVZgW73bHro8QzMkn1zx6ELMX/view?usp=drive_link"}, 
+  { id: "physics-t2-exam-2026", level: "2AS", title: "exam physics 2026", ar: "اختبارالفيزياء 2025", kind: "exam", term: 2, subject: "physics", fileUrl:"https://drive.google.com/file/d/1714Y4v4usaniORgdKYygbXC6ibeilpJ7/view?usp=drive_link"}, 
+  { id: "physics-t2-exam-2025", level: "2AS", title: "exam physics 2025", ar: "اختبارالفيزياء 2025", kind: "exam", term: 2, subject: "physics", fileUrl:"https://drive.google.com/file/d/1AFiQZpMJ8fe0ywfmlwdEIeHwLGXZ3abZ/view?usp=drive_link"}, 
+  { id: "physics-t2-exam-2024", level: "2AS", title: "exam physics 2024", ar: "اختبارالفيزياء 2024", kind: "exam", term: 2, subject: "physics", fileUrl:"https://drive.google.com/file/d/16fLNZHIFMGmgmQkUX9TmzMpOrn8AVOzU/view?usp=drive_link"}, 
+  { id: "physics-t2-exam-2017", level: "2AS", title: "exam physics 2017", ar: "اختبارالفيزياء 2017", kind: "exam", term: 2, subject: "physics", fileUrl:"https://drive.google.com/file/d/1-5OOwO4VVX_1077ZZBzRBlvbjEHDC0Cb/view?usp=drive_link"}, 
+  { id: "physics-t2-exam-2015", level: "2AS", title: "exam physics 2015", ar: "اختبارالفيزياء 2015", kind: "exam", term: 2, subject: "physics", fileUrl:"https://drive.google.com/file/d/1dhNRVP0Kg8XPb8zvOkQvdqycczuTnH7R/view?usp=drive_link"}, 
+  { id: "physics-t3-exam-2026", level: "2AS", title: "exam physics 2026", ar: "اختبارالفيزياء 2025", kind: "exam", term: 3, subject: "physics", fileUrl:"https://drive.google.com/file/d/17LLXkt2JHy28t6dWHGasUk-wb5Dguuev/view?usp=drive_link"}, 
+  { id: "physics-t3-exam-2025", level: "2AS", title: "exam physics 2025", ar: "اختبارالفيزياء 2025", kind: "exam", term: 3, subject: "physics", fileUrl:"https://drive.google.com/file/d/1qc7RfwsDcuOAH6HEAOC6zmwZpoeVfRYH/view?usp=drive_link"}, 
+  { id: "physics-t3-exam-2024", level: "2AS", title: "exam physics 2024", ar: "اختبارالفيزياء 2024", kind: "exam", term: 3, subject: "physics", fileUrl:"https://drive.google.com/file/d/1BTMkX03TaW-v2KpXfHVnBJvcjQ-LatX7/view?usp=drive_link"}, 
+  { id: "physics-t3-exam-2023", level: "2AS", title: "exam physics 2023", ar: "اختبارالفيزياء 2023", kind: "exam", term: 3, subject: "physics", fileUrl:"https://drive.google.com/file/d/1C6AeysbdfGWROlsVtkoXdrDFX3aydYh2/view?usp=drive_link"}, 
+
+  /**summaries */
+  { id: "physics-summary-carbon", level: "2AS", title: "summary carbon", ar: "ملخص الكيمياء العضوية", kind: "lesson", term: "all", subject: "physics", fileUrl:"https://drive.google.com/file/d/1yjibb8314JgvvaL3BsMKJ6rd-eDP--EG/view?usp=drive_link"}, 
+  { id: "physics-summary-Transfers", level: "2AS", title: "summary of Transfers", ar: "ملخص التحويلات", kind: "lesson", term: "all", subject: "physics", fileUrl:"https://drive.google.com/file/d/1RM8lXeWFToIelVhx7vnqrPTgUN5cdAvJ/view?usp=drive_link"},
+  { id: "physics-summary-energies", level: "2AS", title: "summary of energies", ar: "ملخص الطاقات", kind: "lesson", term: "all", subject: "physics", fileUrl:"https://drive.google.com/file/d/1sh2L4I0N3qBqaEw_b6PicoM2G_5pV0NT/view?usp=drive_link"},
+  { id: "physics-summary-acid-base", level: "2AS", title: "summary acid/base", ar: "ملخص أحماض وأسس", kind: "lesson", term: "all", subject: "physics", fileUrl:"https://drive.google.com/file/d/1vqLTJjTKX_FDAgCEujI8KGMizuN0EQNb/view?usp=drive_link"},
+  { id: "physics-summary-Conductivity", level: "2AS", title: "summary Conductivity", ar: "ملخص الناقلية", kind: "lesson", term: "all", subject: "physics", fileUrl:"https://drive.google.com/file/d/1faSNCi_QYpHJ3_MFCKzxdur4VS_ywe1M/view?usp=drive_link"},
+
+  /**books */
+  { id: "physics-eldjadid", level: "2AS", title: "book of eldjadid", ar: "كتاب الجديد", kind: "books", term: "all", subject: "physics", fileUrl:"https://drive.google.com/file/d/1pzZ_79oSR1b8iQfVTvXq3Sgiz_l3h-yO/view?usp=drive_link"},  
+  { id: "physics-Al-Habbaj", level: "2AS", title: "book of Al-Habbaj ", ar: "كتاب الهباج", kind: "books", term: "all", subject: "physics", fileUrl:"https://drive.google.com/file/d/1z8I3AA-jeDqBx4k9wszk3sgOAIbqZXct/view?usp=drive_link"},  
+
+  /**series */
+  { id: "physics-taachirat-carbon", level: "2AS", title: "taachirat elnajah carbon chemistry", ar: "تأشيرة النجاح تمارين الكيمياء العضوية", kind: "series", term: "all", subject: "physics", fileUrl:"https://drive.google.com/file/d/1jytxxKOJsVnHwqJNX1zKN8T_MFxc8umv/view?usp=drive_link"},  
+  { id: "physics-taachirat-magnetic", level: "2AS", title: "taachirat elnajah carbon magnetic ", ar: "تأشيرة النجاح تمارين المغناطيس", kind: "series", term: "all", subject: "physics", fileUrl:"https://drive.google.com/file/d/1qKIF3_6etgL2ZWc4HcVnGe8DYELjNUXy/view?usp=drive_link"},  
+
+  /**sciences */
+  /**devoires */
+  { id: "science-t1-devoir-2025", level: "2AS", title: "devoir science 2025", ar: "فرض العلوم 2025", kind: "homework", term: 1, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/15_xottbmFKDMI4gUdeXME22IKXw1eC2G/view?usp=drive_link"}, 
+  { id: "science-t1-devoir-2024", level: "2AS", title: "devoir science 2024", ar: "فرض العلوم 2024", kind: "homework", term: 1, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/1qFTfupnkZSrqTQ9nVq4tpO-O4MgRgA-7/view?usp=drive_link"}, 
+  { id: "science-t1-devoir-2017", level: "2AS", title: "devoir science 2017", ar: "فرض العلوم 2017", kind: "homework", term: 1, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/1VBQuYNdaeKulIF35VodS4O5Bn5ciLY4s/view?usp=drive_link"}, 
+  { id: "science-t2-devoir-2026", level: "2AS", title: "devoir science 2026", ar: "فرض العلوم 2026", kind: "homework", term: 2, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/19wVfKrsGDnx0qq_mjvIFwjOY75pQS9O8/view?usp=drive_link"}, 
+  { id: "science-t2-devoir-2025", level: "2AS", title: "devoir science 2025", ar: "فرض العلوم 2025", kind: "homework", term: 2, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/1bNygd4zFN0Kl42qzd5ixSDn7rB-ZSzww/view?usp=drive_link"}, 
+  { id: "science-t2-devoir-2018", level: "2AS", title: "devoir science 2018", ar: "فرض العلوم 2018", kind: "homework", term: 2, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/18kLlfd85t2S-MDk8R01zHH1azvRuXRco/view?usp=drive_link"}, 
+  { id: "science-t2-devoir2-2018", level: "2AS", title: "devoir 2 science 2018", ar: "فرض العلوم الثاني 2018", kind: "homework", term: 2, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/1d945FPIMIkWL53sbxjsWMWFVtqPpeaS0/view?usp=drive_link"}, 
+  { id: "science-t3-devoir", level: "2AS", title: "devoir science", ar: "فرض العلوم", kind: "homework", term: 3, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/1S6cL_YHHrCEpJOZ5Z8N6Rxvoxt9u2n5e/view?usp=drive_link"}, 
+
+  /**exam */
+  { id: "science-t1-exam-2026", level: "2AS", title: "exam science 2026", ar: "اختبار العلوم 2026", kind: "exam", term: 1, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/1LsoV-RRGGcrYuB97lHrmu6Expxvlvn8I/view?usp=drive_link"}, 
+  { id: "science-t1-exam-2025", level: "2AS", title: "exam science 2025", ar: "اختبار العلوم 2025", kind: "exam", term: 1, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/1XSNfVXgazNKNiHszRUOG6P_ikaVQzMlJ/view?usp=drive_link"}, 
+  { id: "science-t1-exam-2024", level: "2AS", title: "exam science 2024", ar: "اختبار العلوم 2024", kind: "exam", term: 1, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/1EIqdZgkgfhY59HeBN2iga-NDCrPo4TVp/view?usp=drive_link"}, 
+  { id: "science-t1-exam-2018", level: "2AS", title: "exam science 2018", ar: "اختبار العلوم 2018", kind: "exam", term: 1, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/1s0QLzMTiWVRl4EL62_4RB_c4nGth25Hz/view?usp=drive_link"}, 
+  { id: "science-t1-exam-2016", level: "2AS", title: "exam science 2016", ar: "اختبار العلوم 2016", kind: "exam", term: 1, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/1lK0XRbwjeg3n-EzdczTuXSlSKH-qDpEF/view?usp=drive_link"}, 
+  { id: "science-t1-exam-2015", level: "2AS", title: "exam science 2015", ar: "اختبار العلوم 2015", kind: "exam", term: 1, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/1JubfOBG8XK5_dWv7rTAt5subzSK0ReRK/view?usp=drive_link"}, 
+  { id: "science-t1-exam-2014", level: "2AS", title: "exam science 2014", ar: "اختبار العلوم 2014", kind: "exam", term: 1, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/1yB15AOKUZipuxC0DVT3ij2R3akejgtIG/view?usp=drive_link"}, 
+  { id: "science-t2-exam-2026", level: "2AS", title: "exam science 2026", ar: "اختبار العلوم 2026", kind: "exam", term: 2, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/15u5Ew5F1Lyka5S0QjnGwzFBFLUyL-s5a/view?usp=drive_link"}, 
+  { id: "science-t2-exam-2025", level: "2AS", title: "exam science 2025", ar: "اختبار العلوم 2025", kind: "exam", term: 2, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/1lMXpK6G7w5cBz35otK00fd0xyURay2oR/view?usp=drive_link"}, 
+  { id: "science-t2-exam-2024", level: "2AS", title: "exam science 2024", ar: "اختبار العلوم 2024", kind: "exam", term: 2, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/1xVHn8NvibuEet_WFal5ZEpbcBuPdqpbj/view?usp=drive_link"}, 
+  { id: "science-t3-exam-2026", level: "2AS", title: "exam science 2026", ar: "اختبار العلوم 2026", kind: "exam", term: 3, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/1tH4Xn-nYh_K4sOSG2NIxJdUydNoC31vr/view?usp=drive_link"}, 
+  { id: "science-t3-exam-2025", level: "2AS", title: "exam science 2025", ar: "اختبار العلوم 2025", kind: "exam", term: 3, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/17DB2QsytE_76h5iDLIUGaj8yMmitrJKF/view?usp=drive_link"}, 
+  { id: "science-t3-exam-2024", level: "2AS", title: "exam science 2024", ar: "اختبار العلوم 2024", kind: "exam", term: 3, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/11e41GD_P31A1t3_U0XGGfIS7ZZp0XtMi/view?usp=drive_link"}, 
+  { id: "science-t3-exam-2018", level: "2AS", title: "exam science 2018", ar: "اختبار العلوم 2018", kind: "exam", term: 3, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/1TA8lpeFEb_vA1B3QXAm4Q8-ukF3QKqSZ/view?usp=drive_link"}, 
+
+
+  /**enlgish */
+  /**devoirs */
+  { id: "eng-t1-devoir", level: "2AS", title: "devoir english", ar: "موضوع الإنجليزية", kind: "homework", term: 1, subject: "english", fileUrl:"https://drive.google.com/file/d/1X5upYkCNRXyHnOi-Q9nfxOgRfNxI1wm8/view?usp=drive_link"}, 
+  { id: "eng-t2-devoir-2019", level: "2AS", title: "devoir english 2019", ar: "2019 موضوع الإنجليزية", kind: "homework", term: 2, subject: "english", fileUrl:"https://drive.google.com/file/d/1oghovN4PnzZE93n1oXdFmtSgzug5-6Lm/view?usp=drive_link"}, 
+
+  /**exam */
+  { id: "eng-t1-exam-2026", level: "2AS", title: "exam english 2026", ar: "اختبار الإنجليزية 2026", kind: "exam", term: 1, subject: "english", fileUrl:"https://drive.google.com/file/d/1l5rbHyTa9yecd4vqfVXatED1KmSUeb1w/view?usp=drive_link"}, 
+  { id: "eng-t1-exam-2025", level: "2AS", title: "exam english 2025", ar: "اختبار الإنجليزية 2025", kind: "exam", term: 1, subject: "english", fileUrl:"https://drive.google.com/file/d/1wxULXe_sFjBGRi0aPpIrbCGjQOKSsWxM/view?usp=drive_link"}, 
+  { id: "eng-t1-exam-2024", level: "2AS", title: "exam english 2024", ar: "اختبار الإنجليزية 2024", kind: "exam", term: 1, subject: "english", fileUrl:"https://drive.google.com/file/d/1rUUPYwEFzA9lxlwYq08yY8VP8OxjtUXp/view?usp=drive_link"}, 
+  { id: "eng-t1-exam-2018", level: "2AS", title: "exam english 2018", ar: "اختبار الإنجليزية 2018", kind: "exam", term: 1, subject: "english", fileUrl:"https://drive.google.com/file/d/1ELWYo9ob5cC_RzT6wKiiZBBSSkbg9RWO/view?usp=drive_link"}, 
+  { id: "eng-t2-exam-2026", level: "2AS", title: "exam english 2026", ar: "اختبار الإنجليزية 2026", kind: "exam", term: 2, subject: "english", fileUrl:"https://drive.google.com/file/d/11sHdY1shGCq_vmGkB6l6zHwV5tIHtKCB/view?usp=drive_link"}, 
+  { id: "eng-t2-exam-2025", level: "2AS", title: "exam english 2025", ar: "اختبار الإنجليزية 2025", kind: "exam", term: 2, subject: "english", fileUrl:"https://drive.google.com/file/d/1VAa8Fh7dSOK3_rk67WlcxzztOmMp1k86/view?usp=drive_link"}, 
+  { id: "eng-t3-exam-2026", level: "2AS", title: "exam english 2026", ar: "اختبار الإنجليزية 2026", kind: "exam", term: 3, subject: "english", fileUrl:"https://drive.google.com/file/d/1oxd85HyiUKPVKQZQtkSs_xH9n5Oh3EFk/view?usp=drive_link"}, 
+  { id: "eng-t3-exam-2025", level: "2AS", title: "exam english 2025", ar: "اختبار الإنجليزية 2025", kind: "exam", term: 3, subject: "english", fileUrl:"https://drive.google.com/file/d/1h0zQgPYhpsaYXlY1O1pPFN9WHls64ceA/view?usp=drive_link"}, 
+  { id: "eng-t3-exam-2018", level: "2AS", title: "exam english 2018", ar: "اختبار الإنجليزية 2018", kind: "exam", term: 3, subject: "english", fileUrl:"https://drive.google.com/file/d/12u1wt_Nxc03OxG9Ml5yi4HMdHSBJlzbM/view?usp=drive_link"},
+
+  /**drawing */
+  /**exams */
+  { id: "drawing-t1-exam-2026", level: "2AS", title: "exam english 2026", ar: "اختبار 2026", kind: "exam", term: 1, subject: "drawing", fileUrl:"https://drive.google.com/file/d/1nywlH6E-G3UZWovww6pwzQkO2-2fvY1P/view?usp=drive_link"},
+  { id: "drawing-t2-exam-2026", level: "2AS", title: "exam english 2026", ar: "اختبار 2026", kind: "exam", term: 2, subject: "drawing", fileUrl:"https://drive.google.com/file/d/1ajZrfGc1e4tjLuIGvAmaIQwfwso7lraC/view?usp=drive_link"},
+  { id: "drawing-t3-exam-2026", level: "2AS", title: "exam english 2026", ar: "اختبار 2026", kind: "exam", term: 3, subject: "drawing", fileUrl:"https://drive.google.com/file/d/15_KB9izbaMAjKZPRy6rpO4e1EkDS83OG/view?usp=drive_link"},
+  
+  /**science.isl */
+  /**devoirs */
+  { id: "isl-t1-devoir", level: "2AS", title: "devoir s.isl", ar: "موضوع العلوم الإسلامية", kind: "homework", term: 1, subject: "islamic-sciences", fileUrl:"https://drive.google.com/file/d/1HZjg_2LhgiqEXU-WVLO1hO7J4GLBpO3I/view?usp=drive_link"}, 
+  { id: "isl-t1-devoir-2024", level: "2AS", title: "devoir s.isl 2024", ar: "2024 موضوع العلوم الإسلامية", kind: "homework", term: 1, subject: "islamic-sciences", fileUrl:"https://drive.google.com/file/d/1-chVw2OpGs6OLkJg-NKj9vAkze0APf01/view?usp=drive_link"},
+  { id: "isl-t1-devoir-2017", level: "2AS", title: "devoir s.isl 2017", ar: "2017 موضوع العلوم الإسلامية", kind: "homework", term: 1, subject: "islamic-sciences", fileUrl:"https://drive.google.com/file/d/1DBQsVtEkgghEVtP7bXcwjIn4fio3x_T_/view?usp=drive_link"},
+  { id: "isl-t2-devoir-2018", level: "2AS", title: "devoir s.isl 2018", ar: "2018 موضوع العلوم الإسلامية", kind: "homework", term: 3, subject: "islamic-sciences", fileUrl:"https://drive.google.com/file/d/1mh2_ZFMh-w84lqvbWlZTYWZUEKWXl8WN/view?usp=drive_link"}, 
+
+  /**exam */
+  { id: "isl-t1-exam-2024", level: "2AS", title: "exam s.isl 2024", ar: "2024 اختبار العلوم الإسلامية", kind: "exam", term: 1, subject: "islamic-sciences", fileUrl:"https://drive.google.com/file/d/1Qfd2euyG3iksqlfCyyFsxMUwy_2N3fBU/view?usp=drive_link"}, 
+  { id: "isl-t1-exam-2023", level: "2AS", title: "exam s.isl 2023", ar: "2023 اختبار العلوم الإسلامية", kind: "exam", term: 1, subject: "islamic-sciences", fileUrl:"https://drive.google.com/file/d/16PyFf9U-vNpgTZs_OIa-FvCnv0BUrvJ_/view?usp=drive_link"}, 
+  { id: "isl-t1-exam-2017", level: "2AS", title: "exam s.isl 2017", ar: "2017 اختبار العلوم الإسلامية", kind: "exam", term: 1, subject: "islamic-sciences", fileUrl:"https://drive.google.com/file/d/1c8pCumNVAEtHq8DhHlGSI9OwBtb_T7mp/view?usp=drive_link"}, 
+  { id: "isl-t2-exam-2026", level: "2AS", title: "exam s.isl 2026", ar: "2026 اختبار العلوم الإسلامية", kind: "exam", term: 2, subject: "islamic-sciences", fileUrl:"https://drive.google.com/file/d/1ETaolmJTEqJltINR5U92N6PhJbfjMAov/view?usp=drive_link"},
+  { id: "isl-t2-exam-2025", level: "2AS", title: "exam s.isl 2025", ar: "2025 اختبار العلوم الإسلامية", kind: "exam", term: 2, subject: "islamic-sciences", fileUrl:"https://drive.google.com/file/d/1j21Y9Eqk2-2Iu3HkzARRB3uDk4E-Bhbg/view?usp=drive_link"},
+  { id: "isl-t2-exam-2024", level: "2AS", title: "exam s.isl 2024", ar: "2024 اختبار العلوم الإسلامية", kind: "exam", term: 2, subject: "islamic-sciences", fileUrl:"https://drive.google.com/file/d/13pGp4VRN2Kcfk89ZYm6ZJsztI5RnnulA/view?usp=drive_link"},
+  { id: "isl-t3-exam-2026", level: "2AS", title: "exam s.isl 2026", ar: "2026 اختبار العلوم الإسلامية", kind: "exam", term: 3, subject: "islamic-sciences", fileUrl:"https://drive.google.com/file/d/1dwiMvd4HeK6u_fMvT67MKryal6i9m7sg/view?usp=drive_link"},
+  { id: "isl-t3-exam-2025", level: "2AS", title: "exam s.isl 2025", ar: "2025 اختبار العلوم الإسلامية", kind: "exam", term: 3, subject: "islamic-sciences", fileUrl:"https://drive.google.com/file/d/1qNkBa-5-nW3FR08BP6-5KunszJwSRvVx/view?usp=drive_link"},
+  { id: "isl-t3-exam-2024", level: "2AS", title: "exam s.isl 2024", ar: "2024 اختبار العلوم الإسلامية", kind: "exam", term: 3, subject: "islamic-sciences", fileUrl:"https://drive.google.com/file/d/1kd_PK0-i75-CyxAzJr6XHXmkO7J73rQb/view?usp=drive_link"},
+  { id: "isl-t3-exam-2018", level: "2AS", title: "exam s.isl 2018", ar: "2018 اختبار العلوم الإسلامية", kind: "exam", term: 3, subject: "islamic-sciences", fileUrl:"https://drive.google.com/file/d/12FyP88DbSTIG1Fgl9fCKzD2OPeKxjy3E/view?usp=drive_link"}, 
+
+
+  /**french */
+  /**devoisr */
+  { id: "fr-t1-devoir", level: "2AS", title: "devoir french ", ar: "فرض الفرنسية", kind: "homework", term: 1, subject: "franch", fileUrl:"https://drive.google.com/file/d/1LIngjU1EWHxK1mFXAfwOpWRQGMjQBbXS/view?usp=drive_link"},
+  { id: "fr-t3-devoir 2024", level: "2AS", title: "devoir french 2024", ar: "2024 فرض الفرنسية", kind: "homework", term: 3, subject: "franch", fileUrl:"https://drive.google.com/file/d/1xOnkdXRy8_umqPCj-FErd0kQMSTsdI4B/view?usp=drive_link"}, 
+  /**exams */
+  { id: "fr-t1-exam2025", level: "2AS", title: "exam french 2025", ar: "اختبار  2025", kind: "exam", term: 1, subject: "franch", fileUrl:"https://drive.google.com/file/d/1jTdzhPv6-jeW9FvoSdSIJzFdI9lVbXK6/view?usp=drive_link"}, 
+  { id: "fr-t1-exam2019", level: "2AS", title: "exam french 2019", ar: "اختبار 2019", kind: "exam", term: 1, subject: "franch", fileUrl:"https://drive.google.com/file/d/1GIqpTiHXYisHG0xigaoBS36iEm7a6CcS/view?usp=drive_link"}, 
+  { id: "fr-t2-exam2025", level: "2AS", title: "exam french 2025", ar: "اختبار  2025", kind: "exam", term: 2, subject: "franch", fileUrl:"https://drive.google.com/file/d/13vqGZrBHmI3d96soi2Nvue17GmyAs91c/view?usp=drive_link"}, 
+  { id: "fr-t3-exam2025", level: "2AS", title: "exam french 2025", ar: "اختبار  2025", kind: "exam", term: 3, subject: "franch", fileUrl:"https://drive.google.com/file/d/15XG-_fZwN1xjriZ-5kH1scT-g4URESrr/view?usp=drive_link"}, 
+  { id: "fr-t3-exam2019", level: "2AS", title: "exam french 2019", ar: "اختبار 2019", kind: "exam", term: 3, subject: "franch", fileUrl:"https://drive.google.com/file/d/1DgCgitfVq_9M2uVK1rdM3HTFP4FOVTNS/view?usp=drive_link"}, 
+  { id: "fr-t3-exam2018", level: "2AS", title: "exam french 2018", ar: "اختبار 2018", kind: "exam", term: 3, subject: "franch", fileUrl:"https://drive.google.com/file/d/1WKUHQbXKQ3zIKxo8uDL5-E9GXRbJD2Cx/view?usp=drive_link"},   
+
+  /**arabic */
+  /**devoirs */
+  { id: "ar-t2-devoir-2025", level: "2AS", title: "devoir arabic 2025 ", ar: "فرض 2025", kind: "homework", term: 2, subject: "arabic", fileUrl:"https://drive.google.com/file/d/15xLTxj13-pRGD95uJkkmpA2cHmGSUVLr/view?usp=drive_link"},
+  { id: "ar-t3-devoir-2025", level: "2AS", title: "devoir arabic 2025 ", ar: "فرض 2025", kind: "homework", term: 3, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1uvQUvHOWyCyOZXLZ6ooDh1rnX3LryJKt/view?usp=drive_link"},
+  /**exams */
+  { id: "ar-t2-exam-2026", level: "2AS", title: "exam arabic 2026", ar: "اختبار 2026", kind: "exam", term: 2, subject: "arabic", fileUrl:"https://drive.google.com/file/d/10rGnbyTPWNuNmXp9TvtCzIXl5l0KBShO/view?usp=drive_link"},
+  { id: "ar-t2-exam-2025", level: "2AS", title: "exam arabic 2025", ar: "اختبار 2025", kind: "exam", term: 3, subject: "arabic", fileUrl:"https://drive.google.com/file/d/10KpiMW9_d930mI2WxR4OsWOUqOdBU-iQ/view?usp=drive_link"},
+  { id: "ar-t2-exam-2019", level: "2AS", title: "exam arabic 2019", ar: "اختبار 2019", kind: "exam", term: 3, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1OxG44Qdd6KuHfna4dfgEvP5IcfJhikbN/view?usp=drive_link"},
+
+  /**hisgeo */
+  /**devoirs */
+  { id: "his-t1-devoir-2025", level: "2AS", title:"devoir his/geo 2025 ", ar: "فرض الاحتماعيات 2025", kind: "homework", term:1, subject: "history", fileUrl:"https://drive.google.com/file/d/1Gku35e66egtY5ciyZB3ua6Y7fQFpvP8y/view?usp=drive_link"},
+  { id: "his-t2-devoir-2018", level: "2AS", title:"devoir his/geo 2018 ", ar: "اختبار الاحتماعيات 2018", kind: "homework", term:2, subject: "history", fileUrl:"https://drive.google.com/file/d/1T5T73B29sWK9nGKQ0pG6pV9KMK61HKCd/view?usp=drive_link"},
+  /**exams */
+  { id: "his-t1-exam-2025", level: "2AS", title:"exam his/geo 2025", ar: "اختبار الاحتماعيات 2025", kind: "exam", term:1, subject: "history", fileUrl:"https://drive.google.com/file/d/1AwUUkunpaRZwEJj-bmyqCdNjtWVEpofq/view?usp=drive_link"},
+  { id: "his-t2-exam-2025", level: "2AS", title:"exam his/geo 2025", ar: "اختبار الاحتماعيات 2025", kind: "exam", term:2, subject: "history", fileUrl:"https://drive.google.com/file/d/1u3dtneunWstPQ8hUwPkUhfF9mF4jIFEZ/view?usp=drive_link"},
+  { id: "his-t3-exam-2026", level: "2AS", title:"exam his/geo 2026", ar: "اختبار الاحتماعيات 2026", kind: "exam", term:3, subject: "history", fileUrl:"https://drive.google.com/file/d/1FwhFRmG1L653RhPOTZF8FXGbbyz6kPwC/view?usp=drive_link"},
+
+/**1AS */
+  /**math */
+  /**devoirs */
+  { id: "math-t1-devoir1-2022", level: "1AS", title:"devoir 1 2022", ar: "الفرض الأول 2022", kind: "homework", term:1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/189EMiYblwH_Xc9U-Kkm-et-2xt4mVTen/view?usp=drive_link"},
+  { id: "math-t1-devoir1-2023", level: "1AS", title:"devoir 1 2023", ar: "الفرض الأول 2023", kind: "homework", term:1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1ESXJ_GMQIQO3vUxznZWF0SxlNpL_8X_O/view?usp=drive_link"},
+  { id: "math-t1-devoir1-2024", level: "1AS", title:"devoir 2024", ar: "الفرض الأول 2024", kind: "homework", term:1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1Iqya1JSWx2NStbY5AaO_OTPcXcH3ys8w/view?usp=drive_link"},
+  { id: "math-t1-devoir2-2023", level: "1AS", title:"devoir 2 2023", ar: "الفرض الثاني 2023", kind: "homework", term:1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1GkljcJ4WCZtSghInsH6STGKglaMlcrzr/view?usp=drive_link"},
+  { id: "math-t2-devoir1-2021", level: "1AS", title:"devoir 2021", ar: "فرض 2021", kind: "homework", term:2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/15mvYAEnL_UaFTexTrrAk9lZV3yuA6dJ4/view?usp=drive_link"},
+  { id: "math-t2-devoir1-2022", level: "1AS", title:"devoir 2022", ar: "فرض 2022", kind: "homework", term:2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1YJhrxc_tNnY0FJ3gAIZtC7hl_oUEYgIM/view?usp=drive_link"},
+  { id: "math-t2-devoir1-2023", level: "1AS", title:"devoir 1 2023", ar: "الفرض الأول 2023", kind: "homework", term:2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1keqRlQg9CMiBDsJb0XptexMf5x-ikt0_/view?usp=drive_link"},
+  { id: "math-t2-devoir2-2023", level: "1AS", title:"devoir 2 2023", ar: "الفرض الثاني 2023", kind: "homework", term:2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/154PgdBggH9YWa4vRbJqjn2KRVNDLtfYv/view?usp=drive_link"},
+  { id: "math-t2-devoir1-2024", level: "1AS", title:"devoir 1 2024", ar: "الفرض الأول 2024", kind: "homework", term:2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1Iqya1JSWx2NStbY5AaO_OTPcXcH3ys8w/view?usp=drive_link"},
+  { id: "math-t3-devoir1-2023", level: "1AS", title:"devoir 2023", ar: "فرض 2023", kind: "homework", term:3, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1ZOXc9xnHHPxSIQd_gY3q6xft0QcLXWLN/view?usp=drive_link"},
+  { id: "math-t3-devoir1-2022", level: "1AS", title:"devoir 2022", ar: "فرض 2022", kind: "homework", term:3, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1JbAob_STEzRgNnigfG0wOpNKv5gRSxZq/view?usp=drive_link"},
+  { id: "math-t3-devoir1-2025", level: "1AS", title:"devoir 2025", ar: "فرض 2025", kind: "homework", term:3, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1VZtaFb_FDMPV-HtI94zlr6ppEXjwe_Z4/view?usp=drive_link"},
+
+  /**exams */
+  { id: "math-t1-exam-2023", level: "1AS", title:"exam 2023", ar: "اختبار 2023", kind: "exam", term:1, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1w8yTBv31HMpqQcRzKNz9MK_wGWW1M1S6/view?usp=drive_link"},
+  { id: "math-t2-exam-2023", level: "1AS", title:"exam 2023", ar: "اختبار 2023", kind: "exam", term:2, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1-2vOt-tw_p7siInslwdMSC0Qal220VYT/view?usp=drive_link"},
+  { id: "math-t3-exam-2023", level: "1AS", title:"exam 2023", ar: "اختبار 2023", kind: "exam", term:3, subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1HHZcLQjOGYvpWu-Q_CryXTU-A4qQkQm1/view?usp=drive_link"},
+
+  /**series */
+  { id: "math-t1-series-1", level: "1AS", title:"home work 1", ar: "الوظيفة رقم 1", kind: "series", term:'all', subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1K33YRmq206tDETUdVHK5538xZTsMqB--/view?usp=drive_link"},
+  { id: "math-t1-series-1", level: "1AS", title:"home work 1", ar: "الوظيفة رقم 1", kind: "series", term:'all', subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1LNOhnJztmlH8OSEsJqeW1OMHljbvCJPH/view?usp=drive_link"},
+  { id: "math-t1-series-2", level: "1AS", title:"home work 2", ar: "الوظيفة رقم 2", kind: "series", term:'all', subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1LL3u8XBpSh2_tAqlj9iDRSI4WQbV23nz/view?usp=drive_link"},
+  { id: "math-t1-series-3", level: "1AS", title:"home work 3", ar: "الوظيفة رقم 3", kind: "series", term:'all', subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1LHXAAb6MLcWwvs0-EPXHtjZci7j0e0VP/view?usp=drive_link"},
+  { id: "math-t1-series-4", level: "1AS", title:"home work 4", ar: "الوظيفة رقم 4", kind: "series", term:'all', subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1LDtCW2YTMNSk7UtYwjWj87SJHJZlRn2Y/view?usp=drive_link"},
+  { id: "math-t1-series-5", level: "1AS", title:"home work 5", ar: "الوظيفة رقم 5", kind: "series", term:'all', subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1LB58wqBwJhnrzXuQN6EZsra-Wj45x9w1/view?usp=drive_link"},
+  { id: "math-t1-series-6", level: "1AS", title:"home work 6", ar: "الوظيفة رقم 6", kind: "series", term:'all', subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1L2tAayrProurQkSs3IWJCnTaJck8oOOu/view?usp=drive_link"},
+  { id: "math-t1-series-7", level: "1AS", title:"home work 7", ar: "الوظيفة رقم 7", kind: "series", term:'all', subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1Kwy8Qhw5O_yllviwGy0_hTJRmNKWU2f5/view?usp=drive_link"},
+  { id: "math-t1-series-8", level: "1AS", title:"home work 8", ar: "الوظيفة رقم 8", kind: "series", term:'all', subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1KqI_GCjGSzdMjPD11wWDTZZU1TDeYODw/view?usp=drive_link"},
+  { id: "math-t1-series-9", level: "1AS", title:"home work 9", ar: "الوظيفة رقم 9", kind: "series", term:'all', subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1KoMvPGCyqq5xKjoUW0Q5pOYgz3f74X3_/view?usp=drive_link"},
+  { id: "math-t1-series-10", level: "1AS", title:"home work 10", ar: "الوظيفة رقم 10", kind: "series", term:'all', subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1KfmG8xLwLV02pSyFFsj50Y8DczjbA9Wc/view?usp=drive_link"},
+  { id: "math-t1-series-11", level: "1AS", title:"home work 11", ar: "الوظيفة رقم 11", kind: "series", term:'all', subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1KaqoGfCPgFeFV7u8efNEkRIgo10firxO/view?usp=drive_link"},
+  { id: "math-t1-series-12", level: "1AS", title:"home work 12", ar: "الوظيفة رقم 12", kind: "series", term:'all', subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1KXStzS8HBKWF0KdFw_RVgpPKGdi1Wy_1/view?usp=drive_link"},
+  { id: "math-t1-series-13", level: "1AS", title:"home work 13", ar: "الوظيفة رقم 13", kind: "series", term:'all', subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1KWVo3Da7r7HglXlZC_7pxkdlIY3jnS2i/view?usp=drive_link"},
+  { id: "math-t1-series-14", level: "1AS", title:"home work 14", ar: "الوظيفة رقم 14", kind: "series", term:'all', subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1KK-iKiyPgQ3N3JnaKTKpyJlf8I3lylRR/view?usp=drive_link"},
+  { id: "math-t1-series-15", level: "1AS", title:"home work 15", ar: "الوظيفة رقم 15", kind: "series", term:'all', subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1KF2ybMTigHXIYaKhTbegJO8cGLD-SAwN/view?usp=drive_link"},
+  { id: "math-t1-series-16", level: "1AS", title:"home work 16", ar: "الوظيفة رقم 16", kind: "series", term:'all', subject: "mathematics", fileUrl:"https://drive.google.com/file/d/1K3oui7iwTdTNJCrD6BRydw4nP9kyaNMJ/view?usp=drive_link"},
+
+
+  /**physics */
+  /**devoirs */
+  { id: "physics-t1-devoir-2023", level: "1AS", title:"devoir 2023", ar: "فرض 2023", kind: "homework", term:1, subject: "physics", fileUrl:"https://drive.google.com/file/d/1U49Z4IPOUt0AnakhgrNpFfDc2ZZL3rvx/view?usp=drive_link"},
+  { id: "physics-t2-devoir-2023", level: "1AS", title:"devoir 2023", ar: "فرض 2023", kind: "homework", term:2, subject: "physics", fileUrl:"https://drive.google.com/file/d/1UifaVFW9TLrReKW07DKsLj2x53eEji7F/view?usp=drive_link"},
+  { id: "physics-t3-devoir-2023", level: "1AS", title:"devoir 2023", ar: "فرض 2023", kind: "homework", term:3, subject: "physics", fileUrl:"https://drive.google.com/file/d/1usd1Qi5owoq8uFtnXXEqfXUxIT7J5y22/view?usp=drive_link"},
+  /**exams */
+  { id: "physics-t1-exam", level: "1AS", title:"exam ", ar: "اختبار ", kind: "exam", term:1, subject: "physics", fileUrl:"https://drive.google.com/file/d/1cysa55_E5DWHe5NoWElLfJxvwr-SPZu5/view?usp=drive_link"},
+
+  /**series */
+
+  /**english */
+  /**devoirs */
+  { id: "en-t1-devoir-2023", level: "1AS", title:"devoir 2023", ar: "الفرض 2023", kind: "homework", term:1, subject: "english", fileUrl:"https://drive.google.com/file/d/13cUKkhCDE_yjmBXqtsCHEtX69wOFpJMz/view?usp=drive_link"},
+  { id: "en-t2-devoir-2023", level: "1AS", title:"devoir 2023", ar: "الفرض 2023", kind: "homework", term:2, subject: "english", fileUrl:"https://drive.google.com/file/d/1JPw27IRBYXEIHIDd2TNn_mR1kQfKaMUw/view?usp=drive_link"},
+
+  /**exams */
+  { id: "en-t1-exam-2023", level: "1AS", title:"exam 2023", ar: "امتحان 2023", kind: "exam", term:1, subject: "english", fileUrl:"https://drive.google.com/file/d/1hr5CiFE9SKOxpGrdBJVmewf6_10VNzLx/view?usp=drive_link"},
+  { id: "en-t2-exam-2023", level: "1AS", title:"exam 2023", ar: "امتحان 2023", kind: "exam", term:2, subject: "english", fileUrl:"https://drive.google.com/file/d/1xTvnJaRaow9m0rq_n9rkN-yZgLR5kSEq/view?usp=drive_link"},
+  { id: "en-t3-exam-2023", level: "1AS", title:"exam 2023", ar: "امتحان 2023", kind: "exam", term:3, subject: "english", fileUrl:"https://drive.google.com/file/d/1V_hGpzF2CUk2uZi7KiTUxrqwnhwCcHRt/view?usp=drive_link"},
+
+
+  /**his-geo */
+  /**devoirs */
+  { id: "his-t1-devoir", level: "1AS", title:"devoir 1", ar: "الفرض الأول", kind: "homework", term:1, subject: "histoty", fileUrl:"https://drive.google.com/file/d/1-bMegRwp-hecnDnKCEwMnjP0WwKFM6vt/view?usp=drive_link"},
+  { id: "his-t2-devoir", level: "1AS", title:"devoir 2", ar: "الفرض 2", kind: "homework", term:2, subject: "histoty", fileUrl:"https://drive.google.com/file/d/1iohzkkqO2NbyeB0D_4tjPEDV76X54INf/view?usp=drive_link"},
+  
+  /**exams */
+  { id: "his-t1-exam", level: "1AS", title:"exam", ar: "الاختبار الأول", kind: "exam", term:1, subject: "histoty", fileUrl:"https://drive.google.com/file/d/1iZbAtXSEaIxQS24tMiXlVCbPdl9zRDRy/view?usp=drive_link"},
+  { id: "his-t3-exam", level: "1AS", title:"exam", ar: "الاختبار الثالث", kind: "exam", term:3, subject: "histoty", fileUrl:"https://drive.google.com/file/d/15elj2jl6xOABiXzerQLbsAiviScVIMwL/view?usp=drive_link"},
+
+
+  /**french */
+  /**devoirs */
+  { id: "french-t1-devoir", level: "1AS", title:"devoir", ar: "الفرض الأول", kind: "homework", term:1, subject: "french", fileUrl:"https://drive.google.com/file/d/1orZmHedGOM9jZRr8tah5JWGT5ydlguwj/view?usp=drive_link"},
+  { id: "french-t3-devoir", level: "1AS", title:"devoir", ar: "الفرض ", kind: "homework", term:3, subject: "french", fileUrl:"https://drive.google.com/file/d/1zg_Exs3lyWHP3jT_ogxBkMaWcHAjEST0/view?usp=drive_link"},
+
+  /**exams */
+  { id: "french-t1-exam-2023", level: "1AS", title:"exam 2023", ar: "الاختبار 2023", kind: "exam", term:1, subject: "french", fileUrl:"https://drive.google.com/file/d/1CGQORZru1j3OYqXCcUB-1PF1mpCELEhh/view?usp=drive_link"},
+  { id: "french-t2-exam-2023", level: "1AS", title:"exam 2023", ar: "الاختبار 2023", kind: "exam", term:2, subject: "french", fileUrl:"https://drive.google.com/file/d/1jFuUf4My1ZmQZfyqqAZBKiXfdsj1kJYJ/view?usp=drive_link"},
+  { id: "french-t3-exam-2023", level: "1AS", title:"exam 2023", ar: "الاختبار 2023", kind: "exam", term:3, subject: "french", fileUrl:"https://drive.google.com/file/d/1cycIUhsVaD9r2_q8o4-tcORXX5uxcQxj/view?usp=drive_link"},
+
+  /**arab */
+  /**devoirs */
+  { id: "arab-t1-devoir2023", level: "1AS", title:"devoir 2023", ar: " 2023 الفرض الأول", kind: "homework", term:1, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1dqvagoGRypaC7btW7ERKVfHqss-VErF4/view?usp=drive_link"},
+  { id: "arab-t2-devoir2023", level: "1AS", title:"devoir 2023", ar: " 2023 الفرض", kind: "homework", term:2, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1P3XSXx787Oz6S5bFNaPm4eY3OJXQjqfC/view?usp=drive_link"},
+
+  /**exams */
+  { id: "arab-t1-exam-2023", level: "1AS", title:"exam 2023", ar: " 2023 اختبار الأول", kind: "exam", term:1, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1C-j1BCIrXwm6xSF1JCTOuKnkmCjksDUU/view?usp=drive_link"},
+  { id: "arab-t2-exam-2023", level: "1AS", title:"exam 2023", ar: " 2023 اختبار", kind: "exam", term:2, subject: "arabic", fileUrl:"https://drive.google.com/file/d/13JAh2MgPFcJPsrcxqd0V3R8y3zv-7oLP/view?usp=drive_link"},
+  { id: "arab-t3-exam-2023", level: "1AS", title:"exam 2023", ar: " 2023 اختبار", kind: "exam", term:3, subject: "arabic", fileUrl:"https://drive.google.com/file/d/1oMdtfy5yQoDDUy0tzqMEGQH1xGp3BqDP/view?usp=drive_link"},
+
+  /**s.isl*/
+  /**devoirs */
+  /**exam */
+  { id: "isl-t1-exam-2023", level: "1AS", title:"exam 2023", ar: " 2023 اختبار الأول", kind: "exam", term:1, subject: "islamic-sciences", fileUrl:"https://drive.google.com/file/d/1DUaJw9Nm2LRJVsdtB8L7IskOsIEg2soA/view?usp=drive_link"},
+  { id: "isl-t2-exam-2023", level: "1AS", title:"exam 2023", ar: " 2023 اختبار الثاني", kind: "exam", term:2, subject: "islamic-sciences", fileUrl:"https://drive.google.com/file/d/1RcC1dkYcwIWab-Vb9pw0HGbrSt28KP4_/view?usp=drive_link"},
+  { id: "isl-t3-exam-2023", level: "1AS", title:"exam 2023", ar: " 2023 اختبار الثالث", kind: "exam", term:3, subject: "islamic-sciences", fileUrl:"https://drive.google.com/file/d/1j-EO0qs5hJH-GI_4t6kIXJZkX1MzVrnd/view?usp=drive_link"},
+
+  /**science */
+  /**devoirs */
+  { id: "science-t1-devoir-2023", level: "1AS", title:"devoir 1 2023", ar: " 2023 الفرض الأول", kind: "homework", term:1, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/1RxMmVJPou_OTmDsCOpaYzWwOI1CLeLhC/view?usp=drive_link"},
+  { id: "science-t1-devoir-2023", level: "1AS", title:"devoir 2 2023", ar: " 2023 الفرض الثاني", kind: "homework", term:1, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/1RxMmVJPou_OTmDsCOpaYzWwOI1CLeLhC/view?usp=drive_link"},
+  { id: "science-t2-devoir-2023", level: "1AS", title:"devoir 2023", ar: " 2023 الفرض", kind: "homework", term:2, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/1JEd1W7Ghw_Jk2OywdDoRXTQyu8puXU4J/view?usp=drive_link"},
+  { id: "science-t3-devoir-2023", level: "1AS", title:"devoir 1 2023", ar: " 2023 الفرض الأول", kind: "homework", term:3, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/1Xbn2B5BCWf2k8kaz7q4Tz-0XCFVnw2xg/view?usp=drive_link"},
+  { id: "science-t3-devoir-2023", level: "1AS", title:"devoir 2 2023", ar: " 2023 الفرض الثاني", kind: "homework", term:3, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/1XyLeYPQ9UOl5U7ZWfedJZ3EmqEzD3srk/view?usp=drive_link"},
+
+  /**exams */
+  { id: "science-t1-exam-2023", level: "1AS", title:"exam 2023", ar: " 2023 اختبار الأول", kind: "exam", term:1, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/1J7zJhLPQR5YpIT4gfdpnXsnVr8MPoBCP/view?usp=drive_link"},
+  { id: "science-t2-exam-2023", level: "1AS", title:"exam 2023", ar: " 2023 اختبار", kind: "exam", term:2, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/19HY_rsKtm86Tjybr8rAGGKZFTikG5AKb/view?usp=drive_link"},
+  { id: "science-t3-exam-2023", level: "1AS", title:"exam 2023", ar: " 2023 اختبار", kind: "exam", term:3, subject: "natural-life-sciences", fileUrl:"https://drive.google.com/file/d/1rOqHb5LFwlDAtRzTbYN6F4Eo_nOBXAXU/view?usp=drive_link"},
+
+  ...revisionFor("mathematics", "الرياضيات"),
+  ...revisionFor("physics", "العلوم الفيزيائية"),
+  ...revisionFor("natural-life-sciences", "علوم الطبيعة والحياة"),
+  ...revisionFor("english", "الإنجليزية"),
+  ...revisionFor("history/geo", "اجتماعيات"),
+  ...revisionFor("islamic-sciences", "العلوم الإسلامية"),
+  ...revisionFor("philo", "فلسفة"),
+  ...revisionFor("french", "فرنسية"),
+  ...revisionFor("arabic", "أدب عربي"),
+];
+
+export const materialsFor = (
+  subject: string,
+  term: TermKey,
+  kind?: Material["kind"]
+) =>
+  materials.filter(
+    (item) =>
+      item.subject === subject &&
+      (item.term === term || item.term === "all") &&
+      (!kind || item.kind === kind)
+  );
+
+/**
+ * `id` values in the curated source are not globally unique across grade
+ * levels, so progress and React list keys must use the full material identity.
+ */
+export const materialProgressId = (material: Pick<Material, "id" | "level" | "subject" | "term" | "kind" | "fileUrl">) =>
+  [material.level, material.subject, material.term, material.kind, material.id, material.fileUrl].join(":");
